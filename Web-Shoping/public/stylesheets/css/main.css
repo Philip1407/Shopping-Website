@@ -1,78 +1,12 @@
-/*------------------------------------------------------------------
-Project:  
-Version:  
-Last change:  
-Assigned to:  Le Xuan Bach
-Primary use:  Company
--------------------------------------------------------------------*/
-/*------------------------------------------------------------------
-[LAYOUT]
 
-* body
-  + Header / header
-  + Page Content / .page-content .name-page
-        + Section Layouts / section .name-section
-        ...
-  + Footer / footer
-
--------------------------------------------------------------------*/
-/*------------------------------------------------------------------
-[COLOR CODES]
-
-# Text Color      :  
-# Primary Color 01:  
-# Primary Color 02:   
-# Primary Color 03:  
-
-------------------------------------------------------------------*/
-/*------------------------------------------------------------------
-[TYPOGRAPHY]
-
-Body            : 16px/1.6 '', Arial, sans-serif;
-Title           : 18px/1.6 '', Arial, sans-serif;
-Paragrap        : 18px/1.6 '', Arial, sans-serif;
-Input, textarea : 14px/1.6 '', Arial, sans-serif;
--------------------------------------------------------------------*/
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
+/* [ FONT ] */
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/Poppins/Poppins-Regular.ttf'); 
+  src: url('../fonts/SVN-Poppins/SVN-Poppins Regular.ttf'); 
 }
 
-@font-face {
-  font-family: Poppins-Light;
-  src: url('../fonts/Poppins/Poppins-Light.ttf'); 
-}
 
-@font-face {
-  font-family: Poppins-ExtraLight;
-  src: url('../fonts/Poppins/Poppins-ExtraLight.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Medium;
-  src: url('../fonts/Poppins/Poppins-Medium.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Italic;
-  src: url('../fonts/Poppins/Poppins-Italic.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Bold;
-  src: url('../fonts/Poppins/Poppins-Bold.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-SemiBold;
-  src: url('../fonts/Poppins/Poppins-SemiBold.ttf'); 
-}
 
 
 /*---------------------------------------------*/
@@ -367,7 +301,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .main-menu > li > a {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 14px;
   color: #333;
   padding: 5px 0px;
@@ -560,7 +494,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 /*---------------------------------------------*/
 .wrap-search-header input {
-  font-family: Poppins-ExtraLight;
+  font-family: Poppins-Regular;
   font-size: 50px;
   line-height: 1.2;
   color: #333;
@@ -736,7 +670,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .main-menu-m > li > a {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 14px;
   color: white;
   line-height: 2.8;
@@ -1323,7 +1257,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .caption-dots-slick1 {
-  font-family: Poppins-ExtraLight;
+  font-family: Poppins-Regular;
   font-size: 16px;
   line-height: 1.3;
   color: #fff;
@@ -1672,7 +1606,7 @@ button.mfp-close {
 }
 
 .swal-title {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   color: #333333;
   font-size: 18px;
   line-height: 1.5;
@@ -1961,7 +1895,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .table-shopping-cart .table_head th {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 13px;
   color: #555;
   text-transform: uppercase;
@@ -2139,7 +2073,7 @@ input.num-product::-webkit-inner-spin-button {
 /*//////////////////////////////////////////////////////////////////
 [ S-Text 0 - 15 ]*/
 .stext-101 {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 15px;
   line-height: 1.466667;
   text-transform: uppercase;
@@ -2183,7 +2117,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-108 {
-  font-family: Poppins-Light;
+  font-family: Poppins-Regular;
   font-size: 14px;
   line-height: 1.7143;
 }
@@ -2195,7 +2129,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-110 {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 15px;
   line-height: 1.466667;
 }
@@ -2220,7 +2154,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-114 {
-  font-family: Poppins-Italic;
+  font-family: Poppins-Regular;
   font-size: 15px;
   line-height: 1.666667;
 }
@@ -2246,7 +2180,7 @@ input.num-product::-webkit-inner-spin-button {
 
 /*---------------------------------------------*/
 .stext-301 {
-  font-family: Montserrat-Bold;
+  font-family: Poppins-Regular;
   font-size: 15px;
   line-height: 1.6;
   text-transform: uppercase;
@@ -2256,26 +2190,26 @@ input.num-product::-webkit-inner-spin-button {
 /*//////////////////////////////////////////////////////////////////
 [ M-Text 16 - 25 ]*/
 .mtext-101 {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 18px;
   line-height: 1.333333;
 }
 
 .mtext-102 {
-  font-family: Poppins-SemiBold;
+  font-family: Poppins-Regular;
   font-size: 16px;
   line-height: 1.6;
 }
 
 .mtext-103 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 18px;
   line-height: 1.333333;
   text-transform: uppercase;
 }
 
 .mtext-104 {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 16px;
   line-height: 1.6;
 }
@@ -2287,7 +2221,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .mtext-106 {
-  font-family: Poppins-SemiBold;
+  font-family: Poppins-Regular;
   font-size: 18px;
   line-height: 1.388888;
 }
@@ -2305,7 +2239,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .mtext-109 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 20px;
   line-height: 1.3;
   text-transform: uppercase;
@@ -2318,19 +2252,19 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .mtext-111 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 25px;
   line-height: 1.2;
 }
 
 .mtext-112 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 22px;
   line-height: 1.333333;
 }
 
 .mtext-113 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 22px;
   line-height: 1.333333;
   text-transform: uppercase;
@@ -2346,51 +2280,51 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .ltext-102 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 28px;
   line-height: 1.1;
 }
 
 .ltext-103 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 36px;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .ltext-104 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 60px;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .ltext-105 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 50px;
   line-height: 1.1;
 }
 
 .ltext-106 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 36px;
   line-height: 1.2;
 }
 
 .ltext-107 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 30px;
   line-height: 1.1;
 }
 
 .ltext-108 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 26px;
   line-height: 1.3846;
 }
 
 .ltext-109 {
-  font-family: Poppins-Bold;
+  font-family: Poppins-Regular;
   font-size: 36px;
   line-height: 1.2;
 }
