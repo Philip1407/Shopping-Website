@@ -1,0 +1,15 @@
+/* your styles go here */
+#redStyle {
+    color: red;
+    font-weight: 700;
+}
+
+#greenStyle {
+    color: rgb(60, 172, 27);
+    font-weight: 700;
+}
+
+#yellowStyle {
+    color:rgb(180, 180, 9);
+    font-weight: 700;
+}
