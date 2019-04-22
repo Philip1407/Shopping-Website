@@ -36,6 +36,14 @@ router.get('/history', function(req, res, next){
 	res.render('history', {title: 'Lịch sử đơn hàng'});
 })
 router.get('/product-detail', function(req, res, next){
-	res.render('product-detail', {title: 'Về chúng tôi'});
+	res.render('product-detail', {title: 'Chi tiết mặt hàng'});
+})
+
+router.get('/faq', function(req, res, next){
+	res.render('faq', {title: 'Câu hỏi thường gặp'});
+})
+
+router.get('/policy', function(req, res, next){
+	res.render('policy', {title: 'Chính sách đổi trả'});
 })
 module.exports = router;
