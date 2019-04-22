@@ -28,4 +28,8 @@ router.get('/shoppingcart', function(req, res, next) {
 router.get('/product', function(req, res, next) {
   res.render('product', { title: 'Sản phẩm'});
 });
+
+router.get('/aboutus', function(req, res, next){
+	res.render('aboutus', {title: 'Về chúng tôi'});
+})
 module.exports = router;
