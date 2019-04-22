@@ -15,13 +15,18 @@
             }
         })    
     })
+    $('.wrap-input1').each(function(){
+        $(this).on('blur', function(){
+            if($(this).val().trim() != "") {
+                $(this).addClass('has-val');
+            }
+            else {
+                $(this).removeClass('has-val');
+            }
+        })    
+    })
   
-    /*=================================================================
-    [Event]*/
-   
-
-    /*==================================================================
-    [ Validate ]*/
+    /*[ Validate ]*/
     var input = $('.validate-input .input100');
 
     $('.validate-form').on('submit',function(){
@@ -36,12 +41,6 @@
         return check;
     });
    
-
-    $('.validate-form .input100').each(function(){
-        $(this).focus(function(){
-           hideValidate(this);
-        });
-    });
 
     function validate (input) {
         if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
