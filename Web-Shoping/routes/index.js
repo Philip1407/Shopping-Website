@@ -32,4 +32,10 @@ router.get('/product', function(req, res, next) {
 router.get('/aboutus', function(req, res, next){
 	res.render('aboutus', {title: 'Về chúng tôi'});
 })
+router.get('/history', function(req, res, next){
+	res.render('history', {title: 'Lịch sử đơn hàng'});
+})
+router.get('/product-detail', function(req, res, next){
+	res.render('product-detail', {title: 'Về chúng tôi'});
+})
 module.exports = router;
