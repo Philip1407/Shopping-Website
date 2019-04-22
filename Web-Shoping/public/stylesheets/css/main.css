@@ -932,7 +932,7 @@
 
 .header-cart-item-img::after {
   content: '\e870';
-  font-family: Linearicons-Free;
+  font-family: Poppins-Regular;
   font-size: 16px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1055,7 +1055,7 @@
 
 .rs1-select2 .select2-container--default .select2-selection--single .select2-selection__arrow::after {
   content: "\f0dc";
-  font-family: FontAwesome;
+  font-family: Poppins-Regular;
   font-size: 13px;
   color: #808080;
 }
@@ -2056,7 +2056,7 @@ input.num-product::-webkit-inner-spin-button {
 
 .label-new::after {
   content: attr(data-label);
-  font-family: Montserrat-Regular;
+  font-family: Poppins-Regular;
   font-size: 12px;
   color: #fff;
   line-height: 1.2;
@@ -2199,7 +2199,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-117 {
-  font-family: Poppins-Light;
+  font-family: Poppins-Regular;
   font-size: 15px;
   line-height: 1.666667;
 }
@@ -2359,14 +2359,14 @@ input.num-product::-webkit-inner-spin-button {
 
 /*---------------------------------------------*/
 .ltext-201 {
-  font-family: PlayfairDisplay-Bold;
+  font-family: Poppins-Regular;
   font-size: 60px;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .ltext-202 {
-  font-family: PlayfairDisplay-Regular;
+  font-family: Poppins-Regular;
   font-size: 28px;
   line-height: 1.2857;
 }
@@ -2928,7 +2928,7 @@ input.num-product::-webkit-inner-spin-button {
 
 .how-itemcart1::after {
   content: '\e870';
-  font-family: Linearicons-Free;
+  font-family: Poppins-Regular;
   font-size: 16px;
   display: -webkit-box;
   display: -webkit-flex;
