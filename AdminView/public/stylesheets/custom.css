@@ -13,3 +13,18 @@
     color:rgb(180, 180, 9);
     font-weight: 700;
 }
+
+.avata {
+    height: 254px;
+    width: 254px;
+    margin: 10px 0 20px 40px;
+}
+
+.btn-avata {
+    margin: 0 0 20px 30px;
+}
+
+.avata img {
+    height: 100%;
+    width: 100%;
+}

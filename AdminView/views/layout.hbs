@@ -27,7 +27,7 @@
         </div>
         <div class="container-fluid">
           <div class="navbar-holder d-flex align-items-center justify-content-between">
-            <div class="navbar-header"><a class="navbar-brand d-none d-sm-inline-block" href="index.html">
+            <div class="navbar-header"><a class="navbar-brand d-none d-sm-inline-block" href="/">
                 <div class="brand-text d-none d-lg-inline-block"><span>Bootstrap </span><strong>Dashboard</strong></div>
                 <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
               </a><a class="menu-btn active" id="toggle-btn" href="#"><span></span><span></span><span></span></a></div>
@@ -87,19 +87,34 @@
       <div class="page-content d-flex align-items-stretch">
         <nav class="side-navbar">
           <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar"><img class="img-fluid rounded-circle" src="/images/avatar-1.jpg" alt="..."></div>
+            <div class="avatar">
+              <a href="/edit_info_admin">
+                <img class="img-fluid rounded-circle" src="/images/avatar-1.jpg" alt="...">
+              </a>
+            </div>
             <div class="title">
-              <h1 class="h4">Mark Stephen</h1>
+              <a href="/edit_info_admin">
+                <h1 class="h4">Mark Stephen</h1>
+              </a>
               <p>Thiết kế web</p>
             </div>
-          </div><span class="heading">Main</span>
+          </div>
+          <span class="heading">Main</span>
           <ul class="list-unstyled">
             <li class="active"><a href="/"> <i class="icon-home"> </i>Trang chủ</a></li>
-            <li><a href="/accounts"><i class="icon-user"> </i>Tài khoản</a></li>
-            <li><a href="/categories"><i class="icon-grid"> </i>Các loại sản phẩm</a></li>
-            <li><a href="/orders"> <i class="icon-bill"> </i>Đơn hàng</a></li>
-            <li><a href="/statistics"><i class="fa fa-bar-chart"> </i>Thống kê doanh thu</a></li>
-            <li><a href="/bestseller"><i class="icon-presentation"> </i>Sản phẩm bán chạy</a></li>
+            <li><a href="/accounts"><i class="icon-user"> </i>Tài Khoản Khách Hàng</a></li>
+            <li><a href="/categories"><i class="icon-grid"> </i>Các Loại Sản Phẩm</a></li>
+            <li><a href="/orders"> <i class="icon-bill"> </i>Đơn Hàng</a></li>
+            <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Thống Kê Doanh Thu </a>
+              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                <li><a href="/statistics_day">Thống Kê Theo Ngày</a></li>
+                <li><a href="/statistics_week">Thống Kê Theo Tuần</a></li>
+                <li><a href="/statistics_month">Thống Kê Theo Tháng</a></li>
+                <li><a href="/statistics_quarter">Thống Kê Theo Quý</a></li>
+                <li><a href="/statistics_year">Thống kê Theo Năm</a></li>
+              </ul>
+            </li>
+            <li><a href="/bestseller"><i class="icon-presentation"> </i>Sản Phẩm Bán Chạy</a></li>
           </ul>
         </nav>
         <div class="content-inner">
@@ -120,7 +135,7 @@
       </div>
     </header>
   </div>
-  <script src="/javascripts/chart-home.js"></script>
+  <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/custom.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
  </body>
