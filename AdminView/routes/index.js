@@ -1,52 +1,65 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'COZA STORE' });
-});
+var home_controller = require('../controllers/home');
+var accounts_controller = require('../controllers/accounts');
+var categories_controller = require('../controllers/categories');
+var products_controller = require('../controllers/products');
+var bestseller_controller = require('../controllers/bestseller');
+var edit_info_admin_controller = require('../controllers/edit_info_admin');
+var orders_controller = require('../controllers/orders');
+var statistics_day_controller = require('../controllers/statistics_day');
+var statistics_month_controller = require('../controllers/statistics_month');
+var statistics_week_controller = require('../controllers/statistics_week');
+var statistics_quarter_controller = require('../controllers/statistics_quarter');
+var statistics_year_controller = require('../controllers/statistics_year');
 
-router.get('/accounts', function(req, res, next) {
-  res.render('accounts', { title: 'Quản lý tài khoản người dùng'});
-});
+// GET home page.
+router.get('/', home_controller.index);
 
-router.get('/categories', function(req, res, next) {
-  res.render('categories', { title: 'Quản lý gian hàng'});
-});
+//accounts routes
+router.get('/accounts', accounts_controller.accounts_list);
+router.get('/accountsdelete', accounts_controller.accounts_delete);
+//categories routes
+router.get('/categories', categories_controller.categories_list);
+router.get('/categoriescreate', categories_controller.categories_create);
+router.get('/categoriesdelete', categories_controller.categories_delete);
+router.get('/categoriesupdate', categories_controller.categories_update);
+//product routes
+router.get('/products', products_controller.products_list);
+router.get('/productscreate', products_controller.products_create);
+router.get('/productsdelete', products_controller.products_delete);
+router.get('/productsupdate', products_controller.products_update);
+router.get('/productsdetail', products_controller.products_getdetail);
+//bestseller routes
+router.get('/bestseller', bestseller_controller.bestseller_list);
+//edit info admin routes
+router.get('/edit_info_admin', edit_info_admin_controller.index);
+router.get('/edit_info_adminsave', edit_info_admin_controller.edit_info_admin_save);
+router.get('/edit_info_admincancel', edit_info_admin_controller.edit_info_admin_canccel);
+//orders routes
+router.get('/orders', orders_controller.orders_list);
+router.get('/ordersdelete', orders_controller.orders_delete_get);
+router.get('/ordersdetail', orders_controller.orders_getdetail);
+//statistics day routes
+router.get('/statistics_day', statistics_day_controller.statistics_day_list);
+router.get('/statistics_day/update', statistics_day_controller.statistics_day_update_get);
+router.get('/statistics_day/update', statistics_day_controller.statistics_day_update_post);
+//statistics month routes
+router.get('/statistics_month', statistics_month_controller.statistics_month_list);
+router.get('/statistics_month/update', statistics_month_controller.statistics_month_update_get);
+router.get('/statistics_month/update', statistics_month_controller.statistics_month_update_post);
+//statistics year routes
+router.get('/statistics_year', statistics_year_controller.statistics_year_list);
+router.get('/statistics_year/update', statistics_year_controller.statistics_year_update_get);
+router.get('/statistics_year/update', statistics_year_controller.statistics_year_update_post);
+//statistics week routes
+router.get('/statistics_week', statistics_week_controller.statistics_week_list);
+router.get('/statistics_week/update', statistics_week_controller.statistics_week_update_get);
+router.get('/statistics_week/update', statistics_week_controller.statistics_week_update_post);
+//statistics quarter routes
+router.get('/statistics_quarter', statistics_quarter_controller.statistics_quarter_list);
+router.get('/statistics_quarter/update', statistics_quarter_controller.statistics_quarter_update_get);
+router.get('/statistics_quarter/update', statistics_quarter_controller.statistics_quarter_update_post);
 
-router.get('/products', function(req, res, next) {
-  res.render('products', { title: 'Quản lý sản phẩm'});
-});
-
-router.get('/orders', function(req, res, next) {
-  res.render('orders', { title: 'Quản lý đơn hàng'});
-});
-
-router.get('/statistics_day', function(req, res, next) {
-  res.render('statistics_day', { title: 'Thống kê'});
-});
-
-router.get('/statistics_week', function(req, res, next) {
-  res.render('statistics_week', { title: 'Thống kê'});
-});
-
-router.get('/statistics_month', function(req, res, next) {
-  res.render('statistics_month', { title: 'Thống kê'});
-});
-
-router.get('/statistics_quarter', function(req, res, next) {
-  res.render('statistics_quarter', { title: 'Thống kê'});
-});
-
-router.get('/statistics_year', function(req, res, next) {
-  res.render('statistics_year', { title: 'Thống kê'});
-});
-
-router.get('/bestseller', function(req, res, next) {
-  res.render('bestseller', { title: 'Quản lý đơn hàng'});
-});
-
-router.get('/edit_info_admin', function(req,res,next) {
-  res.render('edit_info_admin', {title: 'Chỉnh sửa thông tin'});
-});
 module.exports = router;

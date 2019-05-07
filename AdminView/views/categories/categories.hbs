@@ -2,13 +2,19 @@
 <html>
 
                     <div class="card-header d-flex align-items-center">
-                      <div class="col-sm-6">
+                      <div class="col-sm-6 ">
                        <h3 class="h4">Các Loại Sản Phẩm</h3>
                       </div>
-                      <div class="col-sm-6 text-right">
-                        <button class="btn"><i class="far fa-plus-square"></i></button>
-                        <button class="btn"><i class="far fa-trash-alt"></i></button>
-                        <button class="btn"><i class="far fa-edit"></i></button>
+                      <div class="col-sm-6 d-flex">
+                        <form>
+                          <button class="btn" formaction="/categoriescreate"><i class="far fa-plus-square"></i></button>
+                        </form>
+                        <form>
+                          <button class="btn" formaction="/categoriesdelete"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                        <form>
+                          <button class="btn" formaction="/categoriesupdate"><i class="far fa-edit"></i></button>
+                        </form>
                       </div>
                     </div>
                     <div class="card-body">
