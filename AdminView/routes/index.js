@@ -19,29 +19,29 @@ router.get('/', home_controller.index);
 
 //accounts routes
 router.get('/accounts', accounts_controller.accounts_list);
-router.get('/accountsdelete', accounts_controller.accounts_delete);
+router.get('/accounts/delete', accounts_controller.accounts_delete);
 
 //categories routes
 router.get('/categories', categories_controller.categories_list);
 router.get('/categories/create', categories_controller.categories_create);
-router.get('/categoriesdelete', categories_controller.categories_delete);
-router.get('/categoriesupdate', categories_controller.categories_update);
+router.get('/categories/delete', categories_controller.categories_delete);
+router.get('/categories/update', categories_controller.categories_update);
 //product routes
 router.get('/products', products_controller.products_list);
-router.get('/productscreate', products_controller.products_create);
-router.get('/productsdelete', products_controller.products_delete);
-router.get('/productsupdate', products_controller.products_update);
-router.get('/productsdetail', products_controller.products_getdetail);
+router.get('/products/create', products_controller.products_create);
+router.get('/products/delete', products_controller.products_delete);
+router.get('/products/update', products_controller.products_update);
+router.get('/products/detail', products_controller.products_getdetail);
 //bestseller routes
 router.get('/bestseller', bestseller_controller.bestseller_list);
 //edit info admin routes
 router.get('/edit_info_admin', edit_info_admin_controller.index);
-router.get('/edit_info_adminsave', edit_info_admin_controller.edit_info_admin_save);
-router.get('/edit_info_admincancel', edit_info_admin_controller.edit_info_admin_canccel);
+router.get('/edit_info_admin/save', edit_info_admin_controller.edit_info_admin_save);
+router.get('/edit_info_admin/cancel', edit_info_admin_controller.edit_info_admin_canccel);
 //orders routes
 router.get('/orders', orders_controller.orders_list);
-router.get('/ordersdelete', orders_controller.orders_delete_get);
-router.get('/ordersdetail', orders_controller.orders_getdetail);
+router.get('/orders/delete', orders_controller.orders_delete_get);
+router.get('/orders/detail', orders_controller.orders_getdetail);
 //statistics day routes
 router.get('/statistics_day', statistics_day_controller.statistics_day_list);
 router.get('/statistics_day/update', statistics_day_controller.statistics_day_update_get);
