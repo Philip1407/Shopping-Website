@@ -1,7 +1,18 @@
-//var categories = require('..\views\categories');
+var Category = require('../models/catergories');
+var Product = require('../models/products');
+var async = require('async');
+
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 exports.categories_list = function(req, res){
-    res.render('categories/categories', { title: 'Quản lý gian hàng'});
+  Category.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, list_categories) {
+      if (err) { return next(err); }
+      // Successful, so render.
+      res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: list_categories});
+    });
 };
 
 // Display categories create form on GET.

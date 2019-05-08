@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
-
-                    <div class="card-header d-flex align-items-center">
+ <div class="card-header d-flex align-items-center">
                       <div class="col-sm-6 ">
                        <h3 class="h4">Các Loại Sản Phẩm</h3>
                       </div>
                       <div class="col-sm-6 d-flex">
                         <form>
-                          <button class="btn" formaction="/categoriescreate"><i class="far fa-plus-square"></i></button>
+                          <button class="btn" formaction="/categories/create"><i class="far fa-plus-square"></i></button>
                         </form>
                         <form>
                           <button class="btn" formaction="/categoriesdelete"><i class="far fa-trash-alt"></i></button>
@@ -16,16 +15,17 @@
                           <button class="btn" formaction="/categoriesupdate"><i class="far fa-edit"></i></button>
                         </form>
                       </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="table-responsive">  
-                        <table class="table table-striped">
+    </div>
+      <div class="card-body">
+        <div class="table-responsive">  
+          <table class="table table-striped">
                           <thead>
                             <tr>
                               <th>#</th>
                               <th>ID loại SP</th>
                               <th>Loại sản phẩm</th>
                               <th>Số sản phẩm hiện có</th>
+                              <th>Xử lý</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -34,63 +34,21 @@
                               <td>L1</td>
                               <td>Áo thun</td>
                               <td>10</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">2</th>
-                              <td>L2</td>
-                              <td>Áo khoác</td>
-                              <td>9</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">3</th>
-                              <td>L3</td>
-                              <td>Áo sơ mi</td>
-                              <td>10</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">4</th>
-                              <td>L4</td>
-                              <td>Quần jean</td>
-                              <td>6</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">5</th>
-                              <td>L5</td>
-                              <td>Quần dài</td>
-                              <td>15</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">6</th>
-                              <td>L6</td>
-                              <td>Quần short</td>
-                              <td>10</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">7</th>
-                              <td>L7</td>
-                              <td>Giày thể thao</td>
-                              <td>9</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">8</th>
-                              <td>L8</td>
-                              <td>Sandal-Dép</td>
-                              <td>15</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">9</th>
-                              <td>L9</td>
-                              <td>Balo</td>
-                              <td>10</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/products'>
-                              <th scope="row">10</th>
-                              <td>L10</td>
-                              <td>Phụ kiện</td>
-                              <td>10</td>
+                              <td>
+                                <div class="row">
+                                  <form>
+                                    <button class="btn" formaction="/categories/delete"><i class="far fa-trash-alt"></i></button>
+                                  </form>
+                                  <form>
+                                    <button class="btn" formaction="/categoriesupdate"><i class="far fa-edit"></i></button>
+                                  </form>
+                                </div>
+                              </td>
                             </tr>
                           </tbody>
-                        </table>
-                      </div>
-                    </div>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </html>

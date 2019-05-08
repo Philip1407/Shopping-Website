@@ -20,9 +20,10 @@ router.get('/', home_controller.index);
 //accounts routes
 router.get('/accounts', accounts_controller.accounts_list);
 router.get('/accountsdelete', accounts_controller.accounts_delete);
+
 //categories routes
 router.get('/categories', categories_controller.categories_list);
-router.get('/categoriescreate', categories_controller.categories_create);
+router.get('/categories/create', categories_controller.categories_create);
 router.get('/categoriesdelete', categories_controller.categories_delete);
 router.get('/categoriesupdate', categories_controller.categories_update);
 //product routes
