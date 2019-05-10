@@ -11,8 +11,7 @@ var user_controller = require('../controllers/userController');
 
 router.get('/', product_controller.index);
 router.get('/product', product_controller.product_list);
-router.get('/product-detail', product_controller.product_detail)
-
+router.get('/product/:id', product_controller.product_detail);
 
 router.get('/myaccount', user_controller.user_detail);
 router.get('/login', user_controller.user_login_get);
