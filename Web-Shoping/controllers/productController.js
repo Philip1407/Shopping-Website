@@ -12,22 +12,54 @@ exports.index = function(req, res) {
 
 // Display list of all products.
 exports.product_list = function(req, res) {
-        Product.find({}).exec(function (err, products) {
-            if (err) { return next(err); }
-            Category.find({}).exec(function(err,categories){
-                if (err) { return next(err); }
-                res.render('products/product', { title: 'Sản phẩm',products:products,categories:categories});
-            });
-        });
+    async.parallel({
+        products: function(callback){
+            Product.find().exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories});
+    });
 };
 
 // Display detail page for a specific product.
 exports.product_detail = function(req, res) {
-    res.render('products/product-detail', {title: 'Chi tiết mặt hàng'});
+    Product.findById(req.params.id).exec(function(err, product) {
+        if (err) { return next(err); }
+        async.parallel({
+            category: function(callback) {
+                Category.findById(product.catergory).exec(callback);
+            },
+            productRelate: function(callback){
+                Product.find({'catergory': product.catergory}).exec(callback);
+            },
+        },function(err, results) {
+            if (err) { return next(err); }
+            res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate } );
+        });
+    });
+};
+// Display list of all products.
+exports.product_search = function(req, res) {
+    async.parallel({
+        products: function(callback){
+            Product.find({"name": {$regex: new RegExp(".*"+req.body.search+".*", "i")}}).exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        var none = null;
+        if(results.products==null){
+            none = 'Không tìm thấy sản phẩm'
+        }
+        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories,none:none});
+    });
 };
 
-// Display product create form on GET.
-exports.product_create_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: product create GET');
-};
+
 
