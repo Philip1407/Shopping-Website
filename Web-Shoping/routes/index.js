@@ -10,6 +10,7 @@ var user_controller = require('../controllers/userController');
 
 
 router.get('/', product_controller.index);
+router.post('/', product_controller.home_search);
 router.get('/product', product_controller.product_list);
 router.post('/product', product_controller.product_search);
 router.get('/product/:id', product_controller.product_detail);
