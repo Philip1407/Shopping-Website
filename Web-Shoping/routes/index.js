@@ -14,7 +14,7 @@ router.post('/', product_controller.home_search);
 router.get('/filter/:type',product_controller.product_sort_home);
 router.get('/product', product_controller.product_list);
 router.post('/product', product_controller.product_search);
-router.get('/product/:id', product_controller.product_detail);
+router.get('/product/detail/:id', product_controller.product_detail);
 router.get('/product/filter/:type',product_controller.product_sort);
 
 router.get('/myaccount', user_controller.user_detail);
