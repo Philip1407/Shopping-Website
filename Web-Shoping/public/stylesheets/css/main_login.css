@@ -539,6 +539,9 @@ iframe {
   opacity: 1;
 }
 
+.footer{
+  margin-bottom: 0px;
+}
 @media (max-width: 992px) {
   .alert-validate::before {
     visibility: visible;

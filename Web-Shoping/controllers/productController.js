@@ -101,3 +101,32 @@ exports.product_search = function(req, res) {
 
 
 
+exports.product_sort_home = function(req, res) {
+    var s  = req.params.type=="asc"?1:-1
+    async.parallel({
+        products: function(callback){
+            Product.find().sort({"price":s}).exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories, searchIcon: "dis-active",closeIcon: "dis-none", textSearch:""});
+    });
+};
+
+exports.product_sort = function(req, res) {
+    var s  = req.params.type=="asc"?1:-1
+    async.parallel({
+        products: function(callback){
+            Product.find().sort({"price":s}).exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories, searchIcon: "dis-active",closeIcon: "dis-none", textSearch:""});
+    });
+};
