@@ -16,7 +16,7 @@ exports.index = function(req, res) {
         }
     },function(err, results) {
         if (err) { return next(err); }
-        res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories, searchIcon: "dis-active",closeIcon: "dis-none", textSearch:""});
+        res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories});
     });
 };
 
@@ -35,10 +35,14 @@ exports.home_search = function(req, res) {
         },function(err, results) {
             if (err) { return next(err); }
             var notfound = null;
+            var found=null;
             if(results.products == 0){
-                notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.body.search + '\"';
+                notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
             }
-            res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories,not:notfound, searchIcon: "dis-none",closeIcon: "dis-active", textSearch:req.body.search, showSearch:"show-search"});
+            else {
+                 found= 'Các sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
+            }
+            res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search,});
         });
     }
 };
@@ -54,7 +58,7 @@ exports.product_list = function(req, res) {
         }
     },function(err, results) {
         if (err) { return next(err); }
-        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories, searchIcon: "dis-active",closeIcon: "dis-none", textSearch:""});
+        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories});
     });
 };
 
@@ -91,10 +95,14 @@ exports.product_search = function(req, res) {
         },function(err, results) {
             if (err) { return next(err); }
             var notfound = null;
+            var found= null;
             if(results.products == 0){
-                notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.body.search + '\"';
+                notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
             }
-            res.render('products/product', { title: 'Sản Phẩm',products:results.products,categories:results.categories,not:notfound, searchIcon: "dis-none",closeIcon: "dis-active", textSearch:req.body.search, showSearch:"show-search"});
+            else {
+                found= 'Các sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
+           }
+            res.render('products/product', { title: 'Sản Phẩm',products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search});
         });
     }
 };
@@ -112,7 +120,7 @@ exports.product_sort_home = function(req, res) {
         }
     },function(err, results) {
         if (err) { return next(err); }
-        res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories, searchIcon: "dis-active",closeIcon: "dis-none", textSearch:""});
+        res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories});
     });
 };
 
@@ -127,6 +135,6 @@ exports.product_sort = function(req, res) {
         }
     },function(err, results) {
         if (err) { return next(err); }
-        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories, searchIcon: "dis-active",closeIcon: "dis-none", textSearch:""});
+        res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories});
     });
 };
