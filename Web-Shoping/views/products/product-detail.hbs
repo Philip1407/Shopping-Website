@@ -32,7 +32,8 @@
 						</h4>
 
 						<span class="mtext-106 cl2">
-							Price: {{item.price}} VND
+							Price:
+							<span class="js-cost">{{item.price}}</span>
 						</span>
 						<!--  -->
 						<div class="p-t-33">
@@ -269,7 +270,7 @@
 									<a href= /product/{{this._id}} class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										{{this.name}}
 									</a>
-									<span class="stext-105 cl3">
+									<span class="stext-105 cl3 js-cost">
 										{{this.price}}
 									</span>
 								</div>

@@ -125,7 +125,7 @@
 							</a>
 
 							<span class="header-cart-item-info">
-								1 x 400.000đ
+								1 x <span class="js-cost">400000</span> 
 							</span>
 						</div>
 					</li>
@@ -141,7 +141,7 @@
 							</a>
 
 							<span class="header-cart-item-info">
-								1 x 900.000đ
+								1 x <span class="js-cost">900000</span> 
 							</span>
 						</div>
 					</li>
@@ -157,7 +157,7 @@
 							</a>
 
 							<span class="header-cart-item-info">
-								1 x 390.000đ
+								1 x <span class="js-cost">390000</span>
 							</span>
 						</div>
 					</li>
@@ -165,7 +165,7 @@
 				
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						Tổng: 1.690.000đ
+						Tổng: <span class="js-cost">1690000</span>
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
@@ -416,6 +416,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			})
 		});
 	</script>
+	<script>
+		$('.js-cost').each(function(){
+			var coststring='';
+			var cost=$(this).text();
+			var temp;
+			while(cost>=1){
+				if(cost<1000){
+					temp=Math.floor(cost);
+				}else{
+					temp=cost%1000;
+					if(temp<10){
+						temp+="00";
+					}else if(temp<100){
+						temp+="0";
+					}
+				}
+				if(coststring==''){
+					coststring+=temp;
+				}else{
+					coststring=temp+"."+coststring;
+				}
+				cost/=1000;
+			}
+			coststring+=" VND";
+			$(this).text(coststring);
+		})
+	</script>	
 <!--===============================================================================================-->
 	<script src="/javascripts/main.js"></script>
 
