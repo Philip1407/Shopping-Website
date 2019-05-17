@@ -19,12 +19,27 @@ exports.categories_list = function(req, res){
 exports.categories_create = function(req, res) {
   res.render('categories/categories_create', { title: 'Thêm gian hàng'});
 };
-/*
-// Handle categories create on POST.
+
+//Handle categories create on POST.
 exports.categories_create_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: categories create POST');
+  Category.findOne({ 'name': req.body.name })
+          .exec( function(err, found_category) {
+              if (err) { return next(err); }
+              if (found_category) {
+                   // category exists, redirect to its detail page.
+                  // res.redirect(found_category.url);
+                  res.redirect('/categories');
+              }
+              else {
+                category.save(function (err) {
+                if (err) { return next(err); }
+                // category saved. Redirect to category detail page.
+                res.redirect('/categories');
+              });
+            }
+    });
 };
-*/
+
 // Display categories delete form on GET.
 exports.categories_delete = function(req, res) {
   res.render('categories/categories_delete', { title: 'Xóa gian hàng'});
