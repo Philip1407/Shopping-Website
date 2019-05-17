@@ -24,13 +24,16 @@ router.get('/accounts/delete', accounts_controller.accounts_delete);
 //categories routes
 router.get('/categories', categories_controller.categories_list);
 router.get('/categories/create', categories_controller.categories_create);
-router.get('/categories/delete', categories_controller.categories_delete);
-router.get('/categories/update', categories_controller.categories_update);
+router.post('/categories/create',categories_controller.categories_create_post);
+router.get('/categories/delete/:id', categories_controller.categories_delete);
+router.post('/categories/delete/:id', categories_controller.categories_delete_post);
+router.get('/categories/update/:id', categories_controller.categories_update);
+router.post('/categories/update/:id', categories_controller.categories_update_post);
 //product routes
-router.get('/products', products_controller.products_list);
+router.get('/products/category/:id', products_controller.products_list_cat);
 router.get('/products/create', products_controller.products_create);
-router.get('/products/delete', products_controller.products_delete);
-router.get('/products/update', products_controller.products_update);
+router.get('/products/delete/:id', products_controller.products_delete);
+router.get('/products/update/:id', products_controller.products_update);
 router.get('/products/detail', products_controller.products_getdetail);
 //bestseller routes
 router.get('/bestseller', bestseller_controller.bestseller_list);

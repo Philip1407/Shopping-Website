@@ -6,32 +6,31 @@
                 <div class="card-body bg-white">
                     <div class="row">
                         <!-- Form Panel    -->
-                        <div class="col-lg-7 bg-white">
+                          <div class="col-lg-7 bg-white">
                           <div class="form d-flex align-items-center">
                             <div class="content">
-                              <form class="form-validate">
-                                <div class="form-group">
-                                  <strong>ID loại sản phẩm</strong>
-                                  <input type="text" class="input-material" value="L1">
-                                </div>
+                              <form class="form-validate" method="POST" action="/categories/update/{{category._id}}">
                                 <div class="form-group">
                                   <strong>Tên loại sản phẩm</strong> 
-                                  <input type="text" class="input-material" value="Áo thun">
+                                  <input type="text" class="input-material " value="{{category.name}}" name="name" id="name">
+                                  <br><br>
+                                   <div class="row">
+                                      <div class="col-lg-3">
+                                              <div class="form-group">
+                                                  <button type ="submit" class="btn btn-primary">Cập nhật</button>
+                                              </div>
+                                      </div>
+                                      <div class="col-lg-3">
+                                              <div class="form-group">
+                                                <a href="/categories"
+                                                  <button class="btn btn-primary" >Hủy</button>
+                                                </a>
+                                              </div>
+                                      </div>
+                                    </div>
                                 </div> 
                             </div>
                           </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                                <div class="form-group">
-                                    <button class="btn btn-primary" formaction="/categories">Lưu</button>
-                                </div>
-                        </div>
-                        <div class="col-lg-3">
-                                <div class="form-group">
-                                    <button class="btn btn-primary" formaction="/categories">Hủy</button>
-                                </div>
                         </div>
                     </div>
                 </div>

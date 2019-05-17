@@ -2,15 +2,17 @@ var Category = require('../models/catergories');
 var Product = require('../models/products');
 var async = require('async');
 
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+
 
 exports.categories_list = function(req, res){
   Category.find()
-    .sort([['name', 'ascending']])
     .exec(function (err, list_categories) {
       if (err) { return next(err); }
-      // Successful, so render.
+     for(i =0;i<list_categories.length;i++){
+        Product.count({'catergory':list_categories[i]._id},function(err,result){
+          if(err){return next(err);} 
+        });
+     }
       res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: list_categories});
     });
 };
@@ -31,6 +33,9 @@ exports.categories_create_post = function(req, res) {
                   res.redirect('/categories');
               }
               else {
+                category = new Category({
+                  name: req.body.name,
+                });
                 category.save(function (err) {
                 if (err) { return next(err); }
                 // category saved. Redirect to category detail page.
@@ -42,21 +47,39 @@ exports.categories_create_post = function(req, res) {
 
 // Display categories delete form on GET.
 exports.categories_delete = function(req, res) {
-  res.render('categories/categories_delete', { title: 'Xóa gian hàng'});
+  Category.findOne({'_id': req.params.id})
+          .exec(function(err,found_category){
+            if(err){return next(err);}
+            res.render('categories/categories_delete', { title: 'Xóa loại hàng',category:found_category});
+          });
+  
 };
-/*
+
 // Handle categories delete on POST.
 exports.categories_delete_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: categories delete POST');
+  Category.deleteOne({'_id':req.params.id})
+          .exec(function(err,result){
+            if(err){return next(err);}
+            res.redirect('/categories');
+          })
 };
-*/
+
 // Display categories update form on GET.
 exports.categories_update = function(req, res) {
-  res.render('categories/categories_update', { title: 'Chỉnh sửa gian hàng'});
+  Category.findOne({'_id': req.params.id})
+  .exec(function(err,found_category){
+    if(err){return next(err);}
+    res.render('categories/categories_update', { title: 'Cập nhật loại hàng',category:found_category});
+  });
 };
-/*
+
 // Handle categories update on POST.
 exports.categories_update_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: categories update POST');
+  Category.findByIdAndUpdate(req.params.id,req.body)
+          .exec(function(err,result){
+            if(err){return next(err);}
+            res.redirect('/categories');
+
+          });
 };
-*/
+

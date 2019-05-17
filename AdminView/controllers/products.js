@@ -1,9 +1,17 @@
-//var products = require('..\views\products');
+var Category = require('../models/catergories');
+var Product = require('../models/products');
+var async = require('async');
 
   exports.products_list = function(req, res){
     res.render('products/products', { title: 'Quản lý sản phẩm'});
   };
 
+  exports.products_list_cat = function(req, res){
+    Product.find({'catergory':req.params.id},function(err,result){
+      if(err){return next(err);} 
+      res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result});
+    });
+  };
   // Display products create form on GET.
   exports.products_create = function(req, res) {
     res.render('products/products_create', { title: 'Thêm sản phẩm'});
