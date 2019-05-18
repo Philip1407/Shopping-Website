@@ -14,7 +14,11 @@ var async = require('async');
   };
   // Display products create form on GET.
   exports.products_create = function(req, res) {
-    res.render('products/products_create', { title: 'Thêm sản phẩm'});
+    Category.find()
+            .exec(function(err, results) {
+              if (err) { return next(err); }
+              res.render('products/products_create', { title: 'Thêm sản phẩm',catergories:results});
+            });
   };
   
   // Handle products create on POST.
@@ -24,12 +28,19 @@ var async = require('async');
   
   // Display products delete form on GET.
   exports.products_delete = function(req, res) {
-    res.render('products/products_delete', { title: 'Xóa sản phẩm'});
+    Product.findOne({'_id':req.params.id},function(err,result){
+      if(err){return next(err);} 
+      res.render('products/products_delete', { title: 'Xóa sản phẩm',product:result});
+    });
   };
   
   // Handle products delete on POST.
   exports.products_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: products delete POST');
+    Product.deleteOne({'_id':req.params.id})
+          .exec(function(err,result){
+            if(err){return next(err);}
+            window.history.back();
+          })
   };
   
   // Display products update form on GET.

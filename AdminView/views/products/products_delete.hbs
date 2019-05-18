@@ -1,24 +1,22 @@
  <!DOCTYPE html>
 <html>
-                <div class="card-header d-flex align-items-center">
-                    <h3 class="h4">Xóa loại sản phẩm</h3>
-                </div>
-                <div class="card-body bg-white">
-                    <div class="row">
-                        <p>Bạn muốn xóa sản phẩm có mã SP1?</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                                <form>
-                                    <button class="btn btn-primary" formaction="/products">Thêm</button>
-                                </form>
-                        </div>
-                        <div class="col-lg-3">
-                                <form>
-                                    <button class="btn btn-primary" formaction="/products">Hủy</button>
-                                </form>
-                        </div>
-                    </div>
-                </div>
-            
+    <div class="card-header d-flex align-items-center">
+        <h3 class="h4">Xóa loại sản phẩm</h3>
+    </div>
+    <div class="card-body bg-white">
+        <div class="row">
+            <p>Bạn muốn xóa sản phẩm {{product.name}}?</p>
+        </div>
+        <div class="row">
+            <form  class="col-lg-3" action="/products/delete/{{product._id}}" method="POST">
+                <button type="submit" class="btn btn-primary">Có</button>
+            </form>
+            <button class="btn btn-primary" onclick="goBack()">Hủy</button>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>      
 </html>

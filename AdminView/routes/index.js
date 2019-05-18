@@ -33,6 +33,7 @@ router.post('/categories/update/:id', categories_controller.categories_update_po
 router.get('/products/category/:id', products_controller.products_list_cat);
 router.get('/products/create', products_controller.products_create);
 router.get('/products/delete/:id', products_controller.products_delete);
+router.post('/products/delete/:id', products_controller.products_delete_post);
 router.get('/products/update/:id', products_controller.products_update);
 router.get('/products/detail', products_controller.products_getdetail);
 //bestseller routes
