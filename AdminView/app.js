@@ -9,6 +9,17 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+
+//in the declarations
+const exphbs  = require('express-handlebars');
+
+//when configuring the app view engine
+app.engine('hbs', exphbs({
+  extname: 'hbs',
+  helpers: require('./config/handlebars-helpers') //only need this
+}));
+
+
 // Set up mongoose connection
 var mongoose = require('mongoose');
 var dev_db_url = 'mongodb+srv://admin:123@demo-l6r8b.mongodb.net/SHOP?retryWrites=true';
@@ -17,6 +28,7 @@ mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

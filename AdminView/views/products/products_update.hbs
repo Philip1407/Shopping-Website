@@ -1,67 +1,74 @@
  <!DOCTYPE html>
 <html>
-                <div class="card-header d-flex align-items-center">
-                    <h3 class="h4">Chỉnh sửa sản phẩm</h3>
-                </div>
-                <div class="card-body bg-white">
-                    <div class="row">
-                        <!-- Form Panel    -->
-                        <div class="col-lg-7 bg-white">
-                          <div class="form d-flex align-items-center">
-                            <div class="content">
-                              <form class="form-validate">
-                                <div class="form-group">
-                                  <strong>ID Sản phẩm</strong>
-                                  <input type="text" class="input-material" value="SP1">
-                                </div>
-                                <div class="form-group">
-                                  <strong>ID Loại sản phẩm</strong> 
-                                  <input type="text" class="input-material" value="L1">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Link hình ảnh</strong> 
-                                  <input type="text" class="input-material" value="images\1.jpg">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Tên SP</strong> 
-                                  <input type="text" class="input-material" value="Áo Esprit Ruftle">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Giá SP</strong> 
-                                  <input type="text" class="input-material" value="250000">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Số lượng hiện có</strong> 
-                                  <input type="text" class="input-material" value="10">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Mô tả</strong> 
-                                  <input type="text" class="input-material" value="...">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Kích cỡ</strong> 
-                                  <input type="text" class="input-material" value="M">
-                                </div>
-                                <div class="form-group">
-                                  <strong>Màu sắc</strong> 
-                                  <input type="text" class="input-material" value="Đen">
-                                </div>
-                            </div>
-                          </div>
-                        </div>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="h4">Thêm sản phẩm</h3>
+    </div>
+    <div class="card-body bg-white">
+      <div class="row">
+        <!-- Form Panel    -->
+          <div class="col-lg-7 bg-white">
+            <div class="form d-flex align-items-center">
+              <div class="content">
+                  <form class="form-validate" action="/products/update/{{product._id}}" method="POST">
+                    <div class="form-group">
+                      <strong>File hình ảnh</strong> 
+                      <input type="text" class="input-material" value="{{product.img}}" name ="img" id="img">
                     </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                                <div class="form-group">
-                                    <button class="btn btn-primary" formaction="/products">Lưu</button>
-                                </div>
-                        </div>
-                        <div class="col-lg-3">
-                                <div class="form-group">
-                                    <button class="btn btn-primary" formaction="/products">Hủy</button>
-                                </div>
-                        </div>
+                    <div class="form-group">
+                      <strong>Tên SP</strong> 
+                      <input type="text" class="input-material" value="{{product.name}}" name ="name" id="name">
                     </div>
-                </div>
-            
+                    <div class="form-group">
+                      <strong>Giá SP</strong> 
+                      <input type="text" class="input-material" value="{{product.price}}" name ="price" id="price">
+                    </div>
+                    <div class="form-group">
+                      <strong>Số lượng</strong> 
+                      <input type="text" class="input-material" value="{{product.amount}}" name ="amount" id="amount">
+                    </div>
+                    <div class="form-group">
+                      <strong>Size</strong> 
+                      <input type="text" class="input-material" value="{{product.size}}" name ="size" id="size">
+                    </div>
+                    <div class="form-group">
+                      <strong>Color</strong> 
+                      <input type="text" class="input-material" value="{{product.color}}" name ="color" id="color">
+                    </div>
+                    <div class="form-group">
+                      <strong>Mô tả</strong> <br><br>
+                      <textarea rows="10" cols="30" class="input-material" name ="description" id="description" >{{product.description}}</textarea>
+                    </div>  
+                    <div class="form-group">
+                        <strong>ID Loại sản phẩm: &emsp;</strong> 
+                        <select name="catergory">
+                          {{#each catergories }}
+                            <option id = {{this._id}} value={{this._id}}>{{this.name}}</option>
+                          {{/each}}
+                        </select>
+                    </div>
+                    <br><br>
+                    <div class="row form-group">
+                      <div class="col-lg-3">
+                        <div class="form-group">
+                          <button type ="submit" class="btn btn-primary">Cập nhật</button>
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <p></p>
+                      </div>
+                      <div class="col-lg-3">
+                      <button class="btn btn-primary" onclick="goBack()">Hủy</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>         
 </html>

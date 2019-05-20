@@ -3,7 +3,10 @@ var Product = require('../models/products');
 var async = require('async');
 
   exports.products_list = function(req, res){
-    res.render('products/products', { title: 'Quản lý sản phẩm'});
+    Product.find({},function(err,result){
+      if(err){return next(err);} 
+      res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result});
+    });
   };
 
   exports.products_list_cat = function(req, res){
@@ -23,8 +26,21 @@ var async = require('async');
   
   // Handle products create on POST.
   exports.products_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: products create POST');
-  };
+    var product = new Product(
+      { name: req.body.name,
+        img: req.body.linkImg,
+        price: req.body.price,
+        amount: req.body.amount,
+        size: req.body.size,
+        color:req.body.color,
+        description:req.body.descript,
+        catergory: req.body.category
+      });
+      product.save(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/products');
+      });
+  }
   
   // Display products delete form on GET.
   exports.products_delete = function(req, res) {
@@ -39,18 +55,31 @@ var async = require('async');
     Product.deleteOne({'_id':req.params.id})
           .exec(function(err,result){
             if(err){return next(err);}
-            window.history.back();
+            res.redirect('/products');
           })
   };
   
   // Display products update form on GET.
   exports.products_update = function(req, res) {
-    res.render('products/products_update', { title: 'Chỉnh sửa sản phẩm'});
+    Product.findOne({'_id':req.params.id})
+          .exec(function(err,result){
+            if(err){return next(err);}
+            Category.find()
+                    .exec(function(err,result1){
+                        if(err){return next(err);}
+                        res.render('products/products_update', { title: 'Chỉnh sửa sản phẩm',product:result,catergories:result1});
+                    });
+          })
+    
   };
   
   // Handle products update on POST.
   exports.products_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: products update POST');
+      Product.findByIdAndUpdate(req.params.id,req.body)
+      .exec(function(err,result){
+        if(err){return next(err);}
+        res.redirect('/products');
+      });
   };
 
   exports.products_getdetail = function(req,res) {

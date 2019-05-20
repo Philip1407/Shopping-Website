@@ -5,15 +5,21 @@ var async = require('async');
 
 
 exports.categories_list = function(req, res){
+  
   Category.find()
     .exec(function (err, list_categories) {
       if (err) { return next(err); }
-     for(i =0;i<list_categories.length;i++){
-        Product.count({'catergory':list_categories[i]._id},function(err,result){
-          if(err){return next(err);} 
-        });
-     }
-      res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: list_categories});
+      function pro(){
+        product = [];
+        for(i =0;i<list_categories.length;i++){
+          Product.countDocuments({'catergory':list_categories[i]._id},function(err,result){
+            if(err){return next(err);} 
+              product.push(result);
+          });
+        }
+        return product;
+      }
+      res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: list_categories,product:pro()});
     });
 };
 
@@ -28,8 +34,6 @@ exports.categories_create_post = function(req, res) {
           .exec( function(err, found_category) {
               if (err) { return next(err); }
               if (found_category) {
-                   // category exists, redirect to its detail page.
-                  // res.redirect(found_category.url);
                   res.redirect('/categories');
               }
               else {
@@ -79,7 +83,6 @@ exports.categories_update_post = function(req, res) {
           .exec(function(err,result){
             if(err){return next(err);}
             res.redirect('/categories');
-
           });
 };
 

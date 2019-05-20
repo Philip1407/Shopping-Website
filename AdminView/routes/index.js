@@ -30,11 +30,14 @@ router.post('/categories/delete/:id', categories_controller.categories_delete_po
 router.get('/categories/update/:id', categories_controller.categories_update);
 router.post('/categories/update/:id', categories_controller.categories_update_post);
 //product routes
+router.get('/products', products_controller.products_list);
 router.get('/products/category/:id', products_controller.products_list_cat);
 router.get('/products/create', products_controller.products_create);
+router.post('/products/create', products_controller.products_create_post);
 router.get('/products/delete/:id', products_controller.products_delete);
 router.post('/products/delete/:id', products_controller.products_delete_post);
 router.get('/products/update/:id', products_controller.products_update);
+router.post('/products/update/:id', products_controller.products_update_post);
 router.get('/products/detail', products_controller.products_getdetail);
 //bestseller routes
 router.get('/bestseller', bestseller_controller.bestseller_list);
