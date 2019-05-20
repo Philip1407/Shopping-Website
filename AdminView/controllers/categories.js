@@ -5,21 +5,22 @@ var async = require('async');
 
 
 exports.categories_list = function(req, res){
-  
+  var result=null;
+  setTimeout(function(){
+    //console.log(result);
+    res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: result});
+  },10000);
+
   Category.find()
     .exec(function (err, list_categories) {
       if (err) { return next(err); }
-      function pro(){
-        product = [];
-        for(i =0;i<list_categories.length;i++){
-          Product.countDocuments({'catergory':list_categories[i]._id},function(err,result){
-            if(err){return next(err);} 
-              product.push(result);
-          });
-        }
-        return product;
-      }
-      res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: list_categories,product:pro()});
+      result = list_categories;
+      result.forEach( element => {
+        return Product.countDocuments({'catergory': element._id},function(err,result){
+          if(err){return next(err);} 
+            element['amount']=result;
+        });
+        });
     });
 };
 
