@@ -25,8 +25,15 @@ exports.accounts_list = function(req, res, next) {
   };
 
   exports.accounts_detail = async function(req, res) {
+    var month = [
+      "01", "02", "03",
+      "04", "05", "06", "07",
+      "08", "09", "10",
+      "11", "12"
+    ];
     var result = await User.findById(req.params.id);
-    res.render('accounts/accounts_detail', { title: 'Xóa tài khoản người dùng', user:result});
+    var birth = result.birthday.getDate()+'/'+ month[result.birthday.getMonth()] + '/' + result.birthday.getFullYear() ;
+    res.render('accounts/accounts_detail', { title: 'Chi tiết tài khoản người dùng', user:result,birthday:birth});
   };
   
   
