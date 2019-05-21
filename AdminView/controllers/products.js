@@ -9,10 +9,16 @@ var async = require('async');
     });
   };
 
-  exports.products_list_cat = function(req, res){
+  exports.products_list_cat = function(req, res, next){
+    var category="";
+    Category.findOne({_id:req.params.id},{ _id:0, name: 1}).exec().then((result) => {
+      category=result['name'];
+    });
     Product.find({'catergory':req.params.id},function(err,result){
       if(err){return next(err);} 
-      res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result});
+      console.log(category);
+      console.log("finish");
+      res.render('products/products', { title: 'Sản phẩm thuộc loại: ',list_products: result, categoryName: category});
     });
   };
   // Display products create form on GET.
