@@ -4,7 +4,7 @@ var async = require('async');
 
   exports.products_list = function(req, res){
     Product.find({},function(err,result){
-      if(err){return next(err);} 
+      if(err){return console.log(err);} 
       res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result});
     });
   };
@@ -14,7 +14,7 @@ var async = require('async');
     Category.findOne({_id:req.params.id},{ _id:0, name: 1}).exec().then((result) => {
       category=result['name'];
       Product.find({'catergory':req.params.id},function(err,result){
-        if(err){return next(err);} 
+        if(err){return console.log(err);} 
         console.log(category);
         console.log("finish");
         res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result, cattitle:'Sản phẩm thuộc loại', categoryName: category});
@@ -25,7 +25,7 @@ var async = require('async');
   exports.products_create = function(req, res) {
     Category.find()
             .exec(function(err, results) {
-              if (err) { return next(err); }
+              if (err) { return console.log(err); }
               res.render('products/products_create', { title: 'Thêm sản phẩm',catergories:results});
             });
   };
@@ -33,7 +33,7 @@ var async = require('async');
   // Handle products create on POST.
   exports.products_create_post = function(req, res) {
     Product.findOne({'name':req.body.name}, function(err, found){
-      if(err){return next(err)};
+      if(err){return console.log(err)};
       if(found){
         res.redirect('/products');
       }else{
@@ -48,7 +48,7 @@ var async = require('async');
             catergory: req.body.category
           });
           product.save(function (err) {
-            if (err) { return next(err); }
+            if (err) { return console.log(err); }
             res.redirect('/products');
           });
       }
@@ -58,7 +58,7 @@ var async = require('async');
   // Display products delete form on GET.
   exports.products_delete = function(req, res) {
     Product.findOne({'_id':req.params.id},function(err,result){
-      if(err){return next(err);} 
+      if(err){return console.log(err);} 
       res.render('products/products_delete', { title: 'Xóa sản phẩm',product:result});
     });
   };
@@ -67,7 +67,7 @@ var async = require('async');
   exports.products_delete_post = function(req, res) {
     Product.deleteOne({'_id':req.params.id})
           .exec(function(err,result){
-            if(err){return next(err);}
+            if(err){return console.log(err);}
             res.redirect('/products');
           })
   };
@@ -76,10 +76,10 @@ var async = require('async');
   exports.products_update = function(req, res) {
     Product.findOne({'_id':req.params.id})
           .exec(function(err,result){
-            if(err){return next(err);}
+            if(err){return console.log(err);}
             Category.find()
                     .exec(function(err,result1){
-                        if(err){return next(err);}
+                        if(err){return console.log(err);}
                         res.render('products/products_update', { title: 'Chỉnh sửa sản phẩm',product:result,catergories:result1});
                     });
           })
@@ -90,7 +90,7 @@ var async = require('async');
   exports.products_update_post = function(req, res) {
       Product.findByIdAndUpdate(req.params.id,req.body)
       .exec(function(err,result){
-        if(err){return next(err);}
+        if(err){return console.log(err);}
         res.redirect('/products');
       });
   };
