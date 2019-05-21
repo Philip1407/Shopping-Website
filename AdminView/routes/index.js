@@ -52,22 +52,17 @@ router.get('/orders/detail', orders_controller.orders_getdetail);
 //statistics day routes
 router.get('/statistics_day', statistics_day_controller.statistics_day_list);
 router.get('/statistics_day/update', statistics_day_controller.statistics_day_update_get);
-router.get('/statistics_day/update', statistics_day_controller.statistics_day_update_post);
 //statistics month routes
 router.get('/statistics_month', statistics_month_controller.statistics_month_list);
-router.get('/statistics_month/update', statistics_month_controller.statistics_month_update_get);
-router.get('/statistics_month/update', statistics_month_controller.statistics_month_update_post);
+router.post('/statistics_month', statistics_month_controller.statistics_month_update);
 //statistics year routes
 router.get('/statistics_year', statistics_year_controller.statistics_year_list);
 router.get('/statistics_year/update', statistics_year_controller.statistics_year_update_get);
-router.get('/statistics_year/update', statistics_year_controller.statistics_year_update_post);
 //statistics week routes
 router.get('/statistics_week', statistics_week_controller.statistics_week_list);
 router.get('/statistics_week/update', statistics_week_controller.statistics_week_update_get);
-router.get('/statistics_week/update', statistics_week_controller.statistics_week_update_post);
 //statistics quarter routes
 router.get('/statistics_quarter', statistics_quarter_controller.statistics_quarter_list);
 router.get('/statistics_quarter/update', statistics_quarter_controller.statistics_quarter_update_get);
-router.get('/statistics_quarter/update', statistics_quarter_controller.statistics_quarter_update_post);
 
 module.exports = router;
