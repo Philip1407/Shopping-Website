@@ -50,7 +50,7 @@ router.get('/edit_info_admin/cancel', edit_info_admin_controller.edit_info_admin
 //orders routes
 router.get('/orders', orders_controller.orders_list);
 router.get('/orders/delete', orders_controller.orders_delete_get);
-router.get('/orders/detail', orders_controller.orders_getdetail);
+router.get('/orders/detail/:id', orders_controller.orders_getdetail);
 //statistics day routes
 router.get('/statistics_day', statistics_day_controller.statistics_day_list);
 router.get('/statistics_day/update', statistics_day_controller.statistics_day_update_get);

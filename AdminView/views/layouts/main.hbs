@@ -96,6 +96,49 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/custom.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+		$('.js-cost').each(function(){
+			var coststring='';
+			var cost=$(this).text();
+			var temp;
+			while(cost>=1){
+				if(cost<1000){
+					temp=Math.floor(cost);
+				}else{
+					temp=cost%1000;
+					if(temp<10){
+						temp+="00";
+					}else if(temp<100){
+						temp+="0";
+					}
+				}
+				if(coststring==''){
+					coststring+=temp;
+				}else{
+					coststring=temp+"."+coststring;
+				}
+				cost/=1000;
+			}
+			coststring+=" VND";
+			$(this).text(coststring);
+		})
+	</script>	
+  <script>
+    $('.js-status').each(function(){
+      console.log($(this).text());
+      if($(this)=="Đã nhận")
+      {
+        $('.js-status').addClass('greenStyle');
+      }
+      else if($(this)=="Đã hủy")
+      {
+        $('.js-status').addClass('redStyle');
+      }
+      else {
+        $('.js-status').addClass('yellowStyle');
+      }
+    })
+  </script>
  </body>
 
 </html>

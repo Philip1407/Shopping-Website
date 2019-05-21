@@ -9,55 +9,31 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th>#</th>
-                              <th>ID đơn hàng</th>
-                              <th>ID khách hàng</th>
+                              <th>STT</th>
                               <th>Thời gian mua</th>
+                              <th>Khách hàng</th>
                               <th>Tổng tiền</th>
                               <th>Tình trạng</th>
+                              <th>Xem chi tiết</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class='clickable-row' data-href='/orders/detail'>
-                              <th scope="row">1</th>
-                              <td>DH1</td>
-                              <td>1612384</td>
-                              <td>22/03/2019</td>
-                              <td>120.000</td>
-                              <td id="greenStyle">Đã nhận</td>
+                            {{#each data}}
+                            <tr data-href='/orders/detail/{{this._id}}'>
+                              <th scope="row">{{inc @index}}</th>
+                              <td>{{this.day}}</td>
+                              <td>{{this.custom}}</td>
+                              <td>{{this.total}}</td>
+                              <td class="js-status">{{this.status}}</td>
+                              <td>
+                                  <div class="row button">
+                                    <form>
+                                      <button class="btn" formaction="/orders/detail/{{this._id}}"><i class="fa fa-info-circle"></i></button>
+                                    </form>
+                                  </div>
+                                </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/orders/detail'>
-                              <th scope="row">2</th>
-                              <td>DH2</td>
-                              <td>1612384</td>
-                              <td>25/03/2019</td>
-                              <td>200.000</td>
-                              <td id="greenStyle">Đã nhận</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/orders/detail'>
-                              <th scope="row">3</th>
-                              <td>DH3</td>
-                              <td>1612440</td>
-                              <td>20/04/2019</td>
-                              <td>150.000</td>
-                              <td id="yellowStyle">Đang giao</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/orders/detail'>
-                              <th scope="row">4</th>
-                              <td>DH4</td>
-                              <td>1612470</td>
-                              <td>20/04/2019</td>
-                              <td>170.000</td>
-                              <td id="redStyle">Đã hủy</td>
-                            </tr>
-                            <tr class='clickable-row' data-href='/orders/detail'>
-                              <th scope="row">4</th>
-                              <td>DH4</td>
-                              <td>1612470</td>
-                              <td>22/04/2019</td>
-                              <td>350.000</td>
-                              <td id="yellowStyle">Đang giao</td>
-                            </tr>
+                          {{/each}}
                           </tbody>
                         </table>
                       </div>

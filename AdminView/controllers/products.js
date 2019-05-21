@@ -5,7 +5,7 @@ var async = require('async');
   exports.products_list = function(req, res){
     Product.find({},function(err,result){
       if(err){return console.log(err);} 
-      res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result});
+      res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm', list_products: result});
     });
   };
 

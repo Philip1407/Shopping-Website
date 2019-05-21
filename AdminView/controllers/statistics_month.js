@@ -75,7 +75,7 @@ exports.statistics_month_list = function(req, res){
     console.log(getValue(list));
     res.render('statistics_month/statistics_month', { title: 'Thống kê', dataD: getValue(list), textYear: year});
   },10000);
-
+    
     list.forEach( element => {
       return element.product_list.forEach((item, index1) => {
         element['total'] = 0;
