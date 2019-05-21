@@ -19,7 +19,9 @@ router.get('/', home_controller.index);
 
 //accounts routes
 router.get('/accounts', accounts_controller.accounts_list);
-router.get('/accounts/delete', accounts_controller.accounts_delete);
+router.get('/accounts/delete/:id', accounts_controller.accounts_delete);
+router.post('/accounts/delete/:id', accounts_controller.accounts_delete_post);
+router.get('/accounts/detail/:id', accounts_controller.accounts_detail);
 
 //categories routes
 router.get('/categories', categories_controller.categories_list);
