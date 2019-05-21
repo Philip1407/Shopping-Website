@@ -42,7 +42,11 @@
                         <strong>ID Loại sản phẩm: &emsp;</strong> 
                         <select name="catergory">
                           {{#each catergories }}
-                            <option id = {{this._id}} value={{this._id}}>{{this.name}}</option>
+                            {{#ifCond this._id ../product.catergory}}
+                              <option selected id = {{this._id}} value={{this._id}}>{{this.name}}</option>
+                            {{else}}
+                              <option id = {{this._id}} value={{this._id}}>{{this.name}}</option>
+                            {{/ifCond}}
                           {{/each}}
                         </select>
                     </div>

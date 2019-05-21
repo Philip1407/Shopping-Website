@@ -3,7 +3,10 @@ module.exports = {
     {
         return parseInt(value) + 1;
     },
-    countcat: function(value,inx,options){
-        return parseInt(value[inx]);
+    ifCond: function(v1, v2,options) {
+        if(String(v1) === String(v2)) {
+          return options.fn(this);
+        }
+        return options.inverse(this);
     }
   }
