@@ -38,7 +38,7 @@ router.get('/products/delete/:id', products_controller.products_delete);
 router.post('/products/delete/:id', products_controller.products_delete_post);
 router.get('/products/update/:id', products_controller.products_update);
 router.post('/products/update/:id', products_controller.products_update_post);
-router.get('/products/detail', products_controller.products_getdetail);
+router.get('/products/detail/:id', products_controller.products_getdetail);
 //bestseller routes
 router.get('/bestseller', bestseller_controller.bestseller_list);
 //edit info admin routes

@@ -26,20 +26,27 @@ var async = require('async');
   
   // Handle products create on POST.
   exports.products_create_post = function(req, res) {
-    var product = new Product(
-      { name: req.body.name,
-        img: req.body.linkImg,
-        price: req.body.price,
-        amount: req.body.amount,
-        size: req.body.size,
-        color:req.body.color,
-        description:req.body.descript,
-        catergory: req.body.category
-      });
-      product.save(function (err) {
-        if (err) { return next(err); }
-        res.redirect('/products');
-      });
+    Productduct.findOne({'name':req.body.name}, function(err, found){
+      if(err){return next(err)};
+      if(found){
+        res.redirect('/product');
+      }else{
+        var product = new Product(
+          { name: req.body.name,
+            img: req.body.linkImg,
+            price: req.body.price,
+            amount: req.body.amount,
+            size: req.body.size,
+            color:req.body.color,
+            description:req.body.descript,
+            catergory: req.body.category
+          });
+          product.save(function (err) {
+            if (err) { return next(err); }
+            res.redirect('/products');
+          });
+      }
+    })
   }
   
   // Display products delete form on GET.
@@ -82,6 +89,8 @@ var async = require('async');
       });
   };
 
-  exports.products_getdetail = function(req,res) {
-    res.render('products/products_detail', { title: 'Chỉnh sửa sản phẩm'});
+  exports.products_getdetail = async function(req,res) {
+    var result = await Product.findById(req.params.id);
+    var result2 = await Category.findById(result.catergory);
+    res.render('products/products_detail', { title: 'Chỉnh sửa sản phẩm',product: result, category: result2});
   };

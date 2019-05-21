@@ -25,10 +25,10 @@
                           <thead>
                             <tr>
                               <th style="width:5%">STT</th>
-                              <th style="width:20%">Tên sản phẩm</th>
-                              <th style="width:20%">Số sản phẩm hiện có</th>
+                              <th style="width:20%">Tên sản phẩm</th>detail
+                              <th style="width:15%">Số sản phẩm hiện có</th>
                               <th style="width:40%">Mô tả</th>
-                              <th style="width:15%">Xử lý</th>
+                              <th style="width:20%">Xử lý</th>
                             </tr>
                           </thead>
                           {{#each list_products}}
@@ -44,6 +44,9 @@
                                     </form>
                                     <form>
                                       <button class="btn" formaction="/products/update/{{this._id}}"><i class="far fa-edit"></i></button>
+                                    </form>
+                                    <form>
+                                      <button class="btn" formaction="/products/detail/{{this._id}}"><i class="fa fa-info-circle"></i></button>
                                     </form>
                                   </div>
                                 </td>

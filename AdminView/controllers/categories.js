@@ -4,24 +4,16 @@ var async = require('async');
 
 
 
-exports.categories_list = function(req, res){
+exports.categories_list = async function(req, res){
   var result=null;
   setTimeout(function(){
-    //console.log(result);
     res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: result});
   },10000);
 
-  Category.find()
-    .exec(function (err, list_categories) {
-      if (err) { return next(err); }
-      result = list_categories;
-      result.forEach( element => {
-        return Product.countDocuments({'catergory': element._id},function(err,result){
-          if(err){return next(err);} 
-            element['amount']=result;
-        });
-        });
-    });
+  var result = await Category.find();
+  result.forEach( async element => {
+          element['amount'] = await Product.countDocuments({'catergory': element._id})
+  });
 };
 
 // Display categories create form on GET.
@@ -51,39 +43,26 @@ exports.categories_create_post = function(req, res) {
 };
 
 // Display categories delete form on GET.
-exports.categories_delete = function(req, res) {
-  Category.findOne({'_id': req.params.id})
-          .exec(function(err,found_category){
-            if(err){return next(err);}
-            res.render('categories/categories_delete', { title: 'Xóa loại hàng',category:found_category});
-          });
-  
+exports.categories_delete = async function(req, res) {
+  var found_category = await Category.findOne({'_id': req.params.id})
+  res.render('categories/categories_delete', { title: 'Xóa loại hàng',category:found_category});
 };
 
 // Handle categories delete on POST.
-exports.categories_delete_post = function(req, res) {
-  Category.deleteOne({'_id':req.params.id})
-          .exec(function(err,result){
-            if(err){return next(err);}
-            res.redirect('/categories');
-          })
+exports.categories_delete_post = async function(req, res) {
+  await Category.deleteOne({'_id':req.params.id})
+  res.redirect('/categories');
 };
 
 // Display categories update form on GET.
-exports.categories_update = function(req, res) {
-  Category.findOne({'_id': req.params.id})
-  .exec(function(err,found_category){
-    if(err){return next(err);}
-    res.render('categories/categories_update', { title: 'Cập nhật loại hàng',category:found_category});
-  });
+exports.categories_update = async function(req, res) {
+  var found_category = await Category.findOne({'_id': req.params.id})
+  res.render('categories/categories_update', { title: 'Cập nhật loại hàng',category:found_category});
 };
 
 // Handle categories update on POST.
-exports.categories_update_post = function(req, res) {
-  Category.findByIdAndUpdate(req.params.id,req.body)
-          .exec(function(err,result){
-            if(err){return next(err);}
-            res.redirect('/categories');
-          });
+exports.categories_update_post = async function(req, res) {
+  await Category.findByIdAndUpdate(req.params.id,req.body);
+  res.redirect('/categories');
 };
 
