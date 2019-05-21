@@ -55,7 +55,7 @@ exports.statistics_month_list = function(req, res){
     [
       {
         $match: {
-        day: {$gte: new Date(year+'-01-01')}
+          day: {$gte: new Date(year+'-01-01'), $lte: new Date(year+'-12-31')}
         }
       },
       {
@@ -94,7 +94,11 @@ exports.statistics_month_list = function(req, res){
 
 // Display statistics_month update form on POST.
 exports.statistics_month_update = function(req, res) {
-  console.log(req.body.year);
+  var pattern = /^\d+$/;
+  if (!pattern.test(req.body.year)) 
+  {
+    return res.render('statistics_month/statistics_month', { title: 'Thống kê', textYear: "", hidden: "hidden", message:"Năm nhập vào không hợp lệ, vui lòng nhập lại!"});
+  }
   var year = parseInt(req.body.year);
   console.log(year);
   Order.aggregate(
