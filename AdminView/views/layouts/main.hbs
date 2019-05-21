@@ -125,19 +125,18 @@
 	</script>	
   <script>
     $('.js-status').each(function(){
-      console.log($(this).text());
-      if($(this)=="Đã nhận")
+      if($(this).text()=="Đã nhận")
       {
-        $('.js-status').addClass('greenStyle');
+        $(this).addClass('greenStyle');
       }
-      else if($(this)=="Đã hủy")
+      if($(this).text()=="Đã hủy")
       {
-        $('.js-status').addClass('redStyle');
+        $(this).addClass('redStyle');
       }
-      else {
-        $('.js-status').addClass('yellowStyle');
+      if($(this).text()=="Đang giao") {
+        $(this).addClass('yellowStyle');
       }
-    })
+    });
   </script>
  </body>
 
