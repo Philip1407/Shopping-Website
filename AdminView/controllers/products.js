@@ -32,10 +32,10 @@ var async = require('async');
   
   // Handle products create on POST.
   exports.products_create_post = function(req, res) {
-    Productduct.findOne({'name':req.body.name}, function(err, found){
+    Product.findOne({'name':req.body.name}, function(err, found){
       if(err){return next(err)};
       if(found){
-        res.redirect('/product');
+        res.redirect('/products');
       }else{
         var product = new Product(
           { name: req.body.name,
