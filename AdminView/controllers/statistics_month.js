@@ -1,5 +1,4 @@
 function getMonth(data) {
-  console.log(data);
   var months = [];
   data.forEach((item, index) => {
       months[index]=item._id;
@@ -60,7 +59,7 @@ var Order = require('../models/orders');
 exports.statistics_month_list = function(req, res){
   var current = new Date();
   var year = parseInt(current.getFullYear());
-  var temp = null;
+  
   Order.aggregate(
     [
       {
@@ -77,20 +76,25 @@ exports.statistics_month_list = function(req, res){
       }
     ]
  ).exec().then((list) => {
-  temp = list;
+  
   setTimeout(function(){
     var result = [];
-    result[0] = getMonth(temp);
-    result[1] = getValue(temp);
-    console.log(result[0]);
+    result[0] = getMonth(list);
+    result[1] = getValue(list);
+    console.log(result);
     res.render('statistics_month/statistics_month', { title: 'Thống kê', data: result});
   },10000);
-    temp.forEach( async element => {
-      await element.product_list.forEach(async (item, index1) => {
+
+    list.forEach( element => {
+      return element.product_list.forEach((item, index1) => {
         element['total'] = 0;
-        await item.forEach((pro, index2) => {
+        return item.forEach((pro, index2) => {
+          console.log("pro");
+          console.log(pro);
           return Product.findOne({_id:pro},{ _id:0, price:1}).exec().then((result) => {
-            //console.log(item);
+            console.log("3");
+            console.log(index1);
+            console.log(index2);
             element['total']+= element.amount_list[index1][index2]*result['price'];
            // console.log(element['total']);
           }).catch((err) => {

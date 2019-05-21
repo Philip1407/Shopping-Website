@@ -10,16 +10,21 @@
                         <th>Tên sản phẩm</th>
                         <th>Loại sản phẩm</th>
                         <th>Số lượng đã bán</th>
+                        <th>Xem chi tiết SP</th>
                     </tr>
                 </thead>
                 
                 {{#each list_bestSeller}}
                     <tr>
-                        <th scope="row">{{inc @index}}</th>
+                        <th scope="row" >{{inc @index}}</th>
                         <td>{{this.name}}</td>
                         <th>{{this.categoryName}}</th>
                         <td>{{this.total}}</td>
-                        
+                        <td>
+                            <form>
+                                <button class="btn" formaction="/products/detail/{{this._id}}"><i class="fa fa-list-ul"></i></button>
+                            </form>
+                        </td>
                     </tr>
                 {{/each}}
                 
