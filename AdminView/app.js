@@ -16,9 +16,8 @@ const exphbs  = require('express-handlebars');
 //when configuring the app view engine
 app.engine('hbs', exphbs({
   extname: 'hbs',
-  helpers: require('./config/handlebars-helpers') //only need this
+  helpers: require('./config/handlebars-helpers') 
 }));
-
 
 // Set up mongoose connection
 var mongoose = require('mongoose');

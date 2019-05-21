@@ -13,12 +13,12 @@ var async = require('async');
     var category="";
     Category.findOne({_id:req.params.id},{ _id:0, name: 1}).exec().then((result) => {
       category=result['name'];
-    });
-    Product.find({'catergory':req.params.id},function(err,result){
-      if(err){return next(err);} 
-      console.log(category);
-      console.log("finish");
-      res.render('products/products', { title: 'Sản phẩm thuộc loại: ',list_products: result, categoryName: category});
+      Product.find({'catergory':req.params.id},function(err,result){
+        if(err){return next(err);} 
+        console.log(category);
+        console.log("finish");
+        res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result, cattitle:'Sản phẩm thuộc loại', categoryName: category});
+      });
     });
   };
   // Display products create form on GET.
