@@ -32,7 +32,10 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01-login.jpg');">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				{{#if message}}
+                	<div class="alert alert-danger">{{message}}</div>
+            	{{/if}}
+				<form action="/login" method="POST" class="login100-form">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
@@ -41,8 +44,8 @@
 						Đăng nhập
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="Username">
+					<div class="wrap-input100 validate-input" data-validate = "Enter email">
+						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
@@ -53,15 +56,12 @@
 					<div>
 						<label name="wrongpass"></label>
 					</div>
-					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-						<label class="label-checkbox100" for="ckb1">
-							Ghi nhớ đăng nhập
-						</label>
-					</div>
+					
+					Chưa có tài khoản? <a href='/signin'>Đăng kí</a><br><br>
+					
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" onclick="onClick()">
+						<button class="login100-form-btn">
 							Đăng nhập
 						</button>
 					</div>
