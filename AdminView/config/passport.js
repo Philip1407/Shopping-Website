@@ -26,9 +26,15 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (!admin)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false, req.session.sessionFlash = {
+                        type: 'loginMessage',
+                        message: 'Email không tồn tại.'
+                      });
                 if (!await bcrypt.compare(req.body.pass, admin.pass))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    return done(null, false, req.session.sessionFlash = {
+                        type: 'loginMessage',
+                        message: 'Mật khẩu không đúng.'
+                      });
                 return done(null, admin);
                 });
             });
@@ -47,10 +53,16 @@ module.exports = function(passport) {
                     if (err)
                         return done(err);
                     if (admin) {
-                        return done(null, false, req.flash('signupMessage', 'Email  đã tồn tại .'));
+                        return done(null, false, req.session.sessionFlash = {
+                            type: 'loginMessage',
+                            message: 'Email đã tồn tại.'
+                          });
                     } else {
                         if(req.body.pass!==req.body.repass)
-                            return done(null, false, req.flash('signupMessage', 'Mật khẩu không khớp .'));
+                            return done(null, false, req.session.sessionFlash = {
+                                type: 'signupMessage', 
+                                message: 'Mật khẩu không khớp.'
+                            });
                         var newAdmin = new Admin({
                             name: req.body.name,
                             title: req.body.title,

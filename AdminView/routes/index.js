@@ -81,6 +81,7 @@ module.exports = function(router, passport) {
         successRedirect : '/',
         failureRedirect : '/signup',
         failureFlash : true 
+        
     }));
 }
 

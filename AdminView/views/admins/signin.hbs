@@ -36,8 +36,8 @@
             <!-- Form Panel    -->
             <div class="col-lg-6 bg-white">
               <div class="form  align-items-center">
-                {{#if message}}
-                    <div class="alert alert-danger">{{message}}</div>
+                {{#if sessionFlash.message}}
+                    <div class="alert alert-danger">{{sessionFlash.message}}</div>
                   {{/if}}
                   <form action="/signin" method="post" class="form-validate">
                     <div class="form-group">
