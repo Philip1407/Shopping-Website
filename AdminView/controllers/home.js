@@ -1,3 +1,4 @@
 exports.index = function(req, res){
-    res.render('index', { title: 'Trang chủ' });
+   // console.log(req.admin);
+    res.render('index', { title: 'Trang chủ', admin:req.user});
 };

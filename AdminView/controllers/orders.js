@@ -21,7 +21,7 @@ exports.orders_list = function(req, res){
   Order.find().exec(function(err, result) {
     
     setTimeout(function(){
-      res.render('orders/orders', { title: 'Quản lý đơn hàng', data:result}); 
+      res.render('orders/orders', { title: 'Quản lý đơn hàng', data:result, admin:req.user}); 
     },10000);
 
     result.forEach((order)=>{
@@ -63,7 +63,7 @@ exports.orders_getdetail = function(req,res, next) {
     if(err){ return next(err); }
 
     setTimeout(function(){
-      res.render('orders/orders_detail', { title: 'Chi tiết đơn hàng', data:order, total:total}); 
+      res.render('orders/orders_detail', { title: 'Chi tiết đơn hàng', data:order, total:total, admin:req.user}); 
     },10000);
     order['date'] = formatDate(order.day);
     User.findOne({_id: order.custom},{_id:0, username:1}).exec().then((name)=>{
