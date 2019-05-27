@@ -6,14 +6,13 @@ var accounts_controller = require('../controllers/accounts');
 var categories_controller = require('../controllers/categories');
 var products_controller = require('../controllers/products');
 var bestseller_controller = require('../controllers/bestseller');
-var edit_info_admin_controller = require('../controllers/edit_info_admin');
 var orders_controller = require('../controllers/orders');
 var statistics_day_controller = require('../controllers/statistics_day');
 var statistics_month_controller = require('../controllers/statistics_month');
 var statistics_week_controller = require('../controllers/statistics_week');
 var statistics_quarter_controller = require('../controllers/statistics_quarter');
 var statistics_year_controller = require('../controllers/statistics_year');
-var login_controller=require('../controllers/admins');
+var admin_controller=require('../controllers/admins');
 
 module.exports = router;
 module.exports = function(router, passport) {
@@ -46,10 +45,6 @@ module.exports = function(router, passport) {
     router.get('/products/detail/:id',isLoggedIn, products_controller.products_getdetail);
     //bestseller routes
     router.get('/bestseller', isLoggedIn,bestseller_controller.bestseller_list);
-    //edit info admin routes
-    router.get('/edit_info_admin', isLoggedIn,edit_info_admin_controller.index);
-    router.get('/edit_info_admin/save', isLoggedIn,edit_info_admin_controller.edit_info_admin_save);
-    router.get('/edit_info_admin/cancel', isLoggedIn,edit_info_admin_controller.edit_info_admin_canccel);
     //orders routes
     router.get('/orders', isLoggedIn,orders_controller.orders_list);
     router.get('/orders/delete', isLoggedIn,orders_controller.orders_delete_get);
@@ -70,16 +65,19 @@ module.exports = function(router, passport) {
     router.get('/statistics_quarter', isLoggedIn,statistics_quarter_controller.statistics_quarter_list);
     router.get('/statistics_quarter/update',isLoggedIn, statistics_quarter_controller.statistics_quarter_update_get);
     //admins controller
-    router.get('/admins', isLoggedIn, login_controller.admins_list);
-    router.get('/admins/detail/:id',isLoggedIn, login_controller.admins_detail);
-    //login routes
-    router.get('/', login_controller.login_load);
+    router.get('/admins',isLoggedIn,admin_controller.admins_list);
+    router.get('/admins/edit_info', isLoggedIn, admin_controller.edit_info_admin)
+    router.post('/admins/edit_info', admin_controller.edit_info_admin_post);
+    router.get('/admins/detail/:id',isLoggedIn, admin_controller.admins_detail);
+    router.get('/signout',isLoggedIn,admin_controller.signout);
+    //admin routes
+    router.get('/', admin_controller.login_load);
     router.post('/', passport.authenticate('local-signin', {
       successRedirect : '/home',
       failureRedirect : '/',
       failureFlash : true 
   }));
-    router.get('/signup', login_controller.register_load);
+    router.get('/signup', isLoggedIn, admin_controller.register_load);
     router.post('/signup', passport.authenticate('local-signup', {
       successRedirect : '/home',
       failureRedirect : '/signup',
