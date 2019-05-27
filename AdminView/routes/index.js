@@ -18,7 +18,7 @@ var login_controller=require('../controllers/admins');
 module.exports = router;
 module.exports = function(router, passport) {
     // GET home page.
-    router.get('/', home_controller.index);
+    router.get('/home', home_controller.index);
 
     //accounts routes
     router.get('/accounts', accounts_controller.accounts_list);
@@ -71,23 +71,32 @@ module.exports = function(router, passport) {
     router.get('/statistics_quarter/update', statistics_quarter_controller.statistics_quarter_update_get);
     //login routes
     router.get('/admins',login_controller.admins_list);
-    router.get('/signin', login_controller.login_load);
-    router.post('/signin', passport.authenticate('local-signin', {
-        successRedirect : '/',
-        failureRedirect : '/signin',
-        failureFlash : true 
-    }));
+    router.get('/', login_controller.login_load);
+    router.post('/', function(req, res, next) {
+        passport.authenticate('local-signin', function(err, admin, info) {
+          if (err) { return next(err); }
+          if (!admin) { return res.redirect('/'); }
+          req.logIn(admin, function(err) {
+            if (err) { return next(err); }
+            return res.render('index', {title: 'Trang chủ', name: admin.name, adminTitle: admin.title});
+          });
+        })(req, res, next);
+      });
     router.get('/signup', login_controller.register_load);
-    router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/',
-        failureRedirect : '/signup',
-        failureFlash : true 
-        
-    }));
+    router.post('/signup', function(req, res, next) {
+        passport.authenticate('local-signup', function(err, admin, info) {
+          if (err) { return next(err); }
+          if (!admin) { return res.redirect('/signup'); }
+          req.logIn(admin, function(err) {
+            if (err) { return next(err); }
+            return res.render('index', {title: 'Trang chủ', name: admin.name, adminTitle: admin.title});
+          });
+        })(req, res, next);
+      });
 }
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
-    res.redirect('/login');
+    res.redirect('/');
 } 
