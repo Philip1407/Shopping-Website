@@ -19,6 +19,7 @@ module.exports = function(router, passport) {
 
 	router.get('/myaccount', isLoggedIn,user_controller.user_detail);
 	router.get('/login', user_controller.user_login_get);
+	router.get('/logout', user_controller.user_logout_get);
 	router.post('/login',passport.authenticate('local-login', {
 		successRedirect : '/',
         failureRedirect : '/login',
