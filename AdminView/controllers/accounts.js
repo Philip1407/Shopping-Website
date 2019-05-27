@@ -32,7 +32,11 @@ exports.accounts_list = function(req, res, next) {
       "11", "12"
     ];
     var result = await User.findById(req.params.id);
-    var birth = result.birthday.getDate()+'/'+ month[result.birthday.getMonth()] + '/' + result.birthday.getFullYear() ;
+    var date = result.birthday.getDate();
+    if(date<10){
+      date = '0'+date;
+    }
+    var birth = date+'/'+ month[result.birthday.getMonth()] + '/' + result.birthday.getFullYear() ;
     res.render('accounts/accounts_detail', { title: 'Chi tiết tài khoản người dùng', user:result,birthday:birth, admin:req.user});
   };
   
