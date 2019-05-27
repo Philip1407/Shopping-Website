@@ -2,19 +2,18 @@
 	<section class="bg0 p-t-75 p-b-120">
 		<div class="container">
             <h3 class="mtext-111 cl2 p-b-50">Đăng kí tài khoản</h3>
-			{{#if message}}
-                <div class="alert alert-danger">{{message}}</div>
+			{{#if sessionFlash.message}}
+                <div class="alert alert-danger">{{sessionFlash.message}}</div>
             {{/if}}
-
 			<form action = "/signin" method="POST" >
 	            <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Họ tên: 
-                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="username" placeholder="Lê Uyển Nhi">
+                    <input class="input1 bg-none plh1 stext-107 cl7" required type="text" name="username" placeholder="Lê Uyển Nhi">
                     <div class="focus-input1 trans-04"></div>
 	            </div> <br><br>
                 <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Ngày sinh: 
-                    <input class="input1 bg-none plh1 stext-107 cl7" type="date" name="birthday" placeholder="01/04/1998">
+                    <input class="input1 bg-none plh1 stext-107 cl7" required type="date" name="birthday" placeholder="01/04/1998">
                     <div class="focus-input1 trans-04"></div>
 	            </div><br><br>
                 <div class="row col-md-3 col-lg-4">
@@ -26,22 +25,22 @@
 	            </div><br><br>
                 <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Email: 
-                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"> 
+                    <input class="input1 bg-none plh1 stext-107 cl7" required type="text" name="email"> 
                     <div class="focus-input1 trans-04"></div>
 	            </div><br><br>
                 <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Mật khẩu:
-                    <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="pass" >
+                    <input class="input1 bg-none plh1 stext-107 cl7" required type="password" name="pass" >
                     <div class="focus-input1 trans-04"></div>
 	            </div><br><br>
                 <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Nhập lại:
-                    <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="repass" >
+                    <input class="input1 bg-none plh1 stext-107 cl7" required type="password" name="repass" >
                     <div class="focus-input1 trans-04"></div>
 	            </div><br><br>
                 <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Địa chỉ: 
-                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="address" placeholder="Quận 7, Thành phố Hồ Chí Minh">
+                    <input class="input1 bg-none plh1 stext-107 cl7" required type="text" name="address" placeholder="Quận 7, Thành phố Hồ Chí Minh">
                     <div class="focus-input1 trans-04"></div>
 	            </div><br><br>
 	            <div class="p-t-18">
