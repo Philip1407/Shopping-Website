@@ -69,8 +69,10 @@ module.exports = function(router, passport) {
     //statistics quarter routes
     router.get('/statistics_quarter', isLoggedIn,statistics_quarter_controller.statistics_quarter_list);
     router.get('/statistics_quarter/update',isLoggedIn, statistics_quarter_controller.statistics_quarter_update_get);
+    //admins controller
+    router.get('/admins', isLoggedIn, login_controller.admins_list);
+    router.get('/admins/detail/:id',isLoggedIn, login_controller.admins_detail);
     //login routes
-    router.get('/admins',login_controller.admins_list);
     router.get('/', login_controller.login_load);
     router.post('/', passport.authenticate('local-signin', {
       successRedirect : '/home',

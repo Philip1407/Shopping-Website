@@ -19,6 +19,11 @@
                     <td>{{this.name}}</td>
                     <td>{{this.title}}</td>
                     <td>{{this.email}}</td>
+                    <td>
+                      <form>
+                        <button class="btn" formaction="/admins/detail/{{this._id}}"><i class="fa fa-info-circle"></i></button>
+                      </form>
+                    </td>
                     </tr>
                 {{/each}}
           </table>
