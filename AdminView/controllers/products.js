@@ -5,7 +5,7 @@ var async = require('async');
   exports.products_list = function(req, res){
     Product.find({},function(err,result){
       if(err){return console.log(err);} 
-      res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm', list_products: result});
+      res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm',admin:req.user, list_products: result});
     });
   };
 
@@ -17,7 +17,7 @@ var async = require('async');
         if(err){return console.log(err);} 
         console.log(category);
         console.log("finish");
-        res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result, cattitle:'Sản phẩm thuộc loại', categoryName: category});
+        res.render('products/products', { title: 'Quản lý sản phẩm',list_products: result, cattitle:'Sản phẩm thuộc loại', admin:req.user, categoryName: category});
       });
     });
   };
@@ -26,7 +26,7 @@ var async = require('async');
     Category.find()
             .exec(function(err, results) {
               if (err) { return console.log(err); }
-              res.render('products/products_create', { title: 'Thêm sản phẩm',catergories:results});
+              res.render('products/products_create', { title: 'Thêm sản phẩm',catergories:results, admin:req.user});
             });
   };
   
@@ -59,7 +59,7 @@ var async = require('async');
   exports.products_delete = function(req, res) {
     Product.findOne({'_id':req.params.id},function(err,result){
       if(err){return console.log(err);} 
-      res.render('products/products_delete', { title: 'Xóa sản phẩm',product:result});
+      res.render('products/products_delete', { title: 'Xóa sản phẩm',product:result, admin:req.user});
     });
   };
   
@@ -80,7 +80,7 @@ var async = require('async');
             Category.find()
                     .exec(function(err,result1){
                         if(err){return console.log(err);}
-                        res.render('products/products_update', { title: 'Chỉnh sửa sản phẩm',product:result,catergories:result1});
+                        res.render('products/products_update', { title: 'Chỉnh sửa sản phẩm',admin:req.user, product:result,catergories:result1});
                     });
           })
     
@@ -98,5 +98,5 @@ var async = require('async');
   exports.products_getdetail = async function(req,res) {
     var result = await Product.findById(req.params.id);
     var result2 = await Category.findById(result.catergory);
-    res.render('products/products_detail', { title: 'Chỉnh sửa sản phẩm',product: result, category: result2});
+    res.render('products/products_detail', { title: 'Chỉnh sửa sản phẩm',product: result, category: result2, admin:req.user});
   };

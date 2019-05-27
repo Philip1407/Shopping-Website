@@ -22,7 +22,7 @@ exports.bestseller_list = function(req, res, next) {
     ]
  ).sort({total:-1}).limit(10).exec().then((list_products) => {
   setTimeout(function(){
-    res.render('bestseller/bestseller', { title: 'Sản phẩm bán chạy',list_bestSeller: temp});
+    res.render('bestseller/bestseller', { title: 'Sản phẩm bán chạy',list_bestSeller: temp, admin:req.user});
   },10000);
 
     temp = list_products;

@@ -1,7 +1,7 @@
 //var statistics_day = require('..\views\statistics_day');
 
 exports.statistics_day_list = function(req, res){
-    res.render('statistics_day/statistics_day', { title: 'Thống kê'});
+    res.render('statistics_day/statistics_day', { title: 'Thống kê', admin:req.user});
   };
 
 // Display statistics_day update form on GET.

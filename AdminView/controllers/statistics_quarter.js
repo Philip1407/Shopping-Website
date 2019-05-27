@@ -1,7 +1,7 @@
 //var statistics_quarter = require('..\views\statistics_quarter');
 
 exports.statistics_quarter_list = function(req, res){
-  res.render('statistics_quarter/statistics_quarter', { title: 'Thống kê'});
+  res.render('statistics_quarter/statistics_quarter', { title: 'Thống kê', admin:req.user});
 };
 
 // Display statistics_quarter update form on GET.

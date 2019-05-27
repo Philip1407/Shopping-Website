@@ -67,7 +67,11 @@ module.exports = function(passport) {
                             name: req.body.name,
                             title: req.body.title,
                             email: req.body.email,
-                            pass : await bcrypt.hash(req.body.pass, 10),
+                            phone: req.body.phone,
+                            gender: req.body.gender,
+                            address: req.body.address,
+                            birthday: req.body.birthday,
+                            pass: await bcrypt.hash(req.body.pass, 10),
                             });
                         newAdmin.save(function(err) {
                             if (err)

@@ -1,7 +1,7 @@
 //var statistics_week = require('..\views\statistics_week');
 
 exports.statistics_week_list = function(req, res){
-  res.render('statistics_week/statistics_week', { title: 'Thống kê'});
+  res.render('statistics_week/statistics_week', { title: 'Thống kê', admin:req.user});
 };
 
 // Display statistics_week update form on GET.

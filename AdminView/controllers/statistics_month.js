@@ -68,12 +68,12 @@ exports.statistics_month_list = function(req, res){
     ]
  ).exec().then((list) => {
   if(list==0) {
-    res.render('statistics_month/statistics_month', { title: 'Thống kê', dataD: getValue(list), textYear: year, hidden: "hidden"});
+    res.render('statistics_month/statistics_month', { title: 'Thống kê', admin:req.user, dataD: getValue(list), textYear: year, hidden: "hidden"});
   }
 
   setTimeout(function(){
     console.log(getValue(list));
-    res.render('statistics_month/statistics_month', { title: 'Thống kê', dataD: getValue(list), textYear: year});
+    res.render('statistics_month/statistics_month', { title: 'Thống kê', admin:req.user, dataD: getValue(list), textYear: year});
   },10000);
     
     list.forEach( element => {
@@ -97,7 +97,7 @@ exports.statistics_month_update = function(req, res) {
   var pattern = /^\d+$/;
   if (!pattern.test(req.body.year)) 
   {
-    return res.render('statistics_month/statistics_month', { title: 'Thống kê', textYear: "", hidden: "hidden", message:"Năm nhập vào không hợp lệ, vui lòng nhập lại!"});
+    return res.render('statistics_month/statistics_month', { title: 'Thống kê',admin:req.user, textYear: "", hidden: "hidden", message:"Năm nhập vào không hợp lệ, vui lòng nhập lại!"});
   }
   var year = parseInt(req.body.year);
   console.log(year);
@@ -118,11 +118,11 @@ exports.statistics_month_update = function(req, res) {
     ]
  ).exec().then((list) => {
   if(list==0) {
-    return res.render('statistics_month/statistics_month', { title: 'Thống kê', dataD: getValue(list), textYear: year, hidden: "hidden", message:"Không có dữ liệu để thống kê cho năm " + year});
+    return res.render('statistics_month/statistics_month', { title: 'Thống kê',admin:req.user, dataD: getValue(list), textYear: year, hidden: "hidden", message:"Không có dữ liệu để thống kê cho năm " + year});
   }
   setTimeout(function(){
     console.log(getValue(list));
-    res.render('statistics_month/statistics_month', { title: 'Thống kê', dataD: getValue(list), textYear: year});
+    res.render('statistics_month/statistics_month', { title: 'Thống kê',admin:req.user, dataD: getValue(list), textYear: year});
   },10000);
 
     list.forEach( element => {

@@ -7,6 +7,10 @@ var AdminSchema = new Schema({
     name:{type: String, required: true},
     title:{type: String, require: true},
     email:{type:String,require: true},
+    phone:{type:String},
+    gender:{type:String},
+    address:{type:String},
+    birthday:{type:Date},
     pass:{type:String,require:true},
 });
 

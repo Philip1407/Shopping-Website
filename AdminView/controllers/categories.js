@@ -7,7 +7,7 @@ var async = require('async');
 exports.categories_list = async function(req, res){
   var result=null;
   setTimeout(function(){
-    res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: result});
+    res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: result, admin:req.user});
   },10000);
 
   var result = await Category.find();
@@ -18,7 +18,7 @@ exports.categories_list = async function(req, res){
 
 // Display categories create form on GET.
 exports.categories_create = function(req, res) {
-  res.render('categories/categories_create', { title: 'Thêm gian hàng'});
+  res.render('categories/categories_create', { title: 'Thêm gian hàng', admin:req.user});
 };
 
 //Handle categories create on POST.
@@ -45,7 +45,7 @@ exports.categories_create_post = function(req, res) {
 // Display categories delete form on GET.
 exports.categories_delete = async function(req, res) {
   var found_category = await Category.findOne({'_id': req.params.id})
-  res.render('categories/categories_delete', { title: 'Xóa loại hàng',category:found_category});
+  res.render('categories/categories_delete', { title: 'Xóa loại hàng',category:found_category, admin:req.user});
 };
 
 // Handle categories delete on POST.
@@ -57,7 +57,7 @@ exports.categories_delete_post = async function(req, res) {
 // Display categories update form on GET.
 exports.categories_update = async function(req, res) {
   var found_category = await Category.findOne({'_id': req.params.id})
-  res.render('categories/categories_update', { title: 'Cập nhật loại hàng',category:found_category});
+  res.render('categories/categories_update', { title: 'Cập nhật loại hàng',category:found_category, admin:req.user});
 };
 
 // Handle categories update on POST.
