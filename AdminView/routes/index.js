@@ -70,6 +70,7 @@ module.exports = function(router, passport) {
     router.get('/statistics_quarter', statistics_quarter_controller.statistics_quarter_list);
     router.get('/statistics_quarter/update', statistics_quarter_controller.statistics_quarter_update_get);
     //login routes
+    router.get('/admins',login_controller.admins_list);
     router.get('/signin', login_controller.login_load);
     router.post('/signin', passport.authenticate('local-signin', {
         successRedirect : '/',

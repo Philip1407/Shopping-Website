@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <div class="card-body">
+          <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th style="width:5%">STT</th>
+                    <th style="width:20%">Tên User</th>
+                    <th style="width:15%">Chức vụ</th>
+                    <th style="width:40%">Email</th>
+                </tr>
+                </thead>
+                {{#each list_admins}}
+                    <tr>
+                    <th scope="row">{{inc @index}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.email}}</td>
+                    </tr>
+                {{/each}}
+          </table>
+  </div>
+</html>
