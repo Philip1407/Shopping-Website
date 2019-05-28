@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
     <link rel="stylesheet" href="/stylesheets/custom.css">
+    <link rel="stylesheet" href="/stylesheets/util.css">
     <link rel="stylesheet" href="/stylesheets/fontastic.css">
     <link rel="stylesheet" href="/stylesheets/style.blue.css">
     <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
@@ -50,16 +51,25 @@
                       <input id="email" type="email" name="email" required data-msg="Vui lòng nhập địa chỉ email hợp lệ" class="input-material" placeholder="Email">
                     </div>
                     <div class="form-group">
-                      <input id="birthday" type="date" name="birthday" class="input-material" placeholder="Ngày sinh">
+                      <input id="birthday" type="date" name="birthday" required class="input-material" placeholder="Ngày sinh">
                     </div>
                     <div class="form-group">
-                      <input id="phone" type="text" name="phone" class="input-material" placeholder="Số điện thoại">
+                      <input id="phone" type="text" name="phone" required class="input-material" placeholder="Số điện thoại">
                     </div>
                     <div class="form-group">
-                      <input id="address" type="text" name="address" class="input-material" placeholder="Địa chỉ">
+                      <input id="address" type="text" name="address" required class="input-material" placeholder="Địa chỉ">
                     </div>
-                    <div class="form-group">
-                      <input id="gender" type="text" name="gender" class="input-material" placeholder="Giới tính">
+                    <div class="row">
+                      <div class="form-group m-l-15 m-t-10">
+                        <div>Giới tính:</div>
+                      </div>
+                      <div class="form-group m-l-20 m-t-10">
+                        <select name="gender">
+                          <option id = "male" value="Nam">Nam</option>
+                          <option id = "female" value="Nữ">Nữ</option>
+                          <option id = "other" value="Khác">Khác</option>
+                        </select>
+                      </div>
                     </div>
                     <div class="form-group">
                       <input id="pass" type="password" name="pass" required data-msg="Vui lòng nhập mật khẩu" class="input-material" placeholder="Mật khẩu">
@@ -71,7 +81,6 @@
                       <button id="regidter" type="submit" name="registerSubmit" class="btn btn-primary">Đăng ký</button>
                     </div>
                   </form><small>Bạn đã có tài khoản? </small><a href="/" class="signup">Đăng nhập</a>
-               
               </div>
             </div>
           </div>

@@ -70,6 +70,8 @@ module.exports = function(router, passport) {
     router.post('/admins/edit_info', admin_controller.edit_info_admin_post);
     router.get('/admins/detail/:id',isLoggedIn, admin_controller.admins_detail);
     router.get('/signout',isLoggedIn,admin_controller.signout);
+    router.get('/changepass',isLoggedIn,admin_controller.changepass);
+    router.post('/changepass',isLoggedIn,admin_controller.changepass_post);
     //admin routes
     router.get('/', admin_controller.login_load);
     router.post('/', passport.authenticate('local-signin', {
@@ -77,7 +79,7 @@ module.exports = function(router, passport) {
       failureRedirect : '/',
       failureFlash : true 
   }));
-    router.get('/signup', isLoggedIn, admin_controller.register_load);
+    router.get('/signup', admin_controller.register_load);
     router.post('/signup', passport.authenticate('local-signup', {
       successRedirect : '/home',
       failureRedirect : '/signup',

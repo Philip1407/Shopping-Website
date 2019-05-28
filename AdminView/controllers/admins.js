@@ -1,7 +1,6 @@
 var Admin= require('../models/admins');
-const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+var b = require('bcrypt');
 function formatDate(date){
     var dd = date.getDate();
     var mm=date.getMonth()+1;
@@ -75,4 +74,30 @@ exports.edit_info_admin_post = function(req, res) {
 exports.signout = function(req,res){
   req.logout();
   res.redirect('/');
+}
+
+exports.changepass = function(req,res){ 
+  res.render("admins/changepass",{title:"Đổi mật khẩu", admin:req.user});
+}
+
+exports.changepass_post = async function(req,res){
+  
+  Admin.findById(req.user._id, async function(err, result){
+    if(err){return console.log(err);}
+    var test = await b.compare(req.body.passpresent, req.user.pass);
+    if(!test)
+    {
+      return res.render("admins/changepass", {title:"Đổi mật khẩu", message:"Mật khẩu không đúng.", admin:req.user});
+    }
+    if(req.body.pass != req.body.repass){
+      return res.render("admins/changepass", {title:"Đổi mật khẩu", message:"Mật khẩu không khớp.", admin:req.user})
+    } 
+    else {
+      var password = await b.hash(req.body.pass, 10);
+      await Admin.findByIdAndUpdate(req.user._id, {$set: {pass: password}}).exec(function(err,result){
+        if(err){return console.log(err);}
+        res.redirect("/admins/edit_info");
+      }); 
+    }
+  })
 }
