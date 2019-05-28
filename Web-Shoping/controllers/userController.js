@@ -58,18 +58,27 @@ exports.user_update_post = async function(req, res) {
 exports.user_login_get = function(req, res) {
     res.render('users/login', { title: 'Đăng Nhập' ,layout: 'users/login'});
 };
-// exports.user_login_post = async function(req, res) {
-//     var user = await User.findOne({ 'email' :  req.body.email });
-//     if (!user)
-//         return console.log('No user found.');
-//     var result = await bcrypt.compare(req.body.pass, user.pass)
-//     if (!result)
-//         return console.log('Oops! Wrong password.');
-//     res.redirect('/');
-// };
+
 exports.user_forgetpass_get = function(req, res) {
     res.render('users/forgotpassword', { title: 'Quên mật khẩu' ,layout: 'users/forgotpassword'});
 };
 exports.user_forgetpass_post = function(req, res) {
     res.send('NOT IMPLEMENTED');
 };
+exports.user_change_pass = function(req, res) {
+    res.render('users/changepass',{title:'Thay Đổi Mật Khẩu'})
+};
+exports.user_change_pass_post = async function(req, res) {
+    if(!await bcrypt.compare(req.body.pass,req.user.pass)){
+        res.render('users/changepass',{title:'Thay Đổi Mật Khẩu',message:'Mật khẩu sai'});
+    }else{
+        if(req.body.newpass != req.body.repass){
+            res.render('users/changepass',{title:'Thay Đổi Mật Khẩu',message:' Mật khẩu nhập lại không khớp'});
+        }else{
+            var password = await bcrypt.hash(req.body.newpass, 10);
+            await User.findByIdAndUpdate(req.user._id,{$set: {pass: password}});
+            res.redirect("/");
+        }
+    }
+};
+

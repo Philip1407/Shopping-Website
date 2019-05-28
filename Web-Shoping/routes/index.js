@@ -35,7 +35,8 @@ module.exports = function(router, passport) {
         failureRedirect : '/signin',
         failureFlash : true 
     }));
-
+	router.get('/changepass',user_controller.user_change_pass);
+	router.post('/changepass',user_controller.user_change_pass_post);
 	router.get('/shoppingcart', cart_controller.cart_update_get);
 	router.post('/shoppingcart', cart_controller.cart_update_post);
 	router.get('/history',cart_controller.cart_list);
