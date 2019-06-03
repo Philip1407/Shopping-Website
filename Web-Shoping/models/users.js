@@ -10,6 +10,8 @@ var UserSchema = new Schema({
     email:{type:String,require: true},
     birthday:{type:Date,require:true},
     pass:{type:String,require:true},
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 
