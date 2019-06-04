@@ -15,8 +15,8 @@ function formatDate(date){
 	  mm = '0' + mm;
   }
   return dd+"/"+mm+"/"+yyyy;
-  
 }
+
 exports.orders_list = function(req, res){
   Order.find().exec(function(err, result) {
     

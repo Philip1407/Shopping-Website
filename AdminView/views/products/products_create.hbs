@@ -7,16 +7,16 @@
       <div class="row">
         <!-- Form Panel    -->
           <div class="col-lg-7 bg-white">
-            <div class="form d-flex align-items-center">
+            <div class="form d-flex align-items-center" id="myform">
               <div class="content">
                   <form class="form-validate" action="/products/create" method="POST">
                     <div class="form-group">
                       <strong>File hình ảnh</strong> 
-                      <input type="text" class="input-material" value="" name ="linkImg" id="linkImg">
+                      <input type="text" class="input-material" value="" name ="linkImg" id="linkImg" required>
                     </div>
                     <div class="form-group">
                       <strong>Tên Sản phẩm</strong> 
-                      <input type="text" class="input-material" value="" name ="name" id="name">
+                      <input type="text" class="input-material" value="" name ="name" id="name" required>
                     </div>
                     <div class="form-group">
                       <strong>Giá Sản phẩm</strong> 
@@ -40,7 +40,7 @@
                     </div>  
                     <div class="form-group">
                         <strong>Loại sản phẩm: &emsp;</strong> 
-                        <select name="category">
+                        <select name="category" id="category">
                           {{#each catergories }}
                             <option id = {{this._id}} value={{this._id}}>{{this.name}}</option>
                           {{/each}}
@@ -65,5 +65,53 @@
             </div>
           </div>
       </div>
-    </div>      
+    </div>    
+    <script>
+      jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+      });
+      $( "#myform" ).validate({
+        rules: {
+          linkImg:{
+            required:true,
+            url:true,
+          }
+          name:{required:true}
+          price:{
+            required:true,
+            number:true,
+            min:10000}
+          amount:{
+            required:true,
+            number:true}
+          size:{
+            require:true
+            }
+          color:{require:true}
+          category:{require:true}
+          },
+          messages:{
+            linkImg:{
+            required:true,
+            url:true,
+          }
+          name:{required:true}
+          price:{
+            required:"Hãy nhập giá tiền",
+            number:"Đây không phải là số",
+            min:"Giá tiền quá thấp"}
+          amount:{
+            required:"Hãy nhập số lượng",
+            number:"Đây không phải là số"}
+          size:{
+            require:"Hãy chọn kích cỡ"
+            }
+          color:{require:"Hãy chọn kích cỡ"}
+          category:{require:"Hãy chọn loại sản phẩm"}
+          }
+
+        }
+      });
+    </script>  
 </html>

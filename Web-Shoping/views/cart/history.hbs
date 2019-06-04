@@ -43,41 +43,29 @@
 							<div class="wrap-table-history-list">
 								<table class="bg6 table-history-list">
 									<tr class="table_head">
-										<th class="column-1">ID đơn hàng</th>
-										<th class="column-2">Ngày</th>
-										<th class="column-3">Sản phẩm</th>
+										<th class="column-1">Ngày</th>
+										<th class="column-2">Sản phẩm</th>
+										<th class="column-3">Số lượng</th>
 										<th class="column-4">Tổng tiền</th>
 										<th class="column-5">Trạng thái</th>
 									</tr>
-
+									{{#each history}}
 									<tr class="table_row">
-										<td class="column-1">DH001</td>
-										<td class="column-2">01/01/2019</td>
-										<td class="column-3">Áo khoác màu dâu tươi</td>
-										<td class="column-4 js-cost">830000</td>
-										<td class="column-5">Đã giao hàng </td>
-									</tr>
-
-									<tr class="table_row">
-										<td class="column-1">DH002</td>
-										<td class="column-2">02/02/2019</td>
-										<td class="column-3">Áo khoác mỏng</td>
-										<td class="column-4 js-cost">370000</td>
-										<td class="column-5">Chưa giao hàng </td>
-									</tr>
-
-									<tr class="table_row">
-										<td class="column-1">DH003</td>
-										<td class="column-2">03/03/2019</td>
-										<td class="column-3">
-											<p>Áo thun xanh</p>
-											<p>Quần jean</p>
-											<p>Dây nịch nam</p>
-											<p>Giày âu nam</p>
+										<td class="column-1">{{this.date}}</td>
+										<td class="column-2">
+										{{#each this.products}}
+												{{this.prodname}}<br>
+										{{/each}}
 											</td>
-										<td class="column-4 js-cost">3000000</td>
-										<td class="column-5">Đã giao hàng </td>
+										<td class="column-3">
+											{{#each this.products}}
+											{{this.amount}}<br>
+											{{/each}}
+											</td>
+										<td class="column-4 js-cost">{{this.total}}</td>
+										<td class="column-5">{{this.status}} </td>
 									</tr>
+									{{/each}}
 								</table>
 							</div>
 						</div>
