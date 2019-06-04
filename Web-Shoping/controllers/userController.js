@@ -166,8 +166,10 @@ exports.user_reset_post = async function(req, res) {
     return res.redirect(url);
   }
   else{
-    var password = await bcrypt.hash(req.body.newpass, 10);
-    await User.findByIdAndUpdate(user._id,{$set: {pass: password}});
+    user.pass = await bcrypt.hash(req.body.newpass, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
     return res.redirect('/login');
   }
 };
