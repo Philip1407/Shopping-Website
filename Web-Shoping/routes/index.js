@@ -24,7 +24,10 @@ module.exports = function(router, passport) {
 		successRedirect : '/',
         failureRedirect : '/login',
         failureFlash : true 
-    }));
+	}));
+	router.get('/reset/:token', user_controller.user_reset_get);
+	router.post('/reset/:token', user_controller.user_reset_post);
+
 	router.get('/forgotpassword', user_controller.user_forgetpass_get);
 	router.post('/forgotpassword', user_controller.user_forgetpass_post);
 	router.get('/edit', isLoggedIn,user_controller.user_update_get);
@@ -40,7 +43,7 @@ module.exports = function(router, passport) {
 	router.get('/shoppingcart', cart_controller.cart_update_get);
 	router.post('/shoppingcart', cart_controller.cart_update_post);
 	router.get('/history',cart_controller.cart_list);
-
+	
 
 	router.get('/faq', function(req, res, next){
 		res.render('faq', {title: 'Câu hỏi thường gặp'});
