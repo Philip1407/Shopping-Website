@@ -31,10 +31,17 @@ module.exports = function(passport) {
                         message: 'Email không tồn tại.'
                       });
                 if (!await bcrypt.compare(req.body.pass, user.pass))
-                return done(null, false, req.session.sessionFlash = {
-                    type: 'loginMessage',
-                    message: 'Mật khẩu không đúng.'
-                  });
+                    return done(null, false, req.session.sessionFlash = {
+                        type: 'loginMessage',
+                        message: 'Mật khẩu không đúng.'
+                    });
+                if (user.isActive === false)
+                    return done(null, false,req.session.sessionFlash = {
+                        type: 'loginMessage',
+                        message: 'Tài khoản chưa được xác thực.',
+                        message2: 'Kích hoạt?',
+                        message3: user._id
+                    });   
                 return done(null, user);
                 });
             });
@@ -70,7 +77,8 @@ module.exports = function(passport) {
                             email: req.body.email,
                             address: req.body.address,
                             pass : await bcrypt.hash(req.body.pass, 10),
-                            });
+                            isActive: false
+                        });
                         newUser.save(function(err) {
                             if (err)
                                 throw err;

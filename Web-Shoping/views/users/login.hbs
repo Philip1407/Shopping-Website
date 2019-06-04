@@ -42,7 +42,7 @@
 						Đăng nhập
 					</span>
 					{{#if sessionFlash.message}}
-                		<div class="alert alert-danger">{{sessionFlash.message}}</div>
+                		<div class="alert alert-danger">{{sessionFlash.message}} <a href="/active/user/{{sessionFlash.message3}}">{{sessionFlash.message2}}</a></div>
                 	{{/if}}
 					<div class="wrap-input100 validate-input" data-validate = "Enter email">
 						<input class="input100" required type="text" name="email" placeholder="Email">

@@ -34,10 +34,13 @@ module.exports = function(router, passport) {
 	router.post('/edit',user_controller.user_update_post);
 	router.get('/signin', user_controller.user_create_get);
 	router.post('/signin', passport.authenticate('local-signup', {
-        successRedirect : '/',
+        successRedirect : '/active',
         failureRedirect : '/signin',
         failureFlash : true 
-    }));
+	}));
+	router.get('/active',user_controller.user_active_account);
+	router.get('/active/user/:id',user_controller.user_active_account);
+	router.get('/active/:token',user_controller.user_active_account_done);
 	router.get('/changepass',user_controller.user_change_pass);
 	router.post('/changepass',user_controller.user_change_pass_post);
 	router.get('/shoppingcart', cart_controller.cart_update_get);

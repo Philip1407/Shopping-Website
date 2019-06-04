@@ -10,6 +10,7 @@ var UserSchema = new Schema({
     email:{type:String,require: true},
     birthday:{type:Date,require:true},
     pass:{type:String,require:true},
+    isActive: Boolean,
     resetPasswordToken: String,
     resetPasswordExpires: Date
 });
