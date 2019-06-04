@@ -66,7 +66,23 @@ exports.cart_update_post = function(req, res) {
     })
 };
 
-
+exports.list_cart = function(req,res) {
+    var total = 0;
+    var products=[];
+    setTimeout(function(){
+        console.log(products);
+        res.render("cart/shoppingcart", {title: 'Giỏ hàng', total: total, products: products, user:req.user});
+    },10000);
+        req.user.cart.forEach( element => {
+        Product.findOne({_id:element.product},{ _id:0, name:1, price:1, img:1 }).exec().then((result) => {
+           total+= element.amount*result['price'];
+           products.push({productName: result['name'], productPrice: result['price'], amount: element.amount, img: result['img'], total: element.amount*result['price']});
+          }).catch((err) => {
+            console.log(err);
+        });
+    });
+    
+}
 // // Display detail page for a specific cart.
 // exports.cart_detail = function(req, res) {
 //     res.send('NOT IMPLEMENTED: cart detail: ' + req.params.id);

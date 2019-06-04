@@ -12,7 +12,8 @@ var UserSchema = new Schema({
     pass:{type:String,require:true},
     isActive: Boolean,
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date, 
+    cart: {type:Array}
 });
 
 

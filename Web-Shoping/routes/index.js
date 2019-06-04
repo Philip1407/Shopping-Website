@@ -15,6 +15,7 @@ module.exports = function(router, passport) {
 	router.get('/product', product_controller.product_list);
 	router.post('/product', product_controller.product_search);
 	router.get('/product/detail/:id', product_controller.product_detail);
+	router.post('/product/detail/:id', product_controller.product_add_to_cart);
 	router.get('/product/filter/:type',product_controller.product_sort);
 
 	router.get('/myaccount', isLoggedIn,user_controller.user_detail);
@@ -43,7 +44,7 @@ module.exports = function(router, passport) {
 	router.get('/active/:token',user_controller.user_active_account_done);
 	router.get('/changepass',user_controller.user_change_pass);
 	router.post('/changepass',user_controller.user_change_pass_post);
-	router.get('/shoppingcart', cart_controller.cart_update_get);
+	router.get('/shoppingcart', cart_controller.list_cart);
 	router.post('/shoppingcart', cart_controller.cart_update_post);
 	router.get('/history',cart_controller.cart_list);
 	
