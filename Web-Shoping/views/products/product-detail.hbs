@@ -65,7 +65,7 @@
 									<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 										Thêm vào giỏ hàng
 									</button>
-								<form>
+								</form>
 							</div>	
 						</div>
 					</div>
@@ -86,7 +86,7 @@
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews({{num}})</a>
 						</li>
 					</ul>
 
@@ -155,78 +155,45 @@
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 									<div class="p-b-30 m-lr-15-sm">
 										<!-- Review -->
-										<div class="flex-w flex-t p-b-68">
-											<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-												<img src="/images/avatar-01.jpg" alt="AVATAR">
+										<!-- Add review -->
+										<form class="w-full" action="/product/review/{{item._id}}" method="POST">
+											<h5 class="mtext-108 cl2 p-b-7">
+												Thêm bình luận
+											</h5>
+
+											<div class="row p-b-25">
+												<div class="col-sm-12 p-b-10">
+													<label class="stext-102 cl3" for="name">Name</label>
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" required id="name" type="text" name="name" value="{{user.username}}">
+												</div>
+												<div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review">Your review</label>
+													<textarea required class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+												</div>	
 											</div>
 
+											<button type="submit" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+												Submit
+											</button>
+										</form>
+										<h5 class="mtext-108 cl2 p-b-7">
+												Bình luận
+											</h5><br><br>
+										{{#each reviews}}
+										<div class="flex-w flex-t p-b-68">
 											<div class="size-207">
 												<div class="flex-w flex-sb-m p-b-17">
 													<span class="mtext-107 cl2 p-r-20">
-														Ariana Grande
-													</span>
-
-													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star-half"></i>
+														{{this.name}}
 													</span>
 												</div>
 
 												<p class="stext-102 cl6">
-													Sản phẩm đẹp, chất lượng
+													{{this.content}}
 												</p>
 											</div>
 										</div>
-										
-										{{!-- <!-- Add review -->
-										<form class="w-full">
-											<h5 class="mtext-108 cl2 p-b-7">
-												Add a review
-											</h5>
-
-											<p class="stext-102 cl6">
-												Email của bạn sẽ không bị công khai
-											</p>
-
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Đánh giá:
-												</span>
-
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="rating">
-												</span>
-											</div>
-
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">Review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">Tên</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
-												</div>
-											</div>
-
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-												Xác nhận
-											</button>
-										</form> --}}
+										{{/each}}
 									</div>
 								</div>
 							</div>
@@ -267,7 +234,7 @@
 							</a>
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href= /product/{{this._id}} class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									<a href= /product/detail/{{this._id}} class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										{{this.name}}
 									</a>
 									<span class="stext-105 cl3 js-cost">

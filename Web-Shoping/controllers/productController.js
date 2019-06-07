@@ -1,10 +1,9 @@
 var Product = require('../models/products');
 var Category = require('../models/catergories');
 var User = require('../models/users');
+var Review = require('../models/reviews');
 
 
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 
 var async = require('async');
 exports.index = function(req, res) {
@@ -74,9 +73,12 @@ exports.product_detail = function(req, res) {
             productRelate: function(callback){
                 Product.find({'catergory': product.catergory}).exec(callback);
             },
+            review:function(callback){
+                Review.find({'product':product._id}).exec(callback);
+            }
         },function(err, results) {
             if (err) { return next(err); }
-            res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate, user:req.user } );
+            res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate, user:req.user, reviews: results.review, num: results.review.length} );
         });
     });
 };
@@ -172,10 +174,20 @@ exports.product_add_to_cart = function(req, res) {
         total+= element.amount*result['price'];
         element.product = result['name'];
         element['price']=result['price'];
-       // console.log(element['total']);
       }).catch((err) => {
         console.log(err);
       });
     });
     res.redirect('/product/detail/'+req.params.id);
 }
+
+exports.product_review = async function(req, res) {
+    var review = new Review({
+        name: req.body.name,
+        content: req.body.review,
+        product: req.params.id,
+        star: req.body.rating,
+    });
+    await review.save();
+    res.redirect('/product/detail/'+req.params.id);
+};

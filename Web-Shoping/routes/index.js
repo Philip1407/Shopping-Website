@@ -16,6 +16,7 @@ module.exports = function(router, passport) {
 	router.post('/product', product_controller.product_search);
 	router.get('/product/detail/:id', product_controller.product_detail);
 	router.post('/product/detail/:id', product_controller.product_add_to_cart);
+	router.post('/product/review/:id', product_controller.product_review);
 	router.get('/product/filter/:type',product_controller.product_sort);
 
 	router.get('/myaccount', isLoggedIn,user_controller.user_detail);
