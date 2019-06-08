@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var SchemaTypes = mongoose.Schema.Types;
+
 var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({

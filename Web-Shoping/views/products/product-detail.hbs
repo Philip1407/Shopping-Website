@@ -1,4 +1,10 @@
-
+<style>
+	.mx-auto{
+		margin-left: auto;
+		margin-right: auto
+	}
+</style>
+</style>
 <body class="animsition">
 	
 	
@@ -172,7 +178,7 @@
 												</div>	
 											</div>
 
-											<button type="submit" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											<button type="submit" class="float-right flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
 												Submit
 											</button>
 										</form>
@@ -194,6 +200,13 @@
 											</div>
 										</div>
 										{{/each}}
+										<nav aria-label="..." class="mx-auto">
+											<ul class="pagination">
+												{{#each page}}
+												<li class="page-item"><a class="page-link" href="/product/detail/{{../item._id}}/{{this}}">1</a></li>
+												{{/each}}
+											</ul>
+										</nav>
 									</div>
 								</div>
 							</div>

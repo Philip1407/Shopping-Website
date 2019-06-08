@@ -4,7 +4,6 @@ var User = require('../models/users');
 var Review = require('../models/reviews');
 
 
-
 var async = require('async');
 exports.index = function(req, res) {
     async.parallel({
@@ -64,6 +63,7 @@ exports.product_list = function(req, res) {
 
 // Display detail page for a specific product.
 exports.product_detail = function(req, res) {
+    page = req.params.page?req.params.page:1;
     Product.findById(req.params.id).exec(function(err, product) {
         if (err) { return next(err); }
         async.parallel({
@@ -73,12 +73,23 @@ exports.product_detail = function(req, res) {
             productRelate: function(callback){
                 Product.find({'catergory': product.catergory}).exec(callback);
             },
+            reviewPage:function(callback){
+                Review.countDocuments({product: product._id}).exec(callback);
+            },
             review:function(callback){
-                Review.find({'product':product._id}).exec(callback);
+                Review.find({product: product._id})
+                    .skip((10 * page) - 10)
+                    .limit(10)
+                    .exec(callback);
             }
         },function(err, results) {
             if (err) { return next(err); }
-            res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate, user:req.user, reviews: results.review, num: results.review.length} );
+            var pageNum = Math.ceil(results.reviewPage/10);
+            var page = [];
+            for(var i = 1;i<=pageNum;i++){
+                page.push(i);
+            }
+            res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate, user:req.user, reviews: results.review, num: results.review.length,page:page} );
         });
     });
 };
@@ -191,3 +202,4 @@ exports.product_review = async function(req, res) {
     await review.save();
     res.redirect('/product/detail/'+req.params.id);
 };
+
