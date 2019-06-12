@@ -5,15 +5,14 @@ var async = require('async');
 
 
 exports.categories_list = async function(req, res){
-  var result=null;
-  setTimeout(function(){
-    res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: result, admin:req.user});
-  },10000);
-
   var result = await Category.find();
-  result.forEach( async element => {
-          element['amount'] = await Product.countDocuments({'catergory': element._id})
-  });
+  const result1 = await Promise.all(result.map(async ele=>{return await Product.countDocuments({'catergory': ele._id});}));
+  
+  for(var i = 0;i<result.length;i++){
+    result[i].amount = result1[i];
+  }
+
+  res.render('categories/categories', { title: 'Quản lý gian hàng',list_categories: result, admin:req.user});
 };
 
 // Display categories create form on GET.

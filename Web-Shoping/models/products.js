@@ -13,6 +13,7 @@ var ProductSchema = new Schema({
     description:{type: String, required: false},
     img:{type:String,require: true},
     dateImp: {type: Date, default: Date.now()},
+    watch:{type: Number,default: 0 },
 });
 
 // Virtual for this Product instance URL.

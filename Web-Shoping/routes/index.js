@@ -10,10 +10,11 @@ var user_controller = require('../controllers/userController');
 module.exports = function(router, passport) {
 
 	router.get('/', product_controller.index);
-	router.post('/', product_controller.home_search);
+	router.post('/search', product_controller.home_search);
 	router.get('/filter/:type',product_controller.product_sort_home);
 	router.get('/product', product_controller.product_list);
-	router.post('/product', product_controller.product_search);
+	router.post('/product/search', product_controller.product_search);
+	router.get('/product/:page',product_controller.product_list);
 	router.get('/product/detail/:id', product_controller.product_detail);
 	router.post('/product/detail/:id', product_controller.product_add_to_cart);
 	router.get('/product/detail/:id/:page',product_controller.product_detail);

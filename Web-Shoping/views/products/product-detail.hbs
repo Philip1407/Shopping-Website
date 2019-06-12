@@ -203,7 +203,7 @@
 										<nav aria-label="..." class="mx-auto">
 											<ul class="pagination">
 												{{#each page}}
-												<li class="page-item"><a class="page-link" href="/product/detail/{{../item._id}}/{{this}}">1</a></li>
+												<li class="page-item"><a class="page-link" href="/product/detail/{{../item._id}}/{{this}}">{{this}}</a></li>
 												{{/each}}
 											</ul>
 										</nav>
@@ -218,7 +218,7 @@
 
 		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
 			<span class="stext-107 cl6 p-lr-25">
-				Categories: {{category.name}}
+				Lượt xem: {{watch}}
 			</span>
 		</div>
 	</section>
@@ -240,7 +240,7 @@
 					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
 						<!-- Block2 -->
 						<div class="block2">
-							<a href= /product/{{this._id}} class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+							<a href= /product/detail/{{this._id}} class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 							<div class="block2-pic hov-img0">
 								<img src=/images/{{this.img}} alt="IMG-PRODUCT">
 							</div>

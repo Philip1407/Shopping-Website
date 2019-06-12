@@ -26,7 +26,7 @@ module.exports = function(router, passport) {
     router.get('/accounts/detail/:id',isLoggedIn, accounts_controller.accounts_detail);
 
     //categories routes
-    router.get('/categories',isLoggedIn, categories_controller.categories_list);
+    router.get('/categories', categories_controller.categories_list);
     router.get('/categories/create',isLoggedIn, categories_controller.categories_create);
     router.post('/categories/create',isLoggedIn,categories_controller.categories_create_post);
     router.get('/categories/delete/:id', isLoggedIn,categories_controller.categories_delete);
