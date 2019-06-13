@@ -28,35 +28,51 @@ exports.index = function(req, res) {
         for(var i = 1;i<=pageNum;i++){
             page.push(i);
         }
-        res.render('products/home', { title: 'Trang chủ',page:page,products:results.products,categories:results.categories, user:req.user});
+        var linkPage = '/page';  
+        res.render('products/home', { title: 'Sản phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
     });
 };
 
-exports.home_search = function(req, res) {
+exports.home_search_post= function(req, res) {
     if(req.body.search=="") {
         res.redirect('/');
     }
-    else {
-        async.parallel({
-            products: function(callback){
-                Product.find({"name": {$regex: new RegExp(".*"+req.body.search+".*", "i")}}).exec(callback);
+    res.redirect('/search/'+req.body.search+'/1');
+};
+exports.home_search_get= function(req, res) {
+    var itemPerPage = 12;
+    page = req.params.page?req.params.page:1;
+    async.parallel({
+        products: function(callback){
+            Product.find({"name": {$regex: new RegExp(".*"+req.params.search+".*", "i")}})
+            .skip((itemPerPage * page) - itemPerPage)
+            .limit(itemPerPage)
+            .exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
             },
-            categories: function(callback){
-                Category.find().exec(callback);
-            }
-        },function(err, results) {
-            if (err) { return next(err); }
-            var notfound = null;
-            var found=null;
-            if(results.products == 0){
-                notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
-            }
-            else {
-                 found= 'Các sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
-            }
-            res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search,user:req.user});
-        });
-    }
+        pageCount: function(callback){
+            Product.countDocuments({"name": {$regex: new RegExp(".*"+req.params.search+".*", "i")}}).exec(callback)
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        var pageNum = Math.ceil(results. pageCount/itemPerPage);
+        var page = [];
+        for(var i = 1;i<=pageNum;i++){
+            page.push(i);
+        }
+        var notfound = null;
+        var found= null;
+        if(results.products == 0){
+            notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.params.search + '\".';
+        }
+        else {
+            found= 'Các sản phẩm phù hợp với từ khóa \"' + req.params.search + '\".';
+        }
+        var linkPage = '/search/'+req.params.search;
+        res.render('products/home', { title: 'Sản Phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
+    });
 };
 
 // Display list of all products.
@@ -83,7 +99,8 @@ exports.product_list = function(req, res) {
         for(var i = 1;i<=pageNum;i++){
             page.push(i);
         }
-        res.render('products/product', { title: 'Sản phẩm',page:page,products:results.products,categories:results.categories, user:req.user});
+        var linkPage = '/product';
+        res.render('products/product', { title: 'Sản phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
     });
 };
 
@@ -125,33 +142,49 @@ exports.product_detail = async function(req, res) {
     });
 };
 // Display list of all products.
-exports.product_search = function(req, res) {
+exports.product_search_post = function(req, res) {
     if(req.body.search=="") {
         res.redirect('/product');
     }
-    else {
-        async.parallel({
-            products: function(callback){
-                Product.find({"name": {$regex: new RegExp(".*"+req.body.search+".*", "i")}}).exec(callback);
-            },
-            categories: function(callback){
-                Category.find().exec(callback);
-            }
-        },function(err, results) {
-            if (err) { return next(err); }
-            var notfound = null;
-            var found= null;
-            if(results.products == 0){
-                notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
-            }
-            else {
-                found= 'Các sản phẩm phù hợp với từ khóa \"' + req.body.search + '\".';
-           }
-            res.render('products/product', { title: 'Sản Phẩm',products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user});
-        });
-    }
+    
+    res.redirect('/product/search/'+req.body.search+'/1');
 };
 
+exports.product_search_get = function(req, res) {
+    var itemPerPage = 12;
+    page = req.params.page?req.params.page:1;
+    async.parallel({
+        products: function(callback){
+            Product.find({"name": {$regex: new RegExp(".*"+req.params.search+".*", "i")}})
+            .skip((itemPerPage * page) - itemPerPage)
+            .limit(itemPerPage)
+            .exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+            },
+        pageCount: function(callback){
+            Product.countDocuments({"name": {$regex: new RegExp(".*"+req.params.search+".*", "i")}}).exec(callback)
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        var pageNum = Math.ceil(results. pageCount/itemPerPage);
+        var page = [];
+        for(var i = 1;i<=pageNum;i++){
+            page.push(i);
+        }
+        var notfound = null;
+        var found= null;
+        if(results.products == 0){
+            notfound = 'Không tìm thấy sản phẩm phù hợp với từ khóa \"' + req.params.search + '\".';
+        }
+        else {
+            found= 'Các sản phẩm phù hợp với từ khóa \"' + req.params.search + '\".';
+        }
+        var linkPage = '/product/search/'+req.params.search;
+        res.render('products/product', { title: 'Sản Phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user, });
+    });
+};
 exports.product_sort_home = function(req, res) {
     var s  = req.params.type=="asc"?1:-1
     async.parallel({

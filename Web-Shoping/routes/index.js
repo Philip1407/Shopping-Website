@@ -11,10 +11,12 @@ module.exports = function(router, passport) {
 
 	router.get('/', product_controller.index);
 	router.get('/page/:page', product_controller.index);
-	router.post('/search', product_controller.home_search);
+	router.post('/search', product_controller.home_search_post);
+	router.get('/search/:search/:page', product_controller.home_search_get);
 	router.get('/filter/:type',product_controller.product_sort_home);
 	router.get('/product', product_controller.product_list);
-	router.post('/product/search', product_controller.product_search);
+	router.post('/product/search', product_controller.product_search_post);
+	router.get('/product/search/:search/:page', product_controller.product_search_get);
 	router.get('/product/:page',product_controller.product_list);
 	router.get('/product/detail/:id', product_controller.product_detail);
 	router.post('/product/detail/:id', product_controller.product_add_to_cart);
