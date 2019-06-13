@@ -8,5 +8,5 @@ module.exports = {
           return options.fn(this);
         }
         return options.inverse(this);
-    }
+    },
   }

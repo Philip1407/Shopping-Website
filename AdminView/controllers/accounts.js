@@ -34,6 +34,27 @@ exports.accounts_list = function(req, res) {
     });
   };
 
+  exports.accounts_lock_get = async function(req,res){
+    var user = await User.findById(req.params.id);
+    res.render('accounts/accounts_lock', { title: 'Mở khóa tài khoản người dùng', user:user, admin:req.user});
+  }
+  exports.accounts_unlock_get = async function(req,res){
+    var user = await User.findById(req.params.id);
+    res.render('accounts/accounts_unlock', { title: 'Khóa tài khoản người dùng', user:user, admin:req.user});
+  }
+
+  exports.accounts_lock = async function(req,res){
+    var user = await User.findById(req.params.id);
+    user.lock = true;
+    await user.save();
+    res.redirect('/accounts');
+  }
+  exports.accounts_unlock = async function(req,res){
+    var user = await User.findById(req.params.id);
+    user.lock = false;
+    await user.save();
+    res.redirect('/accounts');
+  }
   exports.accounts_delete_post = function(req, res) {
     User.deleteOne({'_id':req.params.id})
           .exec(function(err,result){

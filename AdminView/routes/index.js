@@ -25,7 +25,10 @@ module.exports = function(router, passport) {
     router.get('/accounts/delete/:id',isLoggedIn, accounts_controller.accounts_delete);
     router.post('/accounts/delete/:id',isLoggedIn, accounts_controller.accounts_delete_post);
     router.get('/accounts/detail/:id',isLoggedIn, accounts_controller.accounts_detail);
-
+    router.get('/accounts/lock/:id',accounts_controller.accounts_lock_get);
+    router.get('/accounts/unlock/:id',accounts_controller.accounts_unlock_get);
+    router.post('/accounts/lock/:id',accounts_controller.accounts_lock);
+    router.post('/accounts/unlock/:id',accounts_controller.accounts_unlock);
     //categories routes
     router.get('/categories', categories_controller.categories_list);
     router.get('/categories/create',isLoggedIn, categories_controller.categories_create);

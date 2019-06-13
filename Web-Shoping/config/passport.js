@@ -35,6 +35,11 @@ module.exports = function(passport) {
                         type: 'loginMessage',
                         message: 'Mật khẩu không đúng.'
                     });
+                if (user.lock === true)
+                    return done(null, false,req.session.sessionFlash = {
+                        type: 'loginMessage',
+                        message: 'Tài khoản bị khóa.'
+                    });   
                 if (user.isActive === false)
                     return done(null, false,req.session.sessionFlash = {
                         type: 'loginMessage',

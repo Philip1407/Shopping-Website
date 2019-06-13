@@ -9,6 +9,7 @@ var UserSchema = new Schema({
     address:{type: String, require: true},
     email:{type:String,require: true},
     birthday:{type:Date,require:true},
+    lock:{type:Boolean,default:false},
 });
 
 // Virtual for this Product instance URL.

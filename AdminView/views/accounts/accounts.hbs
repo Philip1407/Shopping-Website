@@ -40,6 +40,15 @@
                                     <form>
                                       <button class="btn" formaction="/accounts/detail/{{this._id}}"><i class="fa fa-info-circle"></i></button>
                                     </form>
+                                    {{#ifCond this.lock 'true'}}
+                                    <form>
+                                      <button class="btn" formaction="/accounts/unlock/{{this._id}}"><i class="fa fa-unlock-alt"></i></button>
+                                    </form>
+                                    {{else}}
+                                    <form>
+                                      <button class="btn" formaction="/accounts/lock/{{this._id}}"><i class="fa fa-lock"></i></button>
+                                    </form>
+                                    {{/ifCond}}
                                   </div>
                                 </td>
                               </tr>

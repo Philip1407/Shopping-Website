@@ -13,6 +13,7 @@ var UserSchema = new Schema({
     isActive: Boolean,
     resetPasswordToken: String,
     resetPasswordExpires: Date, 
+    lock:{type:Boolean,default:false},
     cart: {type:Array}
 });
 
