@@ -28,7 +28,7 @@ exports.index = function(req, res) {
         for(var i = 1;i<=pageNum;i++){
             page.push(i);
         }
-        res.render('products/home', { title: 'Sản phẩm',page:page,products:results.products,categories:results.categories, user:req.user});
+        res.render('products/home', { title: 'Trang chủ',page:page,products:results.products,categories:results.categories, user:req.user});
     });
 };
 
@@ -152,8 +152,6 @@ exports.product_search = function(req, res) {
     }
 };
 
-
-
 exports.product_sort_home = function(req, res) {
     var s  = req.params.type=="asc"?1:-1
     async.parallel({
@@ -185,41 +183,50 @@ exports.product_sort = function(req, res) {
 };
 
 exports.product_add_to_cart = function(req, res) {
-    console.log(req.user.cart);
-    if (req.user.cart==null) {
-        User.findByIdAndUpdate(req.user._id,{cart:[]});
-    }
-    User.findByIdAndUpdate(req.user._id, 
-        {$push: {cart: [{product: req.params.id, amount: req.body.num}]}},
-        {safe: true, upsert: true},
-        function(err, doc) {
-            if(err){
-            console.log(err);
-            }else{
-            //do stuff
-            }
+    if (req.user === undefined) {
+        if(req.session.cart === undefined) {
+            req.session.cart = [];
         }
-    );
-    setTimeout(function(){
-      res.render('orders/orders_detail', { title: 'Chi tiết đơn hàng', data:order, total:total, admin:req.user}); 
-    },10000);
-    order['date'] = formatDate(order.day);
-    User.findOne({_id: order.custom},{_id:0, username:1}).exec().then((name)=>{
-      order['customName']=name['username'];
-    }).catch((err) => {
-      console.log(err);
-    });
-
-    order.products.forEach( element => {
-      return Product.findOne({_id:element.product},{ _id:0, name:1, price:1, }).exec().then((result) => {
-        
-        total+= element.amount*result['price'];
-        element.product = result['name'];
-        element['price']=result['price'];
-      }).catch((err) => {
-        console.log(err);
-      });
-    });
+        var i = req.session.cart.findIndex( item => item.product == req.params.id);
+        if (i>-1) {
+            req.session.cart[i].amount = parseInt(req.session.cart[i].amount)+ parseInt(req.body.num);
+        }
+        else {
+            req.session.cart.push({product: req.params.id, amount: req.body.num });
+        }
+        console.log(req.session.cart);
+    }
+    else {
+        if (req.user.cart==null) {
+            User.findByIdAndUpdate(req.user._id,{cart:[]});
+        }
+        var i = req.user.cart.findIndex( item => item.product == req.params.id);
+        var num = parseInt(req.body.num);
+        console.log("i: " + i);
+        if(i>-1) {
+            num += parseInt(req.user.cart[i].amount);
+            User.findByIdAndUpdate(req.user._id, 
+                {$pull: {cart: {product: req.params.id}}}, 
+                {multi: true}, 
+                function(err, doc) {
+                    if(err){
+                    console.log(err);
+                    }else{
+                        console.log(doc);
+                    }
+                }
+            );
+        }
+        User.findByIdAndUpdate(req.user._id, 
+            {$push: {cart: [{product: req.params.id, amount: num}]}},
+            {safe: true, upsert: true},
+            function(err, doc) {
+                if(err){
+                console.log(err);
+                }
+            }
+        );
+    }
     res.redirect('/product/detail/'+req.params.id);
 }
 

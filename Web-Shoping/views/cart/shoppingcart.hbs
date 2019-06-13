@@ -14,8 +14,12 @@
 		
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85">
+	<form class="bg0 p-t-75 p-b-85" action="/shoppingcart" method="POST">
 		<div class="container">
+			{{#if mess}}
+				<h6 class='p-b-10'>{{mess}}</h6>
+			{{/if}}
+
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -43,7 +47,7 @@
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
 
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="{{this.amount}}">
+											<input class="mtext-104 cl3 txt-center num-product" name="{{this.productID}}" type="number" value="{{this.amount}}">
 
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
@@ -57,18 +61,9 @@
 						</div>
 
 						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-							<div class="flex-w flex-m m-r-20 m-tb-5">
-								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
-									
-								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-									Áp dụng
-								</div>
-							</div>
-						
-							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+							<button type="submit" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
 								Cập nhật
-							</div>
-							
+							</button>
 						</div>
 					</div>
 				</div>
@@ -116,7 +111,7 @@
 
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 										<select class="js-select2" name="district" placeholder="Quận">
-											<option>Quận 1</option>
+											<option name="q1">Quận 1</option>
 											<option>Quận 2</option>
 											<option>Quận 3</option>
 											<option>Quận 4</option>
