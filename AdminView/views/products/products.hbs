@@ -55,5 +55,12 @@
                             
                           {{/each}}
           </table>
+          <nav aria-label="..." class="mx-auto">
+                            <ul class="pagination">
+                              {{#each page}}
+                                <li class="page-item"><a class="page-link" href="{{../linkPage}}/{{this}}">{{this}}</a></li>
+                              {{/each}}
+                            </ul>
+                          </nav>
   </div>
 </html>

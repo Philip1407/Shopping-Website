@@ -8,6 +8,30 @@ var async = require('async');
       res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm',admin:req.user, list_products: result});
     });
   };
+  exports.products_list = function(req, res) {
+    var itemPerPage = 5;
+    page = req.params.page?req.params.page:1;
+    async.parallel({
+        products: function(callback){
+          Product.find()
+            .skip((itemPerPage * page) - itemPerPage)
+            .limit(itemPerPage)
+            .exec(callback);
+        },
+        pageCount: function(callback){
+          Product.countDocuments().exec(callback)
+        }
+    },function(err, results) {
+        if (err) { return next(err); }
+        var pageNum = Math.ceil(results. pageCount/itemPerPage);
+        var page = [];
+        for(var i = 1;i<=pageNum;i++){
+            page.push(i);
+        }
+        var linkPage = '/products';  
+        res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm', linkPage:linkPage,page:page,admin:req.user, list_products: results.products});
+    });
+  };
 
   exports.products_list_cat = function(req, res, next){
     var category="";

@@ -20,7 +20,8 @@ module.exports = function(router, passport) {
     router.get('/home', isLoggedIn, home_controller.index);
 
     //accounts routes
-    router.get('/accounts', isLoggedIn,accounts_controller.accounts_list);
+    router.get('/accounts',accounts_controller.accounts_list);
+    router.get('/accounts/:page',accounts_controller.accounts_list);
     router.get('/accounts/delete/:id',isLoggedIn, accounts_controller.accounts_delete);
     router.post('/accounts/delete/:id',isLoggedIn, accounts_controller.accounts_delete_post);
     router.get('/accounts/detail/:id',isLoggedIn, accounts_controller.accounts_detail);
@@ -34,7 +35,8 @@ module.exports = function(router, passport) {
     router.get('/categories/update/:id', isLoggedIn,categories_controller.categories_update);
     router.post('/categories/update/:id', isLoggedIn,categories_controller.categories_update_post);
     //product routes
-    router.get('/products', isLoggedIn,products_controller.products_list);
+    router.get('/products',products_controller.products_list);
+    router.get('/products/:page',products_controller.products_list);
     router.get('/products/category/:id', isLoggedIn,products_controller.products_list_cat);
     router.get('/products/create', isLoggedIn,products_controller.products_create);
     router.post('/products/create', isLoggedIn,products_controller.products_create_post);

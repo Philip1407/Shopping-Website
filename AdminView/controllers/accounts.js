@@ -1,12 +1,30 @@
 var User = require('../models/users');
+var async = require('async');
 
 
-exports.accounts_list = function(req, res, next) {
-  User.find({},function(err,result){
-    if(err){return console.log(err);} 
-    res.render('accounts/accounts', { title: 'Quản lý tài khoản người dùng',list_users: result, admin:req.user});
+exports.accounts_list = function(req, res) {
+  var itemPerPage = 5;
+  page = req.params.page?req.params.page:1;
+  async.parallel({
+      users: function(callback){
+        User.find()
+          .skip((itemPerPage * page) - itemPerPage)
+          .limit(itemPerPage)
+          .exec(callback);
+      },
+      pageCount: function(callback){
+        User.countDocuments().exec(callback)
+      }
+  },function(err, results) {
+      if (err) { return next(err); }
+      var pageNum = Math.ceil(results. pageCount/itemPerPage);
+      var page = [];
+      for(var i = 1;i<=pageNum;i++){
+          page.push(i);
+      }
+      var linkPage = '/accounts';  
+      res.render('accounts/accounts', { title: 'Quản lý tài khoản người dùng',linkPage:linkPage,page:page,list_users: results.users, admin:req.user});
   });
-    
 };
 
   exports.accounts_delete = function(req, res) {
