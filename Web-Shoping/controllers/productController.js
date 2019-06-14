@@ -6,6 +6,9 @@ var Review = require('../models/reviews');
 
 var async = require('async');
 exports.index = function(req, res) {
+    if(req.session.user===undefined || req.session.cart === undefined || req.session.user.cart.length === 0){
+        req.session.amountproduct = 0;
+    }
     var itemPerPage = 12;
     page = req.params.page?req.params.page:1;
     async.parallel({
@@ -29,7 +32,7 @@ exports.index = function(req, res) {
             page.push(i);
         }
         var linkPage = '/page';  
-        res.render('products/home', { title: 'Sản phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
+        res.render('products/home', { title: 'Trang chủ',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
     });
 };
 

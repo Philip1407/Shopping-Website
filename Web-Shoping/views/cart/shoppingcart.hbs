@@ -1,35 +1,22 @@
-<!-- breadcrumb -->
-	<div class="container">
-		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-			<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
-			
-				
-			</a>
-
-			<span class="stext-109 cl4">
-				
-			</span>
-		</div>
-	</div>
-		
-
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85" action="/shoppingcart" method="POST">
+	<div class="bg0 p-t-75 p-b-85">
 		<div class="container">
+			<div class="m-t-20 m-b-20">
+				<h4>GIỎ HÀNG</h4>
+			</div>
 			{{#if mess}}
-				<h6 class='p-b-10'>{{mess}}</h6>
+				<h6 class='p-t-10 p-b-5'>{{mess}}</h6>
 			{{/if}}
-
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
+					<div class="m-r--38 m-lr-0-xl">
+						
 							<table class="table-shopping-cart">
 								<tr class="table_head">
 									<th class="column-1">Sản phẩm</th>
 									<th class="column-2"></th>
 									<th class="column-3">Giá tiền</th>
-									<th class="column-4 text-left">Số lượng</th>
+									<th class="column-4">Số lượng</th>
 									<th class="column-5">Tổng cộng</th>
 								</tr>
 								{{#each products}}
@@ -58,18 +45,17 @@
 								</tr>
 							{{/each}}
 							</table>
-						</div>
-
-						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+						
+						<form action="/shoppingcart" method="POST" class="table-shopping-cart flex-w flex-c bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 							<button type="submit" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
 								Cập nhật
 							</button>
-						</div>
+						</form>
 					</div>
 				</div>
 
-				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 m-t-20">
+					<form action="/history" method="POST" class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
 						<h4 class="mtext-109 cl2 p-b-30">
 							Tổng giỏ hàng
 						</h4>
@@ -89,52 +75,58 @@
 						</div>
 
 						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
-							<div class="size-208 w-full-ssm">
-								<span class="stext-110 cl2">
+							<div class="size-208">
+								<span class="stext-111 cl2">
 									Phí giao hàng:
 								</span>
 							</div>
 
-							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-								<p class="stext-111 cl6 p-t-2 js-cost">
-									10000
+							<div class="size-209">
+								<p class="stext-111 cl2 p-t-2 js-cost" id="ship-fee">
+									0
 								</p>
-								
+								<input type="hidden" value="0 VND" name="shipfee" id="i-ship-fee"/>
 								<div class="p-t-15">
-									<span class="stext-112 cl8">
-										Thông tin giao hàng:
-									</span>
+									<div class="m-b-12">
+										<span class="stext-112 cl8 p-b-10">
+											Thông tin giao hàng:
+										</span>
+									</div>
 
 									<div class="bor8 bg0 m-b-12">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Địa chỉ">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="recipientname" placeholder="Tên người nhận" value="">
+									</div>
+
+									<div class="bor8 bg0 m-b-12">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Địa chỉ" value="">
 									</div>
 
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 										<select class="js-select2" name="district" placeholder="Quận">
-											<option name="q1">Quận 1</option>
-											<option>Quận 2</option>
-											<option>Quận 3</option>
-											<option>Quận 4</option>
-											<option>Quận 5</option>
-											<option>Quận 6</option>
-											<option>Quận 7</option>
-											<option>Quận 8</option>
-											<option>Quận 9</option>
-											<option>Quận 10</option>
-											<option>Quận 11</option>
-											<option>Quận 12</option>
-											<option>Quận Bình Thạnh</option>
-											<option>Quận Gò Vấp</option>
-											<option>Quận Tân Bình</option>
-											<option>Quận Thủ Đức</option>
-											<option>Quận Tân Phú</option>
-											<option>Quận Bình Tân</option>
-											<option>Quận Phú Nhuận</option>
-											<option>Huyện Củ Chi</option>
-											<option>Huyện Hóc Môn</option>
-											<option>Huyện Bình Chánh</option>
-											<option>Huyện Nhà Bè</option>
-											<option>Huyện Cần Giờ</option>
+											<option value="1">Quận 1</option>
+											<option value="2">Quận 2</option>
+											<option value="3">Quận 3</option>
+											<option value="4">Quận 4</option>
+											<option value="5">Quận 5</option>
+											<option value="6">Quận 6</option>
+											<option value="7">Quận 7</option>
+											<option value="8">Quận 8</option>
+											<option value="9">Quận 9</option>
+											<option value="10">Quận 10</option>
+											<option value="11">Quận 11</option>
+											<option value="12">Quận 12</option>
+											<option value="13">Quận Bình Thạnh</option>
+											<option value="14">Quận Gò Vấp</option>
+											<option value="15">Quận Tân Bình</option>
+											<option value="16">Quận Thủ Đức</option>
+											<option value="17">Quận Tân Phú</option>
+											<option value="18">Quận Bình Tân</option>
+											<option value="19">Quận Phú Nhuận</option>
+											<option value="20">Huyện Củ Chi</option>
+											<option value="21">Huyện Hóc Môn</option>
+											<option value="22">Huyện Bình Chánh</option>
+											<option value="23">Huyện Nhà Bè</option>
+											<option value="24">Huyện Cần Giờ</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -142,21 +134,12 @@
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 										<select class="js-select2" name="country" placeholder="Thành phố/Tỉnh">
 											<option>TP.HCM</option>
-											<option>Đà Nẵng</option>
-											<option>Hà Nội</option>
-											<option>Cần Thơ</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 
 									<div class="bor8 bg0 m-b-22">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone_number" placeholder="SĐT">
-									</div>
-									
-									<div class="flex-w">
-										<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
-											Cập nhật
-										</div>
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone" placeholder="SĐT" value="">
 									</div>
 										
 								</div>
@@ -171,18 +154,19 @@
 							</div>
 
 							<div class="size-209 p-t-1">
-								<span class="mtext-110 cl2 js-cost">
-									1790000
+								<span id="total-ship" class="mtext-110 cl2 js-cost">
+									{{this.total}}
 								</span>
 							</div>
 						</div>
-
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Đặt hàng
-						</button>
-					</div>
+						<div>
+							<button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+								Đặt hàng
+							</button>
+						</div>	
+					</form>
 				</div>
 			</div>
 		</div>
-	</form>
+	</div>
 		

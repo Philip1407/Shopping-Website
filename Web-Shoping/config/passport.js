@@ -47,6 +47,11 @@ module.exports = function(passport) {
                         message2: 'Kích hoạt?',
                         message3: user._id
                     });
+                if(req.session.cart !== undefined) {
+                    user.cart = req.session.cart;
+                }
+                user.save();
+                req.session.amountproduct=user.cart.length;
                 req.session.user = user;
                 return done(null, user);
                 });

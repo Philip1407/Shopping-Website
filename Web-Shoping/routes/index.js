@@ -52,7 +52,9 @@ module.exports = function(router, passport, parser) {
 	router.post('/changepass',user_controller.user_change_pass_post);
 	router.get('/shoppingcart', cart_controller.cart_list);
 	router.post('/shoppingcart', cart_controller.cart_update_product);
-	router.get('/history',cart_controller.cart_list);
+	router.get('/history',cart_controller.order_list);
+	router.post('/history',cart_controller.order_create);
+	router.get('/history/detail/:id',cart_controller.order_detail);
 	
 
 	router.get('/faq', function(req, res, next){
