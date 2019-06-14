@@ -8,7 +8,12 @@ var user_controller = require('../controllers/userController');
 
 
 module.exports = function(router, passport, parser) {
-
+	router.get('/*', function(req, res, next) {
+		res.locals.user = req.session.user;
+		res.locals.amountproduct = req.session.amountproduct;
+		res.locals.cart  = req.session.cart;
+		next();
+	});
 	router.get('/', product_controller.index);
 	router.get('/page/:page', product_controller.index);
 	router.post('/search', product_controller.home_search_post);

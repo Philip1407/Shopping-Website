@@ -6,9 +6,10 @@ var Review = require('../models/reviews');
 
 var async = require('async');
 exports.index = function(req, res) {
-    if(req.session.user===undefined || req.session.cart === undefined || req.session.user.cart.length === 0){
-        req.session.amountproduct = 0;
+    if(!req.session.cart){
+         req.session.amountproduct = 0;
     }
+    res.locals.amountproduct = req.session.amountproduct;
     var itemPerPage = 12;
     page = req.params.page?req.params.page:1;
     async.parallel({
@@ -263,6 +264,7 @@ exports.product_add_to_cart = function(req, res) {
             }
         );
     }
+    req.session.amountproduct+=num;
     res.redirect('/product/detail/'+req.params.id);
 }
 
