@@ -47,7 +47,7 @@ module.exports = function(passport) {
                         message2: 'Kích hoạt?',
                         message3: user._id
                     });
-                if(req.session.cart !== undefined) {
+                if(req.session.cart) {
                     user.cart = req.session.cart;
                 }
                 user.save();
