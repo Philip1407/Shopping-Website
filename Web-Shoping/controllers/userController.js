@@ -3,12 +3,9 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var async = require('async');
-// Display list of all users.
-exports.user_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: user list');
-};
 
-// Display detail page for a specific user.
+
+
 exports.user_detail = function(req, res) {
     var month = [
         "01", "02", "03",
@@ -25,7 +22,7 @@ exports.user_detail = function(req, res) {
     res.render('users/account', { title: 'Tài khoản',user : user,birth:birth});
 };
 
-// Display user create form on GET.
+
 exports.user_create_get = function(req, res) {
     res.render('users/signin', { title: 'Đăng ký'});
 };
@@ -34,7 +31,6 @@ exports.user_logout_get = function(req, res) {
     res.redirect('/');
 };
 
-// Display user update form on GET.
 exports.user_update_get = function(req, res) {
     var month = [
         "01", "02", "03",
@@ -51,7 +47,7 @@ exports.user_update_get = function(req, res) {
     res.render('users/edit', { title: 'Chỉnh sửa thông tin',user:user,birth:birth});
 };
 
-// Handle user update on POST.
+
 exports.user_update_post = async function(req, res) {
     req.body.avar = req.file.url;
     await User.findByIdAndUpdate(req.user._id,req.body);
@@ -59,10 +55,12 @@ exports.user_update_post = async function(req, res) {
 };
 
 exports.user_login_get = function(req, res) {
+    req.session.sessionFlash = undefined;
     res.render('users/login', { title: 'Đăng Nhập' ,layout: 'users/login'});
 };
 
 exports.user_forgetpass_get = function(req, res) {
+    req.session.sessionFlash = undefined;
     res.render('users/forgotpassword', { title: 'Quên mật khẩu' ,layout: 'users/forgotpassword'});
 };
 exports.user_forgetpass_post = function(req, res) {
@@ -95,21 +93,21 @@ exports.user_forgetpass_post = function(req, res) {
           var transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'team384440470@gmail.com',
-                pass: '384440470'
+                user: process.env.GMAIL,
+                pass: process.env.PASS,
             }
           });
       
           console.log('created');
-          req.session.sessionFlash = { type: 'success',message: 'An e-mail has been sent to ' + user.email + ' with further instructions.'};
+          req.session.sessionFlash = { type: 'success',message: '1 Email đã được gửi đến ' + user.email + 'để reset mật khẩu'};
           transporter.sendMail({
             from: 'team384440470@gmail.com',
             to: user.email,
-            subject: 'Node.js Password Reset',
-            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+            subject: 'Password Reset',
+            text: 'Bạn nhận được mail này vì có người nào đó yêu cầu đổi mật khẩu\n\n' +
+                  'Click vào đường link để đổi mật khẩu\n\n' +
                   'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                  'Nếu không phải bạn, không cần nhấn vào đường link và mật khẩu của bạn vẫn giữ nguyên\n'
           });
           return res.redirect('/forgotpassword');
         }
@@ -138,6 +136,7 @@ exports.user_change_pass_post = async function(req, res) {
 
 
 exports.user_reset_get = async function(req, res) {
+  req.session.sessionFlash = undefined;
   var user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
   if (!user) {
     req.session.sessionFlash = {
@@ -176,6 +175,7 @@ exports.user_reset_post = async function(req, res) {
 };
 
 exports.user_active_account = async function(req, res) {
+  req.session.sessionFlash = undefined
   var user1 = req.params.id ? await User.findById(req.params.id) : req.user;
   async.waterfall([
       function(done) {
@@ -200,21 +200,20 @@ exports.user_active_account = async function(req, res) {
         var transporter = nodemailer.createTransport({
           service: 'Gmail',
           auth: {
-              user: 'team384440470@gmail.com',
-              pass: '384440470'
+            user: process.env.GMAIL,
+            pass: process.env.PASS,
           }
         });
     
         console.log('created');
-        req.session.sessionFlash = { type: 'success',message: 'An e-mail has been sent to ' + user.email + ' with further instructions.'};
+        req.session.sessionFlash = { type: 'success',message: '1 e-mail đã gửi đến ' + user.email + ' để kích hoạt mật khẩu'};
         transporter.sendMail({
           from: 'team384440470@gmail.com',
           to: user.email,
-          subject: 'Node.js Password Reset',
-          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/active/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+          subject: 'Active tài khoản',
+          text: 'Email kích hoạt mật khẩu\n\n' +
+                'Nhấn vào đường link để kích hoạt\n\n' +
+                'http://' + req.headers.host + '/active/' + token + '\n\n'
         });
         return res.render('users/activeemail',{title:'Xác nhận email'});
       }
@@ -225,6 +224,7 @@ exports.user_active_account = async function(req, res) {
 };
 
 exports.user_active_account_done = async function(req, res) {
+  req.session.sessionFlash = undefined;
   var user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
   if (!user) {
     req.session.sessionFlash = {

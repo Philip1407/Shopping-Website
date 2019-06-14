@@ -7,11 +7,13 @@ var flash    = require('connect-flash');
 var session      = require('express-session');
 var passport = require('passport');
 
+require('dotenv').config()
+
 require('./config/passport')(passport);
 
 var app = express();
 
-
+console.log(process.env.A);
 //in the declarations
 const exphbs  = require('express-handlebars');
 
@@ -23,8 +25,8 @@ app.engine('hbs', exphbs({
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
-var dev_db_url = 'mongodb+srv://admin:123@demo-l6r8b.mongodb.net/SHOP?retryWrites=true';
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
+//var dev_db_url = 'mongodb+srv://admin:123@demo-l6r8b.mongodb.net/SHOP?retryWrites=true';
+var mongoDB = process.env.MONGODB_URI //|| dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -34,7 +36,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const multer = require("multer");
 const cloudinary = require("cloudinary");
 const cloudinaryStorage = require("multer-storage-cloudinary");
-cloudinary.config({cloud_name: 'dpsdkyleb',api_key:'649252332669658',api_secret: '8ZfEWNU8eJGybHofn3lUya2qdVk'});
+cloudinary.config({cloud_name: process.env.CLOUDINARY_CLOUD_NAME,api_key:process.env.CLOUDINARY_API_KEY,api_secret: process.env.CLOUDINARY_API_SECRET});
 
 const storage = cloudinaryStorage({cloudinary: cloudinary,folder: "demo",allowedFormats: ["jpg", "png"],transformation: [{ width: 5000, height: 5000, crop: "limit" }]});
 
