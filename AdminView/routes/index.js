@@ -44,11 +44,11 @@ module.exports = function(router, passport,parser) {
     router.get('/products',products_controller.products_list);
     router.get('/products/category/:id', isLoggedIn,products_controller.products_list_cat);
     router.get('/products/create', products_controller.products_create);
-    router.post('/products/create',parser.single("image"),products_controller.products_create_post);
+    router.post('/products/create',parser.array("image",4),products_controller.products_create_post);
     router.get('/products/delete/:id',isLoggedIn, products_controller.products_delete);
     router.post('/products/delete/:id',isLoggedIn, products_controller.products_delete_post);
     router.get('/products/update/:id', products_controller.products_update);
-    router.post('/products/update/:id',parser.single("image"), products_controller.products_update_post);
+    router.post('/products/update/:id',parser.array("image",4), products_controller.products_update_post);
     router.get('/products/detail/:id',isLoggedIn, products_controller.products_getdetail);
     router.get('/products/:page',products_controller.products_list);
     //bestseller routes

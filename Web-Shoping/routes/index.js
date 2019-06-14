@@ -37,8 +37,8 @@ module.exports = function(router, passport, parser) {
 
 	router.get('/forgotpassword', user_controller.user_forgetpass_get);
 	router.post('/forgotpassword', user_controller.user_forgetpass_post);
-	router.get('/edit',parser.single("image"),user_controller.user_update_get);
-	router.post('/edit',user_controller.user_update_post);
+	router.get('/edit',user_controller.user_update_get);
+	router.post('/edit',parser.single("image"),user_controller.user_update_post);
 	router.get('/signin', user_controller.user_create_get);
 	router.post('/signin',parser.single("image"), passport.authenticate('local-signup', {
         successRedirect : '/active',

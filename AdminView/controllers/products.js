@@ -65,7 +65,6 @@ var async = require('async');
       }else{
         var product = new Product(
           { name: req.body.name,
-            img: req.file.url,
             price: req.body.price,
             amount: req.body.amount,
             size: req.body.size,
@@ -73,6 +72,9 @@ var async = require('async');
             description:req.body.descript,
             catergory: req.body.category
           });
+          req.files.forEach(ele=>{
+            product.img.push(ele.url);
+          })
           product.save(function (err) {
             if (err) { return console.log(err); }
             res.redirect('/products');
@@ -114,7 +116,11 @@ var async = require('async');
   
   // Handle products update on POST.
   exports.products_update_post = function(req, res) {
-      req.body.img = req.file.url;
+      req.body.img = [];
+    
+      req.files.forEach(ele=>{
+        req.body.img.push(ele.url);
+      })
       Product.findByIdAndUpdate(req.params.id,req.body)
       .exec(function(err,result){
         if(err){return console.log(err);}
@@ -125,5 +131,5 @@ var async = require('async');
   exports.products_getdetail = async function(req,res) {
     var result = await Product.findById(req.params.id);
     var result2 = await Category.findById(result.catergory);
-    res.render('products/products_detail', { title: 'Chỉnh sửa sản phẩm',product: result, category: result2, admin:req.user});
+    res.render('products/products_detail', { title: 'Chỉnh sửa sản phẩm',img:result.img[0],product: result, category: result2, admin:req.user});
   };

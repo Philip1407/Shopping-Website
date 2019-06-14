@@ -46,7 +46,8 @@ module.exports = function(passport) {
                         message: 'Tài khoản chưa được xác thực.',
                         message2: 'Kích hoạt?',
                         message3: user._id
-                    });   
+                    });
+                req.session.user = user;
                 return done(null, user);
                 });
             });

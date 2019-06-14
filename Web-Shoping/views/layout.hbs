@@ -48,18 +48,21 @@
 						Miễn ship cho đơn hàng trên 1.000.000
 					</div>
 					<div class="right-top-bar flex-w h-full">
+						{{#if user}}
+						<a href="/logout" class="flex-c-m trans-04 p-lr-25">
+							Đăng xuất
+						</a>
 						<a href="/myaccount" class="flex-c-m trans-04 p-lr-25">
 							Tài khoản của tôi
 						</a>
+						{{else}}
 						<a href="/login" class="flex-c-m trans-04 p-lr-25">
 							Đăng nhập
 						</a>
 						<a href="/signin" class="flex-c-m trans-04 p-lr-25">
 							Đăng kí
 						</a>
-						<a href="/logout" class="flex-c-m trans-04 p-lr-25">
-							Đăng xuất
-						</a>
+						{{/if}}
 					</div>
 				</div>
 			</div>
