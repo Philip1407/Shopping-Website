@@ -14,7 +14,8 @@ var UserSchema = new Schema({
     resetPasswordToken: String,
     resetPasswordExpires: Date, 
     lock:{type:Boolean,default:false},
-    cart: {type:Array}
+    cart: {type:Array},
+    avar: {type:String},
 });
 
 

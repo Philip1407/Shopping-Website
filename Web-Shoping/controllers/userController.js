@@ -53,6 +53,7 @@ exports.user_update_get = function(req, res) {
 
 // Handle user update on POST.
 exports.user_update_post = async function(req, res) {
+    req.body.avar = req.file.url;
     await User.findByIdAndUpdate(req.user._id,req.body);
     res.redirect('/myaccount');
 };

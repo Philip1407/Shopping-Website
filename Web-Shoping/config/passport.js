@@ -82,6 +82,7 @@ module.exports = function(passport) {
                             email: req.body.email,
                             address: req.body.address,
                             pass : await bcrypt.hash(req.body.pass, 10),
+                            avar: req.file.url,
                             isActive: false
                         });
                         newUser.save(function(err) {

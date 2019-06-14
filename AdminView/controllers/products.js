@@ -2,6 +2,8 @@ var Category = require('../models/catergories');
 var Product = require('../models/products');
 var async = require('async');
 
+
+
   exports.products_list = function(req, res){
     Product.find({},function(err,result){
       if(err){return console.log(err);} 
@@ -63,7 +65,7 @@ var async = require('async');
       }else{
         var product = new Product(
           { name: req.body.name,
-            img: req.body.linkImg,
+            img: req.file.url,
             price: req.body.price,
             amount: req.body.amount,
             size: req.body.size,
@@ -112,6 +114,7 @@ var async = require('async');
   
   // Handle products update on POST.
   exports.products_update_post = function(req, res) {
+      req.body.img = req.file.url;
       Product.findByIdAndUpdate(req.params.id,req.body)
       .exec(function(err,result){
         if(err){return console.log(err);}

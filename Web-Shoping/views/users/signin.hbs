@@ -5,7 +5,12 @@
 			{{#if sessionFlash.message}}
                 <div class="alert alert-danger">{{sessionFlash.message}}</div>
             {{/if}}
-			<form action = "/signin" method="POST" >
+			<form action = "/signin" method="POST" enctype="multipart/form-data">
+                <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
+                    Hình đại diện: 
+                    <input class="input1 bg-none plh1 stext-107 cl7" type="file" name="image" required>
+                    <div class="focus-input1 trans-04"></div>
+	            </div> <br><br>
 	            <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Họ tên: 
                     <input class="input1 bg-none plh1 stext-107 cl7" required type="text" name="username" placeholder="Lê Uyển Nhi">

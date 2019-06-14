@@ -34,7 +34,11 @@
 				<div class="col-11 col-md-5 col-lg-4 m-lr-auto">
 					<div class="how-bor1 ">
 						<div class="hov-img0">
-							<img src="images/about-02.jpg" alt="Hình đại diện">
+							{{#if user.avar}}
+								<img src={{user.avar}} alt="Hình đại diện">
+							{{else}}
+								<img src="images/about-02.jpg" alt="Hình đại diện">
+							{{/if}}
 						</div>
 					</div>
 				</div>

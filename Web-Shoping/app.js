@@ -21,6 +21,16 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+//Cloudinary
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
+cloudinary.config({cloud_name: 'dpsdkyleb',api_key:'649252332669658',api_secret: '8ZfEWNU8eJGybHofn3lUya2qdVk'});
+
+const storage = cloudinaryStorage({cloudinary: cloudinary,folder: "demo",allowedFormats: ["jpg", "png"],transformation: [{ width: 500, height: 500, crop: "limit" }]});
+
+const parser = multer({ storage: storage });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -48,7 +58,7 @@ app.use(function(req, res, next){
     next();
   });
   
-require('./routes/index')(app,passport);
+require('./routes/index')(app,passport,parser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

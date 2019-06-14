@@ -7,7 +7,7 @@ var cart_controller = require('../controllers/cartController');
 var user_controller = require('../controllers/userController');
 
 
-module.exports = function(router, passport) {
+module.exports = function(router, passport, parser) {
 
 	router.get('/', product_controller.index);
 	router.get('/page/:page', product_controller.index);
@@ -37,10 +37,10 @@ module.exports = function(router, passport) {
 
 	router.get('/forgotpassword', user_controller.user_forgetpass_get);
 	router.post('/forgotpassword', user_controller.user_forgetpass_post);
-	router.get('/edit', isLoggedIn,user_controller.user_update_get);
+	router.get('/edit',parser.single("image"),user_controller.user_update_get);
 	router.post('/edit',user_controller.user_update_post);
 	router.get('/signin', user_controller.user_create_get);
-	router.post('/signin', passport.authenticate('local-signup', {
+	router.post('/signin',parser.single("image"), passport.authenticate('local-signup', {
         successRedirect : '/active',
         failureRedirect : '/signin',
         failureFlash : true 
