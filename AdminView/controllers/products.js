@@ -63,7 +63,14 @@ var async = require('async');
       if(found){
         res.redirect('/products');
       }else{
-        var product = new Product(
+        if(req.body.price<10000)
+          return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Giá tiền phải lớn hơn 10.000 VND",admin:req.user});
+        if(req.body.amount<=0)
+          return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Chưa có kích cỡ",admin:req.user});
+        if(req.files.length>4)
+          return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Không được thêm quá 4 hình",admin:req.user});
+
+          var product = new Product(
           { name: req.body.name,
             price: req.body.price,
             amount: req.body.amount,

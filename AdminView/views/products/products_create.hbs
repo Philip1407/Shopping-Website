@@ -7,32 +7,37 @@
       <div class="row">
         <!-- Form Panel    -->
           <div class="col-lg-7 bg-white">
-            <div class="form d-flex align-items-center" id="myform">
+            <div class="d-flex align-items-center" >
               <div class="content">
-                  <form class="form-validate" action="/products/create" method="POST" enctype="multipart/form-data">
+                  <form class="form" id="myform" action="/products/create" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                    {{#if message}}
+                      <div class="alert alert-danger">{{message}}</div>
+                    {{/if}}
+                    </div>
                     <div class="form-group">
                       <strong>Hình ảnh chính</strong> 
                       <input type="file" class="input-material" value="" name ="image" id="image" required multiple>
                     </div>
                     <div class="form-group">
-                      <strong>Tên Sản phẩm</strong> 
-                      <input type="text" class="input-material" value="" name ="name" id="name" required>
+                      <strong for="name">Tên Sản phẩm</strong> 
+                      <input type="text" class="input-material" value="" name ="name" id="name" require >
                     </div>
                     <div class="form-group">
-                      <strong>Giá Sản phẩm</strong> 
-                      <input type="text" class="input-material" value="" name ="price" id="price">
+                      <strong for="price">Giá Sản phẩm</strong> 
+                      <input type="text" class="input-material" value="" name ="price" id="price" require>
                     </div>
                     <div class="form-group">
-                      <strong>Số lượng</strong> 
-                      <input type="text" class="input-material" value="" name ="amount" id="amount">
+                      <strong for="amount">Số lượng</strong> 
+                      <input type="text" class="input-material" value="" name ="amount" id="amount"require>
                     </div>
                     <div class="form-group">
-                      <strong>Size</strong> 
-                      <input type="text" class="input-material" value="" name ="size" id="size">
+                      <strong for="size">Size</strong> 
+                      <input type="text" class="input-material" value="" name ="size" id="size" require>
                     </div>
                     <div class="form-group">
-                      <strong>Color</strong> 
-                      <input type="text" class="input-material" value="" name ="color" id="color">
+                      <strong for="color">Color</strong> 
+                      <input type="text" class="input-material" value="" name ="color" id="color" require>
                     </div>
                     <div class="form-group">
                       <strong>Mô tả</strong> <br><br>
@@ -65,53 +70,5 @@
             </div>
           </div>
       </div>
-    </div>    
-    <script>
-      jQuery.validator.setDefaults({
-        debug: true,
-        success: "valid"
-      });
-      $( "#myform" ).validate({
-        rules: {
-          linkImg:{
-            required:true,
-            url:true,
-          }
-          name:{required:true}
-          price:{
-            required:true,
-            number:true,
-            min:10000}
-          amount:{
-            required:true,
-            number:true}
-          size:{
-            require:true
-            }
-          color:{require:true}
-          category:{require:true}
-          },
-          messages:{
-            linkImg:{
-            required:true,
-            url:true,
-          }
-          name:{required:true}
-          price:{
-            required:"Hãy nhập giá tiền",
-            number:"Đây không phải là số",
-            min:"Giá tiền quá thấp"}
-          amount:{
-            required:"Hãy nhập số lượng",
-            number:"Đây không phải là số"}
-          size:{
-            require:"Hãy chọn kích cỡ"
-            }
-          color:{require:"Hãy chọn kích cỡ"}
-          category:{require:"Hãy chọn loại sản phẩm"}
-          }
-
-        }
-      });
-    </script>  
+    </div>  
 </html>
