@@ -6,10 +6,6 @@ var Review = require('../models/reviews');
 
 var async = require('async');
 exports.index = function(req, res) {
-    if(!req.session.cart){
-         req.session.amountproduct = 0;
-    }
-    res.locals.amountproduct = req.session.amountproduct;
     var itemPerPage = 12;
     page = req.params.page?req.params.page:1;
     async.parallel({

@@ -9,6 +9,9 @@ var user_controller = require('../controllers/userController');
 
 module.exports = function(router, passport, parser) {
 	router.get('/*', function(req, res, next) {
+		if(!req.session.cart){
+			req.session.amountproduct = 0;
+	   	}
 		res.locals.user = req.session.user;
 		res.locals.amountproduct = req.session.amountproduct;
 		res.locals.cart  = req.session.cart;
