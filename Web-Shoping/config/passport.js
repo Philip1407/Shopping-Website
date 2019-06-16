@@ -50,8 +50,11 @@ module.exports = function(passport) {
                 if(req.session.cart) {
                     user.cart = req.session.cart;
                 }
+                if(user.cart == null){
+                    user.cart = [];
+                }
                 user.save();
-                req.session.amountproduct=user.cart.length;
+                req.session.amountproduct= user.cart.length;
                 req.session.user = user;
                 return done(null, user);
                 });
