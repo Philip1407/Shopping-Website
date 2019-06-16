@@ -273,7 +273,7 @@
 							</div>
 							<div class="filter-col2 p-r-15 p-b-27">
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="color" placeholder="Màu">
+									<select class="js-select2" name="color" placeholder="Màu" id="color">
 										<option value="0">Màu sắc: Tất cả</option>
 										<option value="1">Màu đen</option>
 										<option value="2">Màu trắng</option>
@@ -289,7 +289,7 @@
 									<div class="dropDownSelect2"></div>
 								</div>
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="size" placeholder="Kích cỡ">
+									<select class="js-select2" name="size" placeholder="Kích cỡ" id="size">
 										<option value="0">Kích cỡ: Tất cả</option>
 										<option value="1">Size S</option>
 										<option value="2">Size M</option>
@@ -302,7 +302,7 @@
 							</div>
 							<div class="filter-col3 p-r-15 p-b-27">
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="price" placeholder="Giá tiền">
+									<select class="js-select2" name="price" placeholder="Giá tiền" id="price">
 										<option value="0">Giá tiền: Tất cả</option>
 										<option value="1">Dưới 500.000 VND</option>
 										<option value="2">Từ 500.000 - 1.000.000 VND</option>
@@ -317,10 +317,10 @@
 								</div>
 
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="category" placeholder="Loại">
+									<select class="js-select2" name="category" placeholder="Loại" id="category">
 										<option value="0">Loại: Tất cả</option>
 										{{#each categories}}
-											<option value="{{this._id}}">{{this.name}}</option>
+											<option value="{{this._id}}" id="option-category">{{this.name}}</option>
 										{{/each}}
 									</select>
 									<div class="dropDownSelect2"></div>

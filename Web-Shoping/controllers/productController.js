@@ -3,6 +3,7 @@ var Category = require('../models/catergories');
 var User = require('../models/users');
 var Review = require('../models/reviews');
 
+
 const price = [{start:0, end:500000}, {start:500000 , end:1000000}, {start:1000000, end:1500000},
     {start:1500000, end:2000000}, {start:2000000, end:2500000}, {start:2500000, end:3000000}, 
     {start:3000000, end:4000000}, {start:4000000, end:1000000000}];
@@ -106,7 +107,7 @@ exports.home_filtermulti= function(req, res) {
         }
         var temp = results.products;
         var productList = [];
-        if(req.body.color!=="0") {
+        if(req.body.color !== "0") {
             productList = temp.filter(item => item.color === color[parseInt(req.body.color)-1]);
             temp = productList ;
         }
@@ -115,7 +116,7 @@ exports.home_filtermulti= function(req, res) {
             temp = productList ;
         }
         if(req.body.category !== "0") {
-            productList = temp.filter(item => item.category === req.body.category);
+            productList = temp.filter(item => item.catergory.equals(req.body.category));
             temp = productList ;
         }
         if(req.body.price !== "0") {
@@ -132,7 +133,7 @@ exports.home_filtermulti= function(req, res) {
         else {
             found= 'Các sản phẩm phù hợp với bộ lọc.';
         }
-        res.render('products/home', { title: 'Trang chủ',products:productList,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user, size });
+        res.render('products/home', { title: 'Trang chủ', size: req.body.size, color: req.body.color, price: req.body.price, category: req.body.category,products:productList,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
     });
 }
 
