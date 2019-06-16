@@ -10,6 +10,7 @@ var async = require('async');
       res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm',admin:req.user, list_products: result});
     });
   };
+  /*
   exports.products_list = function(req, res) {
     var itemPerPage = 5;
     page = req.params.page?req.params.page:1;
@@ -34,7 +35,7 @@ var async = require('async');
         res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm', linkPage:linkPage,page:page,admin:req.user, list_products: results.products});
     });
   };
-
+*/
   exports.products_list_cat = function(req, res, next){
     var category="";
     Category.findOne({_id:req.params.id},{ _id:0, name: 1}).exec().then((result) => {
@@ -84,7 +85,7 @@ var async = require('async');
           })
           product.save(function (err) {
             if (err) { return console.log(err); }
-            res.redirect('/products');
+            res.redirect('/products/create');
           });
       }
     })

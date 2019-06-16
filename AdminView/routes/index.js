@@ -7,14 +7,8 @@ var categories_controller = require('../controllers/categories');
 var products_controller = require('../controllers/products');
 var bestseller_controller = require('../controllers/bestseller');
 var orders_controller = require('../controllers/orders');
-var statistics_day_controller = require('../controllers/statistics_day');
-var statistics_month_controller = require('../controllers/statistics_month');
-var statistics_week_controller = require('../controllers/statistics_week');
-var statistics_quarter_controller = require('../controllers/statistics_quarter');
-var statistics_year_controller = require('../controllers/statistics_year');
+var statistics_controller = require('../controllers/statistics');
 var admin_controller=require('../controllers/admins');
-
-
 
 module.exports = router;
 module.exports = function(router, passport,parser) {
@@ -58,20 +52,20 @@ module.exports = function(router, passport,parser) {
     router.get('/orders/delete', isLoggedIn,orders_controller.orders_delete_get);
     router.get('/orders/detail/:id', isLoggedIn,orders_controller.orders_getdetail);
     //statistics day routes
-    router.get('/statistics_day', isLoggedIn,statistics_day_controller.statistics_day_list);
-    router.get('/statistics_day/update', isLoggedIn,statistics_day_controller.statistics_day_update_get);
+    router.get('/statistics_day', isLoggedIn,statistics_controller.statistics_day_list);
+    router.post('/statistics_day', isLoggedIn,statistics_controller.statistics_day_update);
     //statistics month routes
-    router.get('/statistics_month', isLoggedIn,statistics_month_controller.statistics_month_list);
-    router.post('/statistics_month', isLoggedIn,statistics_month_controller.statistics_month_update);
+    router.get('/statistics_month', isLoggedIn,statistics_controller.statistics_month_list);
+    router.post('/statistics_month', isLoggedIn,statistics_controller.statistics_month_update);
     //statistics year routes
-    router.get('/statistics_year', isLoggedIn,statistics_year_controller.statistics_year_list);
-    router.get('/statistics_year/update',isLoggedIn, statistics_year_controller.statistics_year_update_get);
+    router.get('/statistics_year', isLoggedIn,statistics_controller.statistics_year_list);
+    router.post('/statistics_year',isLoggedIn, statistics_controller.statistics_year_update);
     //statistics week routes
-    router.get('/statistics_week',isLoggedIn, statistics_week_controller.statistics_week_list);
-    router.get('/statistics_week/update',isLoggedIn, statistics_week_controller.statistics_week_update_get);
+    router.get('/statistics_week',isLoggedIn, statistics_controller.statistics_week_list);
+    router.post('/statistics_week',isLoggedIn, statistics_controller.statistics_week_update);
     //statistics quarter routes
-    router.get('/statistics_quarter', isLoggedIn,statistics_quarter_controller.statistics_quarter_list);
-    router.get('/statistics_quarter/update',isLoggedIn, statistics_quarter_controller.statistics_quarter_update_get);
+    router.get('/statistics_quarter', isLoggedIn,statistics_controller.statistics_quarter_list);
+    router.post('/statistics_quarter',isLoggedIn, statistics_controller.statistics_quarter_update);
     //admins controller
     router.get('/admins',isLoggedIn,admin_controller.admins_list);
     router.get('/admins/edit_info', isLoggedIn, admin_controller.edit_info_admin)

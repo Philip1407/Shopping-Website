@@ -21,7 +21,9 @@ module.exports = function(router, passport, parser) {
 	router.get('/page/:page', product_controller.index);
 	router.post('/search', product_controller.home_search_post);
 	router.get('/search/:search/:page', product_controller.home_search_get);
+	router.post('/filter/multi', product_controller.home_filtermulti);
 	router.get('/filter/:type',product_controller.product_sort_home);
+	
 	router.get('/product', product_controller.product_list);
 	router.post('/product/search', product_controller.product_search_post);
 	router.get('/product/search/:search/:page', product_controller.product_search_get);
