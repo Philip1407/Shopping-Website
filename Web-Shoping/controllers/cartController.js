@@ -51,6 +51,7 @@ exports.cart_list =  function(req, res) {
 
         req.session.cart.forEach( element => {
             Product.findOne({_id:element.product},{ _id:0, name:1, price:1, img:1 }).exec().then((result) => {
+                result.img = result.img[0];
                total+= element.amount*result['price'];
                products.push({productID: element.product, productName: result['name'], productPrice: result['price'], amount: element.amount, img: result['img'], total: element.amount*result['price']});
               }).catch((err) => {
@@ -64,6 +65,8 @@ exports.cart_list =  function(req, res) {
         }
         req.user.cart.forEach( element => {
         Product.findOne({_id:element.product},{ _id:0, name:1, price:1, img:1 }).exec().then((result) => {
+            
+            result.img = result.img[0];
            total+= element.amount*result['price'];
            products.push({productID: element.product, productName: result['name'], productPrice: result['price'], amount: element.amount, img: result['img'], total: element.amount*result['price']});
           }).catch((err) => {
@@ -152,7 +155,6 @@ exports.order_list = function(req, res) {
                 order['total']+= element.amount*result['price'];
                 element.product = result['name'];
                 element['price']=result['price'];
-              // console.log(element['total']);
               }).catch((err) => {
                 console.log(err);
             });

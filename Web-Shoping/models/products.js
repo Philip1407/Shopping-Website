@@ -11,7 +11,7 @@ var ProductSchema = new Schema({
     color:{type: String, required: true},
     size:{type:String, required: true},
     description:{type: String, required: false},
-    img:{type:String,require: true},
+    img:{type:[String],require: true},
     dateImp: {type: Date, default: Date.now()},
     watch:{type: Number,default: 0 },
 });

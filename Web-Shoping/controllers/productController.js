@@ -28,6 +28,9 @@ exports.index = function(req, res) {
         for(var i = 1;i<=pageNum;i++){
             page.push(i);
         }
+        results.products.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         var linkPage = '/page';  
         res.render('products/home', { title: 'Trang chủ',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
     });
@@ -70,6 +73,9 @@ exports.home_search_get= function(req, res) {
         else {
             found= 'Các sản phẩm phù hợp với từ khóa \"' + req.params.search + '\".';
         }
+        results.products.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         var linkPage = '/search/'+req.params.search;
         res.render('products/home', { title: 'Sản Phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
     });
@@ -99,6 +105,9 @@ exports.product_list = function(req, res) {
         for(var i = 1;i<=pageNum;i++){
             page.push(i);
         }
+        results.products.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         var linkPage = '/product';
         res.render('products/product', { title: 'Sản phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
     });
@@ -138,6 +147,9 @@ exports.product_detail = async function(req, res) {
         for(var i = 1;i<=pageNum;i++){
             page.push(i);
         }
+        results.productRelate.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate, user:req.user, reviews: results.review, num: results.reviewPage,page:page,watch: product.watch} );
     });
 };
@@ -181,6 +193,9 @@ exports.product_search_get = function(req, res) {
         else {
             found= 'Các sản phẩm phù hợp với từ khóa \"' + req.params.search + '\".';
         }
+        results.products.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         var linkPage = '/product/search/'+req.params.search;
         res.render('products/product', { title: 'Sản Phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user, });
     });
@@ -196,6 +211,9 @@ exports.product_sort_home = function(req, res) {
         }
     },function(err, results) {
         if (err) { return next(err); }
+        results.products.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         res.render('products/home', { title: 'Trang chủ',products:results.products,categories:results.categories, user:req.user});
     });
 };
@@ -211,13 +229,17 @@ exports.product_sort = function(req, res) {
         }
     },function(err, results) {
         if (err) { return next(err); }
+        results.products.forEach(ele=>{
+            ele.img = ele.img[0];
+        })
         res.render('products/product', { title: 'Sản phẩm',products:results.products,categories:results.categories, user:req.user});
     });
 };
 
 exports.product_add_to_cart = function(req, res) {
-    if (req.user === undefined) {
-        if(req.session.cart === undefined) {
+    var num = 0;
+    if (!req.user) {
+        if(!req.session.cart) {
             req.session.cart = [];
         }
         var i = req.session.cart.findIndex( item => item.product == req.params.id);
@@ -227,15 +249,15 @@ exports.product_add_to_cart = function(req, res) {
         else {
             req.session.cart.push({product: req.params.id, amount: req.body.num });
         }
-        console.log(req.session.cart);
+        num = parseInt(req.body.num);
     }
     else {
         if (req.user.cart==null) {
             User.findByIdAndUpdate(req.user._id,{cart:[]});
         }
         var i = req.user.cart.findIndex( item => item.product == req.params.id);
-        var num = parseInt(req.body.num);
-        console.log("i: " + i);
+        num = parseInt(req.body.num);
+
         if(i>-1) {
             num += parseInt(req.user.cart[i].amount);
             User.findByIdAndUpdate(req.user._id, 
@@ -260,7 +282,7 @@ exports.product_add_to_cart = function(req, res) {
             }
         );
     }
-    req.session.amountproduct+=num;
+    req.session.amountproduct += num;
     res.redirect('/product/detail/'+req.params.id);
 }
 
