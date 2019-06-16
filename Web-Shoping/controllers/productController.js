@@ -3,6 +3,12 @@ var Category = require('../models/catergories');
 var User = require('../models/users');
 var Review = require('../models/reviews');
 
+const price = [{start:0, end:500000}, {start:500000 , end:1000000}, {start:1000000, end:1500000},
+    {start:1500000, end:2000000}, {start:2000000, end:2500000}, {start:2500000, end:3000000}, 
+    {start:3000000, end:4000000}, {start:4000000, end:1000000000}];
+const color = ["Đen", "Trắng","Nâu","Xanh","Đỏ","Vàng","Cam","Hồng","Tím","Xám"];
+const size=["S","M","L","XL","Freesize"];
+
 
 var async = require('async');
 exports.index = function(req, res) {
@@ -80,6 +86,55 @@ exports.home_search_get= function(req, res) {
         res.render('products/home', { title: 'Sản Phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
     });
 };
+
+exports.home_filtermulti= function(req, res) {
+    if(req.body.color=="0" && req.body.size=="0" && req.body.price=="0" && req.body.category=="0") {
+        return res.redirect('/');
+    }
+    
+    async.parallel({
+        products: function(callback){
+            Product.find().exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+            },
+    },function(err, results) {
+        if (err) { 
+            console.log(err);
+            return next(err); 
+        }
+        var temp = results.products;
+        var productList = [];
+        if(req.body.color!=="0") {
+            productList = temp.filter(item => item.color === color[parseInt(req.body.color)-1]);
+            temp = productList ;
+        }
+        if(req.body.size !== "0") {
+            productList = temp.filter(item => item.size === size[parseInt(req.body.size)-1]);
+            temp = productList ;
+        }
+        if(req.body.category !== "0") {
+            productList = temp.filter(item => item.category === req.body.category);
+            temp = productList ;
+        }
+        if(req.body.price !== "0") {
+            productList = temp.filter(item => item.price >= price[parseInt(req.body.price)-1].start && item.price <= price[parseInt(req.body.price)-1].end);
+        }
+        productList.forEach(ele => {
+            ele.img = ele.img[0];
+        });
+        var notfound = null;
+        var found= null;
+        if(productList == 0){
+            notfound = 'Không tìm thấy sản phẩm phù hợp với bộ lọc.';
+        }
+        else {
+            found= 'Các sản phẩm phù hợp với bộ lọc.';
+        }
+        res.render('products/home', { title: 'Trang chủ',products:productList,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user, size });
+    });
+}
 
 // Display list of all products.
 exports.product_list = function(req, res) {

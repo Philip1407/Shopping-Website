@@ -9,6 +9,9 @@ var OrderSchema = new Schema({
     status: {type: String, required: true},
     address:{type: String, required: true},
     products:{type:Array, required: true},
+    phone:{type:String, required:true},
+    recipientname: {type: String, required: true},
+    shipfee:{type: Number, required: true},
 });
 
 // Virtual for this Order instance URL.
@@ -20,3 +23,4 @@ OrderSchema
 
 // Export model.
 module.exports = mongoose.model('Order', OrderSchema);
+    

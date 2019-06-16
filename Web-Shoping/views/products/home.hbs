@@ -243,151 +243,96 @@
 
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
-					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-						<div class="filter-col1 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Sắp xếp
+					<div class="wrap-filter bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+						<div class="row">
+							<div class="filter-col1 p-r-15 p-b-27">
+								<div class="mtext-102 cl2 p-b-15">
+									Sắp xếp
+								</div>
 							</div>
-
-							{{!-- <ul>
-								
+							<div class="filter-col2 p-r-15 p-b-27">
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Giá tiền: Thấp đến Cao
-									</a>
+										<a href="/filter/asc" class="filter-link stext-106 trans-04">
+											Giá tiền: Thấp đến Cao
+										</a>
 								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Giá tiền: Cao đến thấp
-									</a>
-								</li>
-							</ul> --}}
-						</div>
-
-						<div class="filter-col2 p-r-15 p-b-27">
-							<li class="p-b-6">
-									<a href="/filter/asc" class="filter-link stext-106 trans-04">
-										Giá tiền: Thấp đến Cao
-									</a>
-							</li>
-							{{!-- <div class="mtext-102 cl2 p-b-15">
-									Giá tiền
 							</div>
-
-							<ul>
+							<div class="filter-col3 p-r-15 p-b-27">
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										Tất cả
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										0 - 1.000.000đ
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										1.000.000đ - 2.000.000đ
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										2.000.000đ - 3.000.000đ
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										3.000.000đ - 4.000.000đ
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Trên 4.000.000đ
-									</a>
-								</li>
-							</ul> --}}
-						</div>
-
-						<div class="filter-col3 p-r-15 p-b-27">
-							<li class="p-b-6">
 									<a href="/filter/desc" class="filter-link stext-106 trans-04">
 										Giá tiền: Cao đến thấp
 									</a>
-							</li>
-							{{!-- <div class="mtext-102 cl2 p-b-15">
-								Màu sắc
-							</div> --}}
-
-							{{!-- <ul>
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #222;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Đen
-									</a>
 								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										Xanh dương
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Xám
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Xanh lá cây
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Đỏ
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle-o"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Trắng
-									</a>
-								</li>
-							</ul> --}}
+							</div>
 						</div>
+						<form action="/filter/multi" method="POST"class="row">
+							<div class="filter-col1 p-r-15 p-b-27">
+								<div class="mtext-102 cl2 p-b-15">
+									Tìm kiếm nâng cao
+								</div>
+							</div>
+							<div class="filter-col2 p-r-15 p-b-27">
+								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+									<select class="js-select2" name="color" placeholder="Màu">
+										<option value="0">Màu sắc: Tất cả</option>
+										<option value="1">Màu đen</option>
+										<option value="2">Màu trắng</option>
+										<option value="3">Màu nâu</option>
+										<option value="4">Màu xanh</option>
+										<option value="5">Màu đỏ</option>	
+										<option value="6">Màu vàng</option>
+										<option value="7">Màu cam</option>
+										<option value="8">Màu hồng</option>
+										<option value="9">Màu tím</option>
+										<option value="10">Màu xám</option>
+									</select>
+									<div class="dropDownSelect2"></div>
+								</div>
+								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+									<select class="js-select2" name="size" placeholder="Kích cỡ">
+										<option value="0">Kích cỡ: Tất cả</option>
+										<option value="1">Size S</option>
+										<option value="2">Size M</option>
+										<option value="3">Size L</option>											
+										<option value="4">Size XL</option>
+										<option value="5">FreeSize</option>
+									</select>
+									<div class="dropDownSelect2"></div>
+								</div>
+							</div>
+							<div class="filter-col3 p-r-15 p-b-27">
+								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+									<select class="js-select2" name="price" placeholder="Giá tiền">
+										<option value="0">Giá tiền: Tất cả</option>
+										<option value="1">Dưới 500.000 VND</option>
+										<option value="2">Từ 500.000 - 1.000.000 VND</option>
+										<option value="3">Từ 1.000.000 - 1.500.000 VND</option>
+										<option value="4">Từ 1.500.000 - 2.000.000 VND</option>
+										<option value="5">Từ 2.000.000 - 2.500.000 VND</option>
+										<option value="6">Từ 2.500.000 - 3.000.000 VND</option>
+										<option value="7">Từ 3.000.000 - 4.000.000 VND</option>
+										<option value="8">Trên 4.000.000 VND</option>
+									</select>
+									<div class="dropDownSelect2"></div>
+								</div>
 
-						
+								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+									<select class="js-select2" name="category" placeholder="Loại">
+										<option value="0">Loại: Tất cả</option>
+										{{#each categories}}
+											<option value="{{this._id}}">{{this.name}}</option>
+										{{/each}}
+									</select>
+									<div class="dropDownSelect2"></div>
+								</div>
+							</div>
+							<div class="filter-col4 p-r-15 p-b-27">
+								<br><br><br>
+								<button type="submit" class="stext-101 cl2 size-105 bg0 bor7 hov-btn2 p-lr-15 trans-04 m-b-12">
+									Lọc
+								</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
