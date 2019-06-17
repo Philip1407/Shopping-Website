@@ -27,6 +27,7 @@ exports.statistics_month_list = function(req, res){
     [
       {
         $match: {
+          status: 'Đã nhận',
           day: {$gte: new Date(year+'-01-01'), $lte: new Date(year+'-12-31')}
         }
       },

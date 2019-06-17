@@ -13,7 +13,7 @@ var admin_controller=require('../controllers/admins');
 module.exports = router;
 module.exports = function(router, passport,parser) {
     // GET home page.
-    router.get('/home', isLoggedIn, home_controller.index);
+    router.get('/home', home_controller.index);
 
     //accounts routes
     router.get('/accounts',accounts_controller.accounts_list);
