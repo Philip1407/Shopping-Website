@@ -49,6 +49,7 @@ exports.cart_list =  async function(req, res) {
         if( req.user.cart==[]) {
             return res.render("cart/shoppingcart", {title: 'Giỏ hàng', total: total, products: products, user:req.user, mess: 'Chưa có sản phẩm nào trong giỏ hàng.'});
         }
+        
         await Promise.all(req.user.cart.map( async element => {
             var result = await Product.findOne({_id:element.product},{ _id:0, name:1, price:1, img:1 }) 
             result.img = result.img[0];
@@ -154,6 +155,14 @@ exports.order_detail = async function(req, res, next){
 exports.order_create = function(req, res, next) {
     if(!req.user){
         res.redirect('/login');
+    }
+    const filter = /^[0-9-+]+$/;
+    if (!filter.test(req.body.phone)) {
+        req.session.sessionFlash = {
+            type: 'error',
+            message: 'Số điện thoại không hợp lệ.',
+        };
+        return res.redirect('/shoppingcart');
     }
     var order = new Order({
         custom: req.user._id,
