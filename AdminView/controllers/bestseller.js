@@ -8,6 +8,11 @@ exports.bestseller_list = function(req, res, next) {
   Order.aggregate(
     [
       {
+        $match: {
+        status: 'Đã nhận',
+      }
+    },
+      {
         $unwind: "$products"
      },
      {

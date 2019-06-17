@@ -39,11 +39,11 @@ exports.index = async function(req, res){
         ]
     ).sort({_id:1}).exec().then((list) => {
     if(list==0) {
-        res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBil});
+       return res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill});
     }
 
     setTimeout(function(){
-        res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill, dataD: getValueMonth(list)});
+        return res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill, dataD: getValueMonth(list)});
     },10000);
         
         list.forEach( element => {
