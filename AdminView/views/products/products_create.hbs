@@ -25,11 +25,11 @@
                     </div>
                     <div class="form-group">
                       <strong for="price">Giá Sản phẩm</strong> 
-                      <input type="text" class="input-material" value="" name ="price" id="price" require>
+                      <input type="number" class="input-material" value="" name ="price" id="price" step="1000" require>
                     </div>
                     <div class="form-group">
                       <strong for="amount">Số lượng</strong> 
-                      <input type="text" class="input-material" value="" name ="amount" id="amount"require>
+                      <input type="number" class="input-material" value="" name ="amount" id="amount" step="1"  require>
                     </div>
                     <div class="form-group">
                       <strong for="size">Size</strong> 
@@ -37,7 +37,22 @@
                     </div>
                     <div class="form-group">
                       <strong for="color">Color</strong> 
-                      <input type="text" class="input-material" value="" name ="color" id="color" require>
+                      <br/>
+                      <select name="color" id="color">
+                        <option value="Đen">Đen<span></span></option>
+                        <option value="Trắng">Trắng</option>
+                        <option value="Xanh lam">Xanh lam</option>
+                        <option value="Xanh lục">Xanh lục</option>
+                        <option value="Đỏ">Đỏ</option>
+                        <option value="Vàng">Vàng</option>
+                        <option value="Cam">Cam</option>
+                        <option value="Tím">Tím</option>
+                        <option value="Hồng">Hồng</option>
+                        <option value="Xám">Xám</option>
+                        <option value="Bạc">Bạc</option>
+                        <option value="Kem">Kem</option>
+                        <option value="Nâu">Nâu</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <strong>Mô tả</strong> <br><br>

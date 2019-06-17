@@ -70,6 +70,10 @@ var async = require('async');
           return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Chưa có kích cỡ",admin:req.user});
         if(req.files.length>4)
           return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Không được thêm quá 4 hình",admin:req.user});
+        if(req.body.size<0)
+          return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Kích cỡ phải lớn hơn 0",admin:req.user});
+        if(req.body.amount<0)
+          return res.render("products/products_create",{title:"Thêm sản phẩm",message:"Số lượng phải lớn hơn 0",admin:req.user});
 
           var product = new Product(
           { name: req.body.name,
