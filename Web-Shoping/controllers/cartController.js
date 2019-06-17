@@ -5,7 +5,7 @@ var User = require("../models/users");
 function formatCost(cost) {
     var result = "";
     var temp = cost.slice(0,cost.length-4);
-    temp.split(".");
+    temp = temp.split(".");
     for(i=0;i<temp.length;i++) {
         result+=temp[i];
     }
@@ -138,20 +138,23 @@ exports.order_detail = async function(req, res, next){
     var total=0;
     var order = await Order.findOne({_id:req.params.id});
     order.date = formatDate(order.day);
-
+    var show = undefined
+    if(order.status != 'Đã hủy'){
+        show = true;
+    }
     await Promise.all(order.products.map( async element => {
         var result = await Product.findOne({_id:element.product},{ _id:0, name:1, price:1, img:1 })
         total+= element.amount*result.price;
         element.product = result.name;
         element.price =result.price;
-        element.img = result.img;
+        element.img = result.img[0];
         element.total = element.amount*result.price;
     }));   
     order.totalship = total + order.shipfee;
-    res.render('cart/orderdetail', { title: 'Chi tiết đơn hàng', data:order, total:total, admin:req.user}); 
+    res.render('cart/orderdetail', { title: 'Chi tiết đơn hàng', data:order, total:total, admin:req.user,id:req.params.id,show:show}); 
 }
 
-exports.order_create = function(req, res, next) {
+exports.order_create = async function(req, res, next) {
     if(!req.user){
         res.redirect('/login');
     }
@@ -165,12 +168,19 @@ exports.order_create = function(req, res, next) {
         recipientname: req.body.recipientname,
         shipfee: formatCost(req.body.shipfee)
     });
-    order.save(function (err) {
-        if (err) { return console.log(err); }
-        req.session.cart = [];
-        req.session.amountproduct = 0;
-        res.redirect('/history');
-    });
+    await order.save()
+    var user = await User.findById(req.user._id);
+    user.cart = [];
+    await user.save();
+    req.session.cart = [];
+    req.session.amountproduct = 0;
+    res.redirect('/history');
+}
+exports.delete_order = async function(req, res, next) {
+    var order = await Order.findById(req.params.id);
+    order.status = 'Đã hủy'
+    await order.save()
+    res.redirect('/history');
 }
 // // Display detail page for a specific cart.
 // exports.cart_detail = function(req, res) {
