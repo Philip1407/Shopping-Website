@@ -34,7 +34,7 @@ module.exports = function(router, passport, parser) {
 	router.post('/product/review/:id', product_controller.product_review);
 	router.post('/product/filter/multi', product_controller.product_filtermulti);
 	router.get('/product/filter/:type',product_controller.product_sort);
-
+	router.post('/deleteorder/:id',cart_controller.delete_order);
 	router.get('/myaccount', isLoggedIn,user_controller.user_detail);
 	router.get('/login', user_controller.user_login_get);
 	router.get('/logout', user_controller.user_logout_get);
@@ -63,9 +63,9 @@ module.exports = function(router, passport, parser) {
 	router.post('/changepass',user_controller.user_change_pass_post);
 	router.get('/shoppingcart', cart_controller.cart_list);
 	router.post('/shoppingcart', cart_controller.cart_update_product);
-	router.get('/history',cart_controller.order_list);
-	router.post('/history',cart_controller.order_create);
-	router.get('/history/detail/:id',cart_controller.order_detail);
+	router.get('/history',isLoggedIn,cart_controller.order_list);
+	router.post('/history',isLoggedIn,cart_controller.order_create);
+	router.get('/history/detail/:id',isLoggedIn,cart_controller.order_detail);
 	
 
 	router.get('/faq', function(req, res, next){

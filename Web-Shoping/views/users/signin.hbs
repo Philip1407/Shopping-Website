@@ -38,6 +38,12 @@
                     <input class="input1 bg-none plh1 stext-107 cl7" required type="password" name="pass" >
                     <div class="focus-input1 trans-04"></div>
 	            </div><br><br>
+                {{#if sessionFlash.message1}}
+                <div class="p-b-4 col-md-3 col-lg-4">
+                        <div class="alert alert-danger">{{sessionFlash.message1}}</div>
+	            </div><br><br>
+                {{/if}}
+                 
                 <div class="wrap-input1 w-full p-b-4 col-md-3 col-lg-4">
                     Nhập lại:
                     <input class="input1 bg-none plh1 stext-107 cl7" required type="password" name="repass" >

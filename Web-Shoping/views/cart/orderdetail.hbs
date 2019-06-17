@@ -19,7 +19,7 @@
 								<tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1 m-l-20">
-											<img src="/images/{{this.img}}" alt="IMG">
+											<img src="{{this.img}}" alt="IMG">
 										</div>
 									</td>
 									<td class="column-2">{{this.product}}</td>
@@ -29,13 +29,13 @@
 								</tr>
 								{{/each}}
 							</table>
-					
-
-					<form action="/shoppingcart" method="POST" class="table-shopping-cart flex-w flex-c bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+					{{#if show}}
+					<form action="/deleteorder/{{id}}" method="POST" class="table-shopping-cart flex-w flex-c bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 						<button type="submit" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
 							Hủy đơn hàng
 						</button>
 					</form>
+					{{/if}}
 				</div>
 
 				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 m-t-20">
