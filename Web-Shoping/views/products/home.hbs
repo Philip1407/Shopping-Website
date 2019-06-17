@@ -318,9 +318,9 @@
 
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 									<select class="js-select2" name="category" placeholder="Loại" id="category">
-										<option value="0">Loại: Tất cả</option>
+										<option value="a">Loại: Tất cả</option>
 										{{#each categories}}
-											<option value="{{this._id}}" id="option-category">{{this.name}}</option>
+											<option value="{{@index}}" id="option-category">{{this.name}}</option>
 										{{/each}}
 									</select>
 									<div class="dropDownSelect2"></div>

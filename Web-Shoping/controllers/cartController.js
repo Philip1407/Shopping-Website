@@ -152,6 +152,9 @@ exports.order_detail = async function(req, res, next){
 }
 
 exports.order_create = function(req, res, next) {
+    if(!req.user){
+        res.redirect('/login');
+    }
     var order = new Order({
         custom: req.user._id,
         day: new Date(),

@@ -115,8 +115,8 @@ exports.home_filtermulti= function(req, res) {
             productList = temp.filter(item => item.size === size[parseInt(req.body.size)-1]);
             temp = productList ;
         }
-        if(req.body.category !== "0") {
-            productList = temp.filter(item => item.catergory.equals(req.body.category));
+        if(req.body.category !== "a") {
+            productList = temp.filter(item => item.catergory.equals(results.categories[parseInt(req.body.category)]._id));
             temp = productList ;
         }
         if(req.body.price !== "0") {
@@ -133,6 +133,7 @@ exports.home_filtermulti= function(req, res) {
         else {
             found= 'Các sản phẩm phù hợp với bộ lọc.';
         }
+        res.locals.amountproduct = req.session.amountproduct;
         res.render('products/home', { title: 'Trang chủ', size: req.body.size, color: req.body.color, price: req.body.price, category: req.body.category,products:productList,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
     });
 }
