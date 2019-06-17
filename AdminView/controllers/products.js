@@ -129,10 +129,11 @@ var async = require('async');
   // Handle products update on POST.
   exports.products_update_post = function(req, res) {
       req.body.img = [];
-    
-      req.files.forEach(ele=>{
-        req.body.img.push(ele.url);
-      })
+      if(req.body.img != []){
+        req.files.forEach(ele=>{
+          req.body.img.push(ele.url);
+        })
+      }
       Product.findByIdAndUpdate(req.params.id,req.body)
       .exec(function(err,result){
         if(err){return console.log(err);}

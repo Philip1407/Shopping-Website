@@ -21,7 +21,7 @@ exports.index = async function(req, res){
     const newOrder = await Order.countDocuments({day: {$gt: new Date(year+'-'+ month +'-'+ day)}, status:"Đang giao"});
     const newBill = await Order.countDocuments({day: {$gt: new Date(year+'-'+ month +'-'+ day)}, status:"Đã nhận"});
 
-    Order.aggregate(
+    var list = await Order.aggregate(
         [
         {
             $match: {
@@ -37,27 +37,19 @@ exports.index = async function(req, res){
             }
         }
         ]
-    ).sort({_id:1}).exec().then((list) => {
+    ).sort({_id:1})
     if(list==0) {
-       return res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill});
+        return res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill});
     }
-
-    setTimeout(function(){
-        return res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill, dataD: getValueMonth(list)});
-    },10000);
         
-        list.forEach( element => {
-        return element.product_list.forEach((item, index1) => {
-            element['total'] = 0;
-            return item.forEach((pro, index2) => {
-            return Product.findOne({_id:pro},{ _id:0, price:1}).exec().then((result) => {
-                element['total']+= element.amount_list[index1][index2]*result['price'];
-            // console.log(element['total']);
-            }).catch((err) => {
-                console.log(err);
-                });
-            });
-        });
-        });
-    });  
-};
+        await Promise.all(list.map( async element => {
+            await Promise.all(element.product_list.map(async (item, index1) => {
+                element.total = 0;
+                await Promise.all(item.map(async (pro, index2) => {
+                    var result = await Product.findOne({_id:pro},{ _id:0, price:1})
+                    element.total += element.amount_list[index1][index2]*result.price;
+                }));
+            }));
+        }));
+        return res.render('index', { title: 'Trang chủ', admin:req.user,  newOrder: newOrder, newBill:newBill, dataD: getValueMonth(list)});
+    }
