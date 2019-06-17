@@ -89,7 +89,7 @@ exports.home_search_get= function(req, res) {
 };
 
 exports.home_filtermulti= function(req, res) {
-    if(req.body.color=="0" && req.body.size=="0" && req.body.price=="0" && req.body.category=="0") {
+    if(req.body.color=="0" && req.body.size=="0" && req.body.price=="0" && req.body.category=="a") {
         return res.redirect('/');
     }
     
@@ -218,6 +218,56 @@ exports.product_search_post = function(req, res) {
     
     res.redirect('/product/search/'+req.body.search+'/1');
 };
+
+exports.product_filtermulti= function(req, res) {
+    if(req.body.color=="0" && req.body.size=="0" && req.body.price=="0" && req.body.category=="a") {
+        return res.redirect('/product');
+    }
+    
+    async.parallel({
+        products: function(callback){
+            Product.find().exec(callback);
+        },
+        categories: function(callback){
+            Category.find().exec(callback);
+            },
+    },function(err, results) {
+        if (err) { 
+            console.log(err);
+            return next(err); 
+        }
+        var temp = results.products;
+        var productList = [];
+        if(req.body.color !== "0") {
+            productList = temp.filter(item => item.color === color[parseInt(req.body.color)-1]);
+            temp = productList ;
+        }
+        if(req.body.size !== "0") {
+            productList = temp.filter(item => item.size === size[parseInt(req.body.size)-1]);
+            temp = productList ;
+        }
+        if(req.body.category !== "a") {
+            productList = temp.filter(item => item.catergory.equals(results.categories[parseInt(req.body.category)]._id));
+            temp = productList ;
+        }
+        if(req.body.price !== "0") {
+            productList = temp.filter(item => item.price >= price[parseInt(req.body.price)-1].start && item.price <= price[parseInt(req.body.price)-1].end);
+        }
+        productList.forEach(ele => {
+            ele.img = ele.img[0];
+        });
+        var notfound = null;
+        var found= null;
+        if(productList == 0){
+            notfound = 'Không tìm thấy sản phẩm phù hợp với bộ lọc.';
+        }
+        else {
+            found= 'Các sản phẩm phù hợp với bộ lọc.';
+        }
+        res.locals.amountproduct = req.session.amountproduct;
+        res.render('products/product', { title: 'Sản phẩm', size: req.body.size, color: req.body.color, price: req.body.price, category: req.body.category,products:productList,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
+    });
+}
 
 exports.product_search_get = function(req, res) {
     var itemPerPage = 12;
