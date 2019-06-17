@@ -30,7 +30,7 @@ exports.bestseller_list = async function(req, res, next) {
   await Promise.all(temp.map(async element => {
       var result = await Product.findOne({_id:element._id},{ _id:0, name: 1, catergory:1})
       element.name = result.name;
-      element.category =result.catergory;
+      element.category =result.catergory.toString();
       var result2 = Category.findOne({_id:element.category},{ _id:0, name: 1})
       element.categoryName = result2.name;
   }))
