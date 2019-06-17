@@ -79,10 +79,16 @@ module.exports = function(passport) {
                             message: 'Email đã tồn tại.'
                           });
                     } else {
+
                         if(req.body.pass!==req.body.repass)
                             return done(null, false, req.session.sessionFlash = {
                                 type: 'signupMessage', 
-                                message: 'Mật khẩu không khớp.'
+                                message1: 'Mật khẩu không khớp.'
+                            });
+                        if(req.body.pass.length<6)
+                            return done(null, false, req.session.sessionFlash = {
+                                type: 'signupMessage', 
+                                message1: 'Mật khẩu phải lớn hơn 6 kí tự.'
                             });
                         var newUser = new User({
                             username: req.body.username,
