@@ -27,11 +27,11 @@ exports.bestseller_list = async function(req, res, next) {
     ]
  ).sort({total:-1}).limit(10)
     temp = list_products;
-  await Promise.all(temp.map(async element => {
+    await Promise.all(temp.map(async element => {
       var result = await Product.findOne({_id:element._id},{ _id:0, name: 1, catergory:1})
       element.name = result.name;
       element.category =result.catergory.toString();
-      var result2 = Category.findOne({_id:element.category},{ _id:0, name: 1})
+      var result2 = await Category.findOne({_id:element.category},{ _id:0, name: 1})
       element.categoryName = result2.name;
   }))
   res.render('bestseller/bestseller', { title: 'Sản phẩm bán chạy',list_bestSeller: temp, admin:req.user});

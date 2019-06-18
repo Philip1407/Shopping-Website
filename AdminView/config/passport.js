@@ -61,8 +61,20 @@ module.exports = function(passport) {
                         if(req.body.pass!==req.body.repass)
                             return done(null, false, req.session.sessionFlash = {
                                 type: 'signupMessage', 
-                                message: 'Mật khẩu không khớp.'
+                                message1: 'Mật khẩu không khớp.'
                             });
+                        if(req.body.pass.length<6)
+                            return done(null, false, req.session.sessionFlash = {
+                                type: 'signupMessage', 
+                                message1: 'Mật khẩu phải lớn hơn 6 kí tự.'
+                            });
+                        const filter = /^[0-9-+]+$/;
+                            if (!filter.test(req.body.phone)) {
+                                return done(null, false, req.session.sessionFlash = {
+                                    type: 'error',
+                                    message2: 'Số điện thoại không hợp lệ.',
+                                });
+                            }
                         var newAdmin = new Admin({
                             name: req.body.name,
                             title: req.body.title,
