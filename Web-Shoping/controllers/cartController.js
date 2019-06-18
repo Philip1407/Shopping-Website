@@ -26,9 +26,6 @@ function formatDate(date){
     return dd+"/"+mm+"/"+yyyy;
     
   }
-
-
-// Display list of carts.
 exports.cart_list =  async function(req, res) {
     var total = 0;
     var products = [];
@@ -191,28 +188,4 @@ exports.delete_order = async function(req, res, next) {
     await order.save()
     res.redirect('/history');
 }
-// // Display detail page for a specific cart.
-// exports.cart_detail = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart detail: ' + req.params.id);
-// };
-
-// // Display cart create form on GET.
-// exports.cart_create_get = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart create GET');
-// };
-
-// // Handle cart create on POST.
-// exports.cart_create_post = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart create POST');
-// };
-
-// // Display cart delete form on GET.
-// exports.cart_delete_get = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart delete GET');
-// };
-
-// // Handle cart delete on POST.
-// exports.cart_delete_post = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart delete POST');
-// };
 

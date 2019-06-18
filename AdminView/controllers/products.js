@@ -10,32 +10,8 @@ var async = require('async');
       res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm',admin:req.user, list_products: result});
     });
   };
-  /*
-  exports.products_list = function(req, res) {
-    var itemPerPage = 5;
-    page = req.params.page?req.params.page:1;
-    async.parallel({
-        products: function(callback){
-          Product.find()
-            .skip((itemPerPage * page) - itemPerPage)
-            .limit(itemPerPage)
-            .exec(callback);
-        },
-        pageCount: function(callback){
-          Product.countDocuments().exec(callback)
-        }
-    },function(err, results) {
-        if (err) { return next(err); }
-        var pageNum = Math.ceil(results. pageCount/itemPerPage);
-        var page = [];
-        for(var i = 1;i<=pageNum;i++){
-            page.push(i);
-        }
-        var linkPage = '/products';  
-        res.render('products/products', { title: 'Quản lý sản phẩm',cattitle:'Quản lý sản phẩm', linkPage:linkPage,page:page,admin:req.user, list_products: results.products});
-    });
-  };
-*/
+
+
   exports.products_list_cat = function(req, res, next){
     var category="";
     Category.findOne({_id:req.params.id},{ _id:0, name: 1}).exec().then((result) => {
@@ -48,7 +24,7 @@ var async = require('async');
       });
     });
   };
-  // Display products create form on GET.
+  
   exports.products_create = function(req, res) {
     Category.find()
             .exec(function(err, results) {
@@ -57,7 +33,7 @@ var async = require('async');
             });
   };
   
-  // Handle products create on POST.
+  
   exports.products_create_post = function(req, res) {
     Product.findOne({'name':req.body.name}, function(err, found){
       if(err){return console.log(err)};
@@ -95,15 +71,14 @@ var async = require('async');
     })
   }
   
-  // Display products delete form on GET.
+
   exports.products_delete = function(req, res) {
     Product.findOne({'_id':req.params.id},function(err,result){
       if(err){return console.log(err);} 
       res.render('products/products_delete', { title: 'Xóa sản phẩm',product:result, admin:req.user});
     });
   };
-  
-  // Handle products delete on POST.
+
   exports.products_delete_post = function(req, res) {
     Product.deleteOne({'_id':req.params.id})
           .exec(function(err,result){
@@ -111,8 +86,7 @@ var async = require('async');
             res.redirect('/products');
           })
   };
-  
-  // Display products update form on GET.
+
   exports.products_update = function(req, res) {
     Product.findOne({'_id':req.params.id})
           .exec(function(err,result){
@@ -125,8 +99,7 @@ var async = require('async');
           })
     
   };
-  
-  // Handle products update on POST.
+ 
   exports.products_update_post = function(req, res) {
       req.body.img = [];
       if(req.body.img != []){

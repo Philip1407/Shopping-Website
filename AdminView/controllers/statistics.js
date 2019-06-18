@@ -54,7 +54,7 @@ exports.statistics_month_list = async function(req, res){
     }));
     res.render('statistics/statistics_month', { title: 'Thống kê', admin:req.user, dataD: getValueMonth(list), textYear: year});
   }
-// Display statistics_month update form on POST.
+
 exports.statistics_month_update = async function(req, res) {
   var pattern = /^\d+$/;
   if (!pattern.test(req.body.year)) 

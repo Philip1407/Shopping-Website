@@ -17,71 +17,45 @@ function formatDate(date){
   return dd+"/"+mm+"/"+yyyy;
 }
 
-exports.orders_list = function(req, res){
-  Order.find().exec(function(err, result) {
-    
-    setTimeout(function(){
+exports.orders_list = async function(req, res){
+  var result = await Order.find();
+
+    await Promise.all(result.map(async (order)=>{
+      order.date = formatDate(order.day);
+      var name = await User.findOne({_id: order.custom},{_id:0, username:1})
+      order.customName=name.username;
+    }));
+      order.total = 0;
+      await Promise.all(order.products.map( async element => {
+          var result = await Product.findOne({_id:element.product},{ _id:0, name:1, price:1, })
+          order.total+= element.amount*result.price;
+          element.product = result.name;
+          element.price=result.price;
+      }))
       res.render('orders/orders', { title: 'Quản lý đơn hàng', data:result, admin:req.user}); 
-    },10000);
+    }
 
-    result.forEach((order)=>{
-      order['date'] = formatDate(order.day);
-      User.findOne({_id: order.custom},{_id:0, username:1}).exec().then((name)=>{
-        order['customName']=name['username'];
-      }).catch((err) => {
-        console.log(err);
-      });
-      
-      order['total']=0;
-        order.products.forEach( element => {
-          return Product.findOne({_id:element.product},{ _id:0, name:1, price:1, }).exec().then((result) => {
-            order['total']+= element.amount*result['price'];
-            element.product = result['name'];
-            element['price']=result['price'];
-          // console.log(element['total']);
-          }).catch((err) => {
-            console.log(err);
-        });
-      });
-    });
-  });
-};
 
-// Display orders delete form on GET.
 exports.orders_delete_get = function(req, res) {
   res.send('NOT IMPLEMENTED: orders delete GET');
 };
 
-// Handle orders delete on POST.
+
 exports.orders_delete_post = function(req, res) {
   res.send('NOT IMPLEMENTED: orders delete POST');
 };
 
-exports.orders_getdetail = function(req,res, next) {
+exports.orders_getdetail = async function(req,res, next) {
   total=0;
-  Order.findOne({_id:req.params.id}, function(err, order) {
-    if(err){ return next(err); }
-
-    setTimeout(function(){
-      res.render('orders/orders_detail', { title: 'Chi tiết đơn hàng', data:order, total:total, admin:req.user}); 
-    },10000);
-    order['date'] = formatDate(order.day);
-    User.findOne({_id: order.custom},{_id:0, username:1}).exec().then((name)=>{
-      order['customName']=name['username'];
-    }).catch((err) => {
-      console.log(err);
-    });
-
-    order.products.forEach( element => {
-      return Product.findOne({_id:element.product},{ _id:0, name:1, price:1, }).exec().then((result) => {
-        
-        total+= element.amount*result['price'];
-        element.product = result['name'];
-        element['price']=result['price'];
-       // console.log(element['total']);
-      }).catch((err) => {
-        console.log(err);
-      });
-    });
-  });   
-};
+  var order =  await Order.findOne({_id:req.params.id});
+  order['date'] = formatDate(order.day);
+  var name = await User.findOne({_id: order.custom},{_id:0, username:1})
+  order.customName=name.username;
+  await Promise.all(order.products.map( async element => {
+    var result = await Product.findOne({_id:element.product},{ _id:0, name:1, price:1, })
+    total+= element.amount*result.price;
+    element.product = result.name;
+    element.price=result.price;
+  }));
+  res.render('orders/orders_detail', { title: 'Chi tiết đơn hàng', data:order, total:total, admin:req.user});
+}
