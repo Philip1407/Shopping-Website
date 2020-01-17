@@ -26,9 +26,6 @@ function formatDate(date){
     return dd+"/"+mm+"/"+yyyy;
     
   }
-
-
-// Display list of carts.
 exports.cart_list =  async function(req, res) {
     var total = 0;
     var products = [];
@@ -124,7 +121,7 @@ exports.order_list = async function(req, res) {
     var result = await Order.find({custom:req.user._id}).sort({day:-1})
     await Promise.all(result.map( async order=>{
         order.date = formatDate(order.day);
-        order.total = 0;
+        order.total = order.shipfee;
         await Promise.all(order.products.map( async element => {
             var result = await Product.findOne({_id:element.product},{ _id:0, name:1, price:1, })
             order.total += element.amount*result.price;
@@ -191,28 +188,4 @@ exports.delete_order = async function(req, res, next) {
     await order.save()
     res.redirect('/history');
 }
-// // Display detail page for a specific cart.
-// exports.cart_detail = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart detail: ' + req.params.id);
-// };
-
-// // Display cart create form on GET.
-// exports.cart_create_get = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart create GET');
-// };
-
-// // Handle cart create on POST.
-// exports.cart_create_post = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart create POST');
-// };
-
-// // Display cart delete form on GET.
-// exports.cart_delete_get = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart delete GET');
-// };
-
-// // Handle cart delete on POST.
-// exports.cart_delete_post = function(req, res) {
-//     res.send('NOT IMPLEMENTED: cart delete POST');
-// };
 

@@ -137,8 +137,6 @@ exports.home_filtermulti= function(req, res) {
         res.render('products/home', { title: 'Trang chủ', size: req.body.size, color: req.body.color, price: req.body.price, category: req.body.category,products:productList,categories:results.categories,none:notfound,done:found, textSearch:req.body.search, user:req.user });
     });
 }
-
-// Display list of all products.
 exports.product_list = function(req, res) {
     var itemPerPage = 12;
     page = req.params.page?req.params.page:1;
@@ -169,8 +167,6 @@ exports.product_list = function(req, res) {
         res.render('products/product', { title: 'Sản phẩm',linkPage:linkPage,page:page,products:results.products,categories:results.categories, user:req.user});
     });
 };
-
-// Display detail page for a specific product.
 exports.product_detail = async function(req, res) {
     var itemPerPage = 10;
     page = req.params.page?req.params.page:1;
@@ -210,7 +206,7 @@ exports.product_detail = async function(req, res) {
         res.render('products/product-detail', {title: 'Chi tiết mặt hàng',item:  product, category: results.category, productRelates:results.productRelate, user:req.user, reviews: results.review, num: results.reviewPage,page:page,watch: product.watch} );
     });
 };
-// Display list of all products.
+
 exports.product_search_post = function(req, res) {
     if(req.body.search=="") {
         res.redirect('/product');
