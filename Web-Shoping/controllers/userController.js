@@ -91,10 +91,13 @@ exports.user_forgetpass_post = function(req, res) {
         },
         function(token, user, done) {
           var transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
             service: 'Gmail',
+            port: 465,
+            secure: true,
             auth: {
-                user: process.env.GMAIL,
-                pass: process.env.PASS,
+              user: process.env.GMAIL,
+              pass: process.env.PASS,
             }
           });
       
@@ -198,7 +201,10 @@ exports.user_active_account = async function(req, res) {
       },
       function(token, user, done) {
         var transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
           service: 'Gmail',
+          port: 465,
+          secure: true,
           auth: {
             user: process.env.GMAIL,
             pass: process.env.PASS,
@@ -208,7 +214,7 @@ exports.user_active_account = async function(req, res) {
         console.log('created');
         req.session.sessionFlash = { type: 'success',message: '1 e-mail đã gửi đến ' + user.email + ' để kích hoạt mật khẩu'};
         transporter.sendMail({
-          from: 'team384440470@gmail.com',
+          from: process.env.GMAIL,
           to: user.email,
           subject: 'Active tài khoản',
           text: 'Email kích hoạt mật khẩu\n\n' +

@@ -1,6 +1,9 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var User            = require('../models/users');
 var bcrypt = require('bcrypt')
+let nodemailer = require('nodemailer')
+let randomstring = require('randomstring')
+require('dotenv').config()
 
 
 module.exports = function(passport) {
@@ -90,6 +93,8 @@ module.exports = function(passport) {
                                 type: 'signupMessage', 
                                 message1: 'Mật khẩu phải lớn hơn 6 kí tự.'
                             });
+                            let expire = new Date()
+                            expire.setMinutes(expire.getMinutes()+15)
                         var newUser = new User({
                             username: req.body.username,
                             birthday: req.body.birthday,
@@ -98,7 +103,9 @@ module.exports = function(passport) {
                             address: req.body.address,
                             pass : await bcrypt.hash(req.body.pass, 10),
                             avar: req.file.url,
-                            isActive: false
+                            isActive: false,
+                            resetPasswordToken: randomstring.generate(),
+                            resetPasswordExpires: expire
                         });
                         newUser.save(function(err) {
                             if (err)

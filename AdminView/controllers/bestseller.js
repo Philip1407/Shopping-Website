@@ -3,10 +3,15 @@ var Product = require('../models/products');
 var Order = require('../models/orders');
 var async = require('async');
 
-exports.bestseller_list = function(req, res, next) {
+exports.bestseller_list = async function(req, res, next) {
   var temp=null;
-  Order.aggregate(
+  var list_products = await Order.aggregate(
     [
+      {
+        $match: {
+        status: 'Đã nhận',
+      }
+    },
       {
         $unwind: "$products"
      },
@@ -20,26 +25,17 @@ exports.bestseller_list = function(req, res, next) {
         }
       }, 
     ]
- ).sort({total:-1}).limit(10).exec().then((list_products) => {
-  setTimeout(function(){
-    res.render('bestseller/bestseller', { title: 'Sản phẩm bán chạy',list_bestSeller: temp, admin:req.user});
-  },10000);
-
+ ).sort({total:-1}).limit(10)
     temp = list_products;
-    temp.forEach( element => {
-      return Product.findOne({_id:element._id},{ _id:0, name: 1, catergory:1}).exec().then((result) => {
-        element['name'] = result['name'];
-        element['category']=result['catergory'];
-        Category.findOne({_id:element.category},{ _id:0, name: 1}).exec().then((result) => {
-          element['categoryName']=result['name'];
-        //console.log("123456");
-      }).catch((err) => {
-        console.log(err);
-      });
-    });
-  });
-});
-};
+    await Promise.all(temp.map(async element => {
+      var result = await Product.findOne({_id:element._id},{ _id:0, name: 1, catergory:1})
+      element.name = result.name;
+      element.category =result.catergory.toString();
+      var result2 = await Category.findOne({_id:element.category},{ _id:0, name: 1})
+      element.categoryName = result2.name;
+  }))
+  res.render('bestseller/bestseller', { title: 'Sản phẩm bán chạy',list_bestSeller: temp, admin:req.user});
+}
 /*
 exports.bestseller_list = async function(req, res, next) {
   var temp=null;

@@ -13,7 +13,6 @@ require('./config/passport')(passport);
 
 var app = express();
 
-console.log(process.env.A);
 //in the declarations
 const exphbs  = require('express-handlebars');
 

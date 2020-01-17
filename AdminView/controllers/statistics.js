@@ -19,14 +19,15 @@ function getValueDay(data) {
 var Product = require('../models/products');
 var Order = require('../models/orders');
 
-exports.statistics_month_list = function(req, res){
+exports.statistics_month_list = async function(req, res){
   var current = new Date();
   var year = parseInt(current.getFullYear());
   
-  Order.aggregate(
+  var list = await Order.aggregate(
     [
       {
         $match: {
+          status: 'Đã nhận',
           day: {$gte: new Date(year+'-01-01'), $lte: new Date(year+'-12-31')}
         }
       },
@@ -38,46 +39,36 @@ exports.statistics_month_list = function(req, res){
         }
       }
     ]
- ).sort({_id:1}).exec().then((list) => {
+ ).sort({_id:1});
   if(list==0) {
     res.render('statistics/statistics_month', { title: 'Thống kê', admin:req.user, dataD: getValueMonth(list), textYear: year, hidden: "hidden"});
   }
-
-  setTimeout(function(){
-    console.log(getValueMonth(list));
+  await Promise.all(list.map(async element => {
+      await Promise.all(element.product_list.map(async (item, index1) => {
+        element.total = 0;
+        await Promise.all(item.map(async (pro, index2) => {
+          var result = await Product.findOne({_id:pro},{ _id:0, price:1})
+          element.total+= element.amount_list[index1][index2]*result.price;
+        }));
+      }));
+    }));
     res.render('statistics/statistics_month', { title: 'Thống kê', admin:req.user, dataD: getValueMonth(list), textYear: year});
-  },10000);
-    
-    list.forEach( element => {
-      return element.product_list.forEach((item, index1) => {
-        element['total'] = 0;
-        return item.forEach((pro, index2) => {
-          return Product.findOne({_id:pro},{ _id:0, price:1}).exec().then((result) => {
-            element['total']+= element.amount_list[index1][index2]*result['price'];
-           // console.log(element['total']);
-          }).catch((err) => {
-            console.log(err);
-            });
-        });
-      });
-    });
-  });
-};
+  }
 
-// Display statistics_month update form on POST.
-exports.statistics_month_update = function(req, res) {
+exports.statistics_month_update = async function(req, res) {
   var pattern = /^\d+$/;
   if (!pattern.test(req.body.year)) 
   {
     return res.render('statistics/statistics_month', { title: 'Thống kê',admin:req.user, textYear: "", hidden: "hidden", message:"Năm nhập vào không hợp lệ, vui lòng nhập lại!"});
   }
   var year = parseInt(req.body.year);
-  console.log(year);
-  Order.aggregate(
+  
+  var list = Order.aggregate(
     [
       {
         $match: {
-        day: {$gte: new Date(year+'-01-01'), $lte: new Date(year+'-12-31')}
+          status: 'Đã nhận',
+          day: {$gte: new Date(year+'-01-01'), $lte: new Date(year+'-12-31')}
         }
       },
       {
@@ -88,30 +79,23 @@ exports.statistics_month_update = function(req, res) {
         }
       }
     ]
- ).exec().then((list) => {
+ ).exec()
   if(list==0) {
     return res.render('statistics/statistics_month', { title: 'Thống kê',admin:req.user, dataD: getValueMonth(list), textYear: year, hidden: "hidden", message:"Không có dữ liệu để thống kê cho năm " + year});
   }
-  setTimeout(function(){
-    console.log(getValueMonth(list));
-    res.render('statistics/statistics_month', { title: 'Thống kê',admin:req.user, dataD: getValueMonth(list), textYear: year});
-  },10000);
 
-    list.forEach( element => {
-      return element.product_list.forEach((item, index1) => {
-        element['total'] = 0;
-        return item.forEach((pro, index2) => {
-          return Product.findOne({_id:pro},{ _id:0, price:1}).exec().then((result) => {
-            element['total']+= element.amount_list[index1][index2]*result['price'];
-           // console.log(element['total']);
-          }).catch((err) => {
-            console.log(err);
-            });
-        });
-      });
-    });
-  });
-};
+
+  await Promise.all(list.map( async element => {
+      await Promise.all(element.product_list.map(async(item, index1) => {
+        element.total = 0;
+        await Promise.all(item.forEach(async (pro, index2) => {
+          var result = Product.findOne({_id:pro},{ _id:0, price:1})
+          element.total += element.amount_list[index1][index2]*result.price;
+        }));
+      }));
+    }))
+    res.render('statistics/statistics_month', { title: 'Thống kê',admin:req.user, dataD: getValueMonth(list), textYear: year});
+  }
 
 exports.statistics_day_list = function(req, res){
   return res.render('statistics/statistics_day', { title: 'Thống kê'});

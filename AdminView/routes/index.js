@@ -13,7 +13,7 @@ var admin_controller=require('../controllers/admins');
 module.exports = router;
 module.exports = function(router, passport,parser) {
     // GET home page.
-    router.get('/home', isLoggedIn, home_controller.index);
+    router.get('/home', home_controller.index);
 
     //accounts routes
     router.get('/accounts',accounts_controller.accounts_list);
@@ -21,13 +21,13 @@ module.exports = function(router, passport,parser) {
     router.get('/accounts/delete/:id',isLoggedIn, accounts_controller.accounts_delete);
     router.post('/accounts/delete/:id',isLoggedIn, accounts_controller.accounts_delete_post);
     router.get('/accounts/detail/:id',isLoggedIn, accounts_controller.accounts_detail);
-    router.get('/accounts/lock/:id',accounts_controller.accounts_lock_get);
-    router.get('/accounts/unlock/:id',accounts_controller.accounts_unlock_get);
-    router.post('/accounts/lock/:id',accounts_controller.accounts_lock);
-    router.post('/accounts/unlock/:id',accounts_controller.accounts_unlock);
-    router.get('/accounts/:page',accounts_controller.accounts_list);
+    router.get('/accounts/lock/:id',isLoggedIn,accounts_controller.accounts_lock_get);
+    router.get('/accounts/unlock/:id',isLoggedIn,accounts_controller.accounts_unlock_get);
+    router.post('/accounts/lock/:id',isLoggedIn,accounts_controller.accounts_lock);
+    router.post('/accounts/unlock/:id',isLoggedIn,accounts_controller.accounts_unlock);
+    router.get('/accounts/:page',isLoggedIn,accounts_controller.accounts_list);
     //categories routes
-    router.get('/categories', categories_controller.categories_list);
+    router.get('/categories', isLoggedIn,categories_controller.categories_list);
     router.get('/categories/create',isLoggedIn, categories_controller.categories_create);
     router.post('/categories/create',isLoggedIn,categories_controller.categories_create_post);
     router.get('/categories/delete/:id', isLoggedIn,categories_controller.categories_delete);
@@ -35,16 +35,16 @@ module.exports = function(router, passport,parser) {
     router.get('/categories/update/:id', isLoggedIn,categories_controller.categories_update);
     router.post('/categories/update/:id', isLoggedIn,categories_controller.categories_update_post);
     //product routes
-    router.get('/products',products_controller.products_list);
+    router.get('/products',isLoggedIn,products_controller.products_list);
     router.get('/products/category/:id', isLoggedIn,products_controller.products_list_cat);
-    router.get('/products/create', products_controller.products_create);
-    router.post('/products/create',parser.array("image"),products_controller.products_create_post);
+    router.get('/products/create', isLoggedIn,products_controller.products_create);
+    router.post('/products/create',isLoggedIn,parser.array("image"),products_controller.products_create_post);
     router.get('/products/delete/:id',isLoggedIn, products_controller.products_delete);
     router.post('/products/delete/:id',isLoggedIn, products_controller.products_delete_post);
-    router.get('/products/update/:id', products_controller.products_update);
-    router.post('/products/update/:id',parser.array("image"), products_controller.products_update_post);
+    router.get('/products/update/:id', isLoggedIn,products_controller.products_update);
+    router.post('/products/update/:id',isLoggedIn,parser.array("image"), products_controller.products_update_post);
     router.get('/products/detail/:id',isLoggedIn, products_controller.products_getdetail);
-    router.get('/products/:page',products_controller.products_list);
+    router.get('/products/:page',isLoggedIn,products_controller.products_list);
     //bestseller routes
     router.get('/bestseller', isLoggedIn,bestseller_controller.bestseller_list);
     //orders routes
@@ -93,4 +93,4 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     res.redirect('/');
-} 
+}

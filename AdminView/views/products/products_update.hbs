@@ -12,7 +12,7 @@
                   <form class="form-validate" action="/products/update/{{product._id}}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                       <strong>File hình ảnh</strong> 
-                      <input type="file" class="input-material" name ="image" id="image" required multiple>
+                      <input type="file" class="input-material" name ="image" value="{{product.name}}" id="image" multiple>
                     </div>
                     <div class="form-group">
                       <strong>Tên SP</strong> 
@@ -33,7 +33,7 @@
                     <div class="form-group">
                       <strong>Color</strong> 
                       <br>
-                      <select name="color" id="color" selected="{{product.color}}">
+                      <select name="color" id="color" selected="{{product.color}}" class="m-t-10">
                         <option value="Đen"{{#ifCond product.color "Đen"}}selected="selected"{{/ifCond}}>Đen<span></span></option>
                         <option value="Trắng" {{#ifCond product.color "Trắng"}}selected="selected"{{/ifCond}}>Trắng</option>
                         <option value="Xanh lam"{{#ifCond product.color "Xanh lam"}}selected="selected"{{/ifCond}}>Xanh lam</option>

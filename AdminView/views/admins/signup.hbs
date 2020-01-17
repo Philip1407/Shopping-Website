@@ -56,6 +56,11 @@
                     <div class="form-group">
                       <input id="phone" type="tel"  name="phone" required class="input-material" placeholder="Số điện thoại">
                     </div>
+                    {{#if sessionFlash.message2}}
+                        <div>
+                          <div class="alert alert-danger">{{sessionFlash.message2}}</div>
+	                      </div>
+                     {{/if}}
                     <div class="form-group">
                       <input id="address" type="text" name="address" required class="input-material" placeholder="Địa chỉ">
                     </div>
@@ -74,6 +79,11 @@
                     <div class="form-group">
                       <input id="pass" type="password" name="pass" required data-msg="Vui lòng nhập mật khẩu" class="input-material" placeholder="Mật khẩu">
                     </div>
+                     {{#if sessionFlash.message1}}
+                        <div>
+                          <div class="alert alert-danger">{{sessionFlash.message1}}</div>
+	                      </div>
+                     {{/if}}
                     <div class="form-group">
                       <input id="repass" type="password" name="repass" required data-msg="Vui lòng nhập lại mật khẩu" class="input-material" placeholder="Nhập lại mật khẩu">
                     </div>
