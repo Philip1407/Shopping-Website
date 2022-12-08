@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^2.6.4",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.14.0",
     "connect-flash": "^0.1.1",
